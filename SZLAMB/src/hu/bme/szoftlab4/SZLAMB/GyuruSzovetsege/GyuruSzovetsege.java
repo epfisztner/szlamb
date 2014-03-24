@@ -12,7 +12,7 @@ public interface GyuruSzovetsege extends Cloneable {
 	
 	public void sebez(Lovedek lovedek);
 	
-	public void setSebesseg(VarazsKo varazsKo);
+	public void setSebesseg(List<VarazsKo> varazsKo);
 	
 	public void setUtvonal(List<Mezo> utvonal);
 	
