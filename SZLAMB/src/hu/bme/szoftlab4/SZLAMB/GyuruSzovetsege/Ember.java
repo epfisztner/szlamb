@@ -10,6 +10,12 @@ import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
 import java.util.List;
 
 
+/**
+ * Ez az osztály a {@link GyuruSzovetsege} egyik implementációja.
+ * 
+ * @author Erhard Pfisztner
+ *
+ */
 public class Ember extends AbstractGyuruSzovetsege {
 
 	public Ember(List<Mezo> utvonal) {

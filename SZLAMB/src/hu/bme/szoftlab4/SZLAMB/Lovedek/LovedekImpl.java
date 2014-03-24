@@ -4,21 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hu.bme.szoftlab4.SZLAMB.VarazsKo;
+import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.GyuruSzovetsege;
 
 public class LovedekImpl implements Lovedek {
-	
+	/**
+	 * A {@link Lovedek} -el való reakcióját határozzák meg az õt megkapo {@link GyuruSzovetsege}
+	 * típusú objektumnak.
+	 */
 	protected List<VarazsKo> varazsKovek;
-	
-	public LovedekImpl() {
-		super();
-		varazsKovek = new ArrayList<VarazsKo>();
-		System.out.println("\t-->"+this.getClass().getName()+".constructor()");
-		System.out.println("\t<--");
-	}
 
 	public LovedekImpl(List<VarazsKo> varazsKovek){
 		System.out.println("\t-->"+this.getClass().getName()+".constructor("+varazsKovek.toString()+")");
 		this.varazsKovek = varazsKovek;
+		System.out.println("\t<--");
 	}
 
 	@Override

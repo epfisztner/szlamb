@@ -8,7 +8,11 @@ import hu.bme.szoftlab4.SZLAMB.VarazsKo;
 import hu.bme.szoftlab4.SZLAMB.Lovedek.Lovedek;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
 
-
+/**
+ * Ez az osztály a {@link GyuruSzovetsege} egyik implementációja.
+ * 
+ * @author Erhard Pfisztner
+ */
 public class Hobbit extends AbstractGyuruSzovetsege {
 
 	public Hobbit(List<Mezo> utvonal) {

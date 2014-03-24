@@ -18,6 +18,14 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A szkeleton lelke ez az osztály,
+ * itt soroljuk fel a különbözõ teszteseteket illetve el is végezzük azokat a felhasználó
+ * kérése szerint.
+ * 
+ * @author Erhard Pfisztner
+ *
+ */
 public class Main {
 	
 	public JatekMotor jatekMotor = null;
@@ -79,29 +87,43 @@ public class Main {
 			input();
 		}
 	}
-
+	/**
+	 * Elsõ teszteset:  Jatek inditas
+	 */
 	private void test1() {
 		jatekMotor = new JatekMotor();
 	}
 
+	/**
+	 * 2. Teszteset: Uj jatek");
+	 */
 	private void test2() {
 		if(jatekMotor == null)
 			jatekMotor = new JatekMotor();
 		jatekMotor.start();
 	}
 
+	/**
+	 * 3. Teszteset: Torony epites");
+	 */
 	private void test3() {
 		if(jatekMotor == null)
 			jatekMotor = new JatekMotor();
 		jatekMotor.szaruman.epitTorony(new UresMezo());
 	}
 
+	/**
+	 * 4. Teszteset: Akadaly epites");
+	 */
 	private void test4() {
 		if(jatekMotor == null)
 			jatekMotor = new JatekMotor();
 		jatekMotor.szaruman.epitAkadaly(new Ut());
 	}
 
+	/**
+	 * 5. Teszteset: Epitmeny felruhazas");
+	 */
 	private void test5() {
 		if(jatekMotor == null)
 			jatekMotor = new JatekMotor();
@@ -122,6 +144,9 @@ public class Main {
 		}
 	}
 
+	/**
+	 * 6. Teszteset: Karakter akadalyra lep");
+	 */
 	private void test6() {
 		if(jatekMotor == null)
 			jatekMotor = new JatekMotor();
@@ -147,6 +172,9 @@ public class Main {
 		utvonal.get(0).karakterRegiszter(karakter);
 	}
 
+	/**
+	 * 7. Teszteset: Karakter torony hatotavba er");
+	 */
 	private void test7() {
 		if(jatekMotor == null)
 			jatekMotor = new JatekMotor();
@@ -172,6 +200,9 @@ public class Main {
 		utvonal.get(0).karakterRegiszter(karakter);
 	}
 
+	/**
+	 * 	8. Teszteset: Jatek vege- vesztes");
+	 */
 	private void test8() {
 		if(jatekMotor == null)
 			jatekMotor = new JatekMotor();
@@ -197,6 +228,9 @@ public class Main {
 		utvonal.get(0).karakterRegiszter(karakter);
 	}
 
+	/**
+	 * 9. Teszteset: Jatek vege- nyert");
+	 */
 	private void test9() {
 		if(jatekMotor == null)
 			jatekMotor = new JatekMotor();
@@ -222,6 +256,11 @@ public class Main {
 		utvonal.get(0).karakterRegiszter(karakter);
 	}
 
+	/**
+	 *  A felhasználói inputokat ezen a metóduson keresztül kérjük be a program minden részén,
+	 *  ezért statikus.
+	 * @return {@link String}
+	 */
 	public static String input() {
 		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 		try {

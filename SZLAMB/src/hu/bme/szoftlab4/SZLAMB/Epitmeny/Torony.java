@@ -7,12 +7,26 @@ import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.GyuruSzovetsege;
 import hu.bme.szoftlab4.SZLAMB.Lovedek.Lovedek;
 import hu.bme.szoftlab4.SZLAMB.Lovedek.LovedekImpl;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
+import hu.bme.szoftlab4.SZLAMB.Mezo.UresMezo;
+import hu.bme.szoftlab4.SZLAMB.Mezo.Ut;
 
-
+/**
+ * Az {@link Epitmeny} egyik implementációja, melyet csak {@link UresMezo} típusú objektumra tudunk építeni.
+ * 
+ * @author Erhard Pfisztner
+ *
+ */
 public class Torony extends AbstractEpitmeny {
-	
+	/**
+	 * A {@link VarazsKo} -vek hatására változó érték,
+	 * mely megadja a torony hatótávjának mértékét.
+	 */
 	protected int hatotavSzorzo;
 	
+	/**
+	 * A {@link VarazsKo} -vek hatására változó érték,
+	 * mely megadja a torony tüzelési sebességének mértékét.
+	 */
 	protected int tuzelesSzorzo;
 
 	@Override

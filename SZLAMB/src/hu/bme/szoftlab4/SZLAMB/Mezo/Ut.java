@@ -1,9 +1,17 @@
 package hu.bme.szoftlab4.SZLAMB.Mezo;
 
 import hu.bme.szoftlab4.SZLAMB.VarazsKo;
+import hu.bme.szoftlab4.SZLAMB.Epitmeny.Akadaly;
 import hu.bme.szoftlab4.SZLAMB.Epitmeny.Epitmeny;
+import hu.bme.szoftlab4.SZLAMB.Epitmeny.Torony;
 
-
+/**
+ * Ez az osztály a {@link Mezo} egyik implementációja.
+ * Ezen a mezõn lehet elhelyezni {@link Akadaly} típusú objetumokat, de
+ * csakis azokat.
+ * 
+ * @author Erhard Pfisztner
+ */
 public class Ut extends AbstractMezo {
 
 	@Override

@@ -2,8 +2,16 @@ package hu.bme.szoftlab4.SZLAMB.Mezo;
 
 import hu.bme.szoftlab4.SZLAMB.VarazsKo;
 import hu.bme.szoftlab4.SZLAMB.Epitmeny.Epitmeny;
+import hu.bme.szoftlab4.SZLAMB.Epitmeny.Torony;
+import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.GyuruSzovetsege;
 
-
+/**
+ * Ez az osztály a {@link Mezo} egyik implementációja.
+ * Ezen a mezõn lehet elhelyezni {@link Torony} típusú objetumokat, de
+ * csakis azokat.
+ * 
+ * @author Erhard Pfisztner
+ */
 public class UresMezo extends AbstractMezo {
 
 	@Override

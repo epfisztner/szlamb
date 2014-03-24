@@ -6,11 +6,25 @@ import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Ez az osztály implementálja az {@link Epitmeny} interface által deklarált,
+ * minden leszármazott által közösen értelmezett metódusokat.
+ * 
+ * @author Erhard Pfisztner
+ *
+ */
 public abstract class AbstractEpitmeny implements Epitmeny {
 	
+	/**
+	 * {@link VarazsKo} -vek listája, melyeket a felruházással
+	 * lehet bõvíteni.
+	 */
 	protected List<VarazsKo> varazsKovek;
 	
+	/**
+	 * Az {@link Epitmeny} típusú osztály saját referenciája az õt tartalmazó
+	 * mezõre.
+	 */
 	protected Mezo epitmenyMezo;
 	
 	public AbstractEpitmeny() {

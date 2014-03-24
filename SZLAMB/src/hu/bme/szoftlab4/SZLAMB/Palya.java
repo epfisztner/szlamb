@@ -17,14 +17,32 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A játék teret reprezentáló osztály,
+ *  õ felel a {@link GyuruSzovetsege}, {@link Mezo} illetve {@link Epitmeny} objektumok létrehozásáért és nyilvántartáésáért.
+ * 
+ * @author Erhard Pfisztner
+ *
+ */
 public class Palya {
-	
+	/**
+	 * Játék mezõi (maga a pálya)
+	 */
 	protected List<Mezo> mezok;
 	
+	/**
+	 * Még hátra levõ ellenségek száma.
+	 */
 	protected static int ellensegeSzama;
 	
+	/**
+	 * {@link Epitmeny} prototipusok
+	 */
 	protected List<Epitmeny> prototipusokEpitmeny;
 	
+	/**
+	 * {@link GyuruSzovetsege} prototipusok
+	 */
 	protected List<GyuruSzovetsege> prototipusokGyuru;
 
 	private static String className;
@@ -40,7 +58,9 @@ public class Palya {
 		createPrototypes();
 		System.out.println("\t\t<--");
 	}
-
+	/**
+	 * Játék indítása, {@link GyuruSzovetsege} karakterek elindítása az útvonalon
+	 */
 	public void start() {
 		System.out.println("\t\t-->"+this.getClass().getName()+".start()");
 		for (GyuruSzovetsege gyuruSzovetsege : prototipusokGyuru) {
@@ -49,18 +69,30 @@ public class Palya {
 		System.out.println("\t\t<--void");
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public List<GyuruSzovetsege> getPrototipusokGyuru() {
 		System.out.println("\t-->" + this.getClass().getName() + ".getPrototipusokGyuru()");
 		System.out.println("\t<--" + prototipusokGyuru.getClass().getName() + ": " + prototipusokGyuru.toString());
 		return prototipusokGyuru;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public List<Epitmeny> getPrototipusokEpitmeny() {
 		System.out.println("\t-->"+this.getClass().getName()+".getPrototipusokEpitmeny()");
 		System.out.println("\t<--" + prototipusokEpitmeny.getClass().getName() + ": " + prototipusokEpitmeny.toString());
 		return prototipusokEpitmeny;
 	}
 
+	/**
+	 * Amennyiben elpusztul egy ellenség ez a metódus hívódik meg 
+	 * az ellenség számának csökkentéséért illetve 0 értékének vizsgálatára.
+	 */
 	public static void ellensegCsokkent() {
 		System.out.println("\t-->"+className+".ellensegCsokkent");
 		System.out.println("\t\t[?] Ez volt az utolso ellenseg (igen/nem): ");
@@ -70,7 +102,12 @@ public class Palya {
 		}
 		System.out.println("\t<--void");
 	}
-	
+	/**
+	 * Pálya felépítése a paraméterben kapott file alapján:
+	 * 0/UresMezo | 1/Ut | x/VegzetHegye
+	 * 
+	 * @param file
+	 */
 	public void palyaEpites(File file) {
 		System.out.println("\t\t\t-->"+this.getClass().getName()+".palyaEpites()");
 		mezok.add(new Ut());
@@ -79,6 +116,9 @@ public class Palya {
 		System.out.println("\t\t\t<--void");
 	}
 	
+	/**
+	 * Prototípusok létrehozása a játék indításakor.
+	 */
 	private void createPrototypes() {
 		System.out.println("\t\t\t-->"+this.getClass().getName()+".createPrototypes()");
 		prototipusokEpitmeny.add(new Torony());

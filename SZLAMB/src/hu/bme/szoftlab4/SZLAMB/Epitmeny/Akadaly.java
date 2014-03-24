@@ -3,8 +3,14 @@ package hu.bme.szoftlab4.SZLAMB.Epitmeny;
 import hu.bme.szoftlab4.SZLAMB.VarazsKo;
 import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.GyuruSzovetsege;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
+import hu.bme.szoftlab4.SZLAMB.Mezo.Ut;
 
-
+/**
+ * Az {@link Epitmeny} egyik implementációja, melyet csak {@link Ut} típusú objektumra tudunk építeni.
+ * 
+ * @author Erhard Pfisztner
+ *
+ */
 public class Akadaly extends AbstractEpitmeny {
 
 	@Override
