@@ -9,19 +9,19 @@ public class Szaruman {
 	protected int varazsEro;
 	
 	public void epitTorony(Mezo mezo) {
-		
+		System.out.println("/t-->"+this.getClass().getName()+".epitTorony("+mezo.getClass()+")");
 	}
 	
 	public void epitAkadaly(Mezo mezo) {
-		
+		System.out.println("/t-->"+this.getClass().getName()+".epitAkadaly("+mezo.getClass()+")");
 	}
 	
 	public void felruhaz(VarazsKo varazsKo) {
-		
+		System.out.println("/t-->"+this.getClass().getName()+".epitAkadaly("+varazsKo.getClass()+")");
 	}
 	
 	public void start() {
-		
+		System.out.println("/t-->"+this.getClass().getName()+".start()");
 	}
 
 }

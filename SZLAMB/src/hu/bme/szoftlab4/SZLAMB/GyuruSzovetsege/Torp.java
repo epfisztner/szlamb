@@ -15,14 +15,14 @@ public class Torp extends AbstractGyuruSzovetsege {
 
 	@Override
 	public void sebez(Lovedek lovedek) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("/t-->"+this.getClass().getName()+".getVarazsKovek()");		
+		System.out.println("/t<--void");
 	}
 
 	@Override
 	public void setSebesseg(VarazsKo varazsKo) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("/t-->"+this.getClass().getName()+".getVarazsKovek()");
+		System.out.println("/t<--void");
 	}
 
 }

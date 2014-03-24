@@ -16,22 +16,17 @@ public abstract class AbstractGyuruSzovetsege implements GyuruSzovetsege {
 	protected List<Mezo> utvonal;
 	
 	public AbstractGyuruSzovetsege(List<Mezo> utvonal){
-		
-	}
-	
-	@Override
-	protected Object clone() throws CloneNotSupportedException {
-		return super.clone();
+		System.out.println("/t-->"+this.getClass().getName()+".getVarazsKovek()");
 	}
 
 	@Override
 	public void indul() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("\t-->"+this.getClass().getName()+".getVarazsKovek()");
 	}
 
 	@Override
 	public void setUtvonal(List<Mezo> utvonal) {
+		System.out.println("\t-->"+this.getClass().getName()+".getVarazsKovek()");
 		this.utvonal = utvonal;
 	}
 

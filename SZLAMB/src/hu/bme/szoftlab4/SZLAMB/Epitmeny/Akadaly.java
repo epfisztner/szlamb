@@ -9,20 +9,20 @@ public class Akadaly extends AbstractEpitmeny {
 
 	@Override
 	public void felruhaz(VarazsKo varazsKo) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("/t-->"+this.getClass().getName()+".getVarazsKovek()");
+		System.out.println("/t<--void");
 	}
 
 	@Override
 	public void reakcio(GyuruSzovetsege gyuruSzovetsege) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("/t-->"+this.getClass().getName()+".getVarazsKovek()");
+		System.out.println("/t<--void");
 	}
 
 	@Override
 	public void setMezo(Mezo epitmenyMezo) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("/t-->"+this.getClass().getName()+".getVarazsKovek()");
+		System.out.println("/t<--void");
 	}
 
 }

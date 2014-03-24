@@ -15,13 +15,14 @@ public class Tunde extends AbstractGyuruSzovetsege {
 
 	@Override
 	public void sebez(Lovedek lovedek) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("/t-->"+this.getClass().getName()+".sebez("+lovedek.getClass()+")");
+		System.out.println("/t<--void");
 	}
 
 	@Override
 	public void setSebesseg(VarazsKo varazsKo) {
-		// TODO Auto-generated method stub
+		System.out.println("/t-->"+this.getClass().getName()+".setSebesseg("+varazsKo.name()+")");
+		System.out.println("/t<--void");
 	}
 
 }

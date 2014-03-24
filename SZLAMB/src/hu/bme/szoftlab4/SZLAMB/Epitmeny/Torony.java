@@ -1,7 +1,11 @@
 package hu.bme.szoftlab4.SZLAMB.Epitmeny;
 
+import java.util.List;
+
 import hu.bme.szoftlab4.SZLAMB.VarazsKo;
 import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.GyuruSzovetsege;
+import hu.bme.szoftlab4.SZLAMB.Lovedek.Lovedek;
+import hu.bme.szoftlab4.SZLAMB.Lovedek.LovedekImpl;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
 
 
@@ -13,20 +17,21 @@ public class Torony extends AbstractEpitmeny {
 
 	@Override
 	public void felruhaz(VarazsKo varazsKo) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("/t-->"+this.getClass().getName()+"felruhaz("+varazsKo.name()+");");
+		System.out.println("/t<--void");
 	}
 
 	@Override
 	public void reakcio(GyuruSzovetsege gyuruSzovetsege) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("/t-->"+this.getClass().getName()+".reakcio("+gyuruSzovetsege.getClass()+")");
+		gyuruSzovetsege.sebez(new LovedekImpl(varazsKovek));
+		System.out.println("/t<--void");
 	}
 
 	@Override
 	public void setMezo(Mezo epitmenyMezo) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("/t-->"+this.getClass().getName()+".getVarazsKovek()");
+		System.out.println("/t<--void");
 	}
 
 }

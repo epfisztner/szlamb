@@ -22,12 +22,12 @@ public abstract class AbstractMezo implements Mezo {
 	
 	@Override
 	public void setSzomszedok(int szomszedSugar) {
-		//TODO
+		System.out.println("/t<--void");
 	}
 	
 	@Override
 	public void karakterRegiszter(GyuruSzovetsege gyuruSzovetsege) {
-		// TODO Auto-generated method stub	
+		System.out.println("/t<--void");
 	}
 
 }

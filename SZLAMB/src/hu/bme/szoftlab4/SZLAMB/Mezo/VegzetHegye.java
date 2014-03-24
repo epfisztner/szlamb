@@ -8,14 +8,12 @@ public class VegzetHegye extends AbstractMezo {
 
 	@Override
 	public void epitmenyRegiszter(Epitmeny epitmeny) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("/t<--void");
 	}
 
 	@Override
 	public void epitmenyFelruhazas(VarazsKo varazsKo) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("/t<--void");
 	}
 
 }

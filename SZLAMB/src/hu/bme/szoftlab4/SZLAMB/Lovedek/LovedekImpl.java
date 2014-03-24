@@ -8,12 +8,14 @@ public class LovedekImpl implements Lovedek {
 	
 	protected List<VarazsKo> varazsKovek;
 	
-	LovedekImpl(List<VarazsKo> varazsKovek){
+	public LovedekImpl(List<VarazsKo> varazsKovek){
 		this.varazsKovek = varazsKovek;
 	}
 
 	@Override
 	public List<VarazsKo> getVarazsKovek() {
+		System.out.println("\t-->"+this.getClass().getName()+".getVarazsKovek()");
+		System.out.println("/t<--"+varazsKovek.getClass()+": "+varazsKovek.toString());
 		return this.varazsKovek;
 	}
 

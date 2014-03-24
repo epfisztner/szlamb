@@ -14,6 +14,8 @@ public abstract class AbstractEpitmeny implements Epitmeny {
 	
 	@Override
 	public List<VarazsKo> getValidKovek() {
+		System.out.println("\t-->"+this.getClass().getName()+".getVarazsKovek()");
+		System.out.println("\t<--"+varazsKovek.getClass().getName()+": " + varazsKovek.toString());
 		return this.varazsKovek;
 	}
 
