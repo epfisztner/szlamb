@@ -37,5 +37,10 @@ public abstract class AbstractEpitmeny implements Epitmeny {
 		System.out.println("\t<--"+varazsKovek.getClass().getName()+": " + varazsKovek.toString());
 		return this.varazsKovek;
 	}
+	
+	@Override
+	public Object clone() throws CloneNotSupportedException{
+		return super.clone();
+	}
 
 }

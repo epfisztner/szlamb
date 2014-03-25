@@ -146,7 +146,12 @@ public class Main {
 			System.out.print("[?] Milyen varazsKovet akarsz rarakni (TUNDE, TORP,	HOBBIT,	EMBER): ");
 			String varKo = input();
 			Mezo ut = jatekMotor.szaruman.palya.mezok.get(0);
-			ut.epitmenyRegiszter(jatekMotor.szaruman.palya.prototipusokEpitmeny.get(1));
+			try {
+				ut.epitmenyRegiszter((Akadaly)jatekMotor.szaruman.palya.prototipusokEpitmeny.get(1).clone());
+			} catch (CloneNotSupportedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			jatekMotor.szaruman.felruhaz(ut, VarazsKo.valueOf(varKo));
 		}
 	}
@@ -160,19 +165,29 @@ public class Main {
 		GyuruSzovetsege karakter = null;
 		
 		Mezo ut = jatekMotor.szaruman.palya.mezok.get(0);
-		ut.epitmenyRegiszter(jatekMotor.szaruman.palya.prototipusokEpitmeny.get(1));
+		try {
+			ut.epitmenyRegiszter((Akadaly)jatekMotor.szaruman.palya.prototipusokEpitmeny.get(1).clone());
+		} catch (CloneNotSupportedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		System.out.print("[?] Milyen ellenseg (tunde/torp/ember/hobbit):");
 		String karakterInput = input();
 		
-		if (karakterInput.equalsIgnoreCase("tunde")) {
-			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(0);
-		} else if (karakterInput.equalsIgnoreCase("torp")) {
-			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(0);
-		} else if (karakterInput.equalsIgnoreCase("ember")) {
-			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(0);
-		} else if (karakterInput.equalsIgnoreCase("hobbit")) {
-			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(0);
+		try {
+			if (karakterInput.equalsIgnoreCase("tunde")) {
+				karakter = (GyuruSzovetsege) jatekMotor.szaruman.palya.getPrototipusokGyuru().get(3).clone();	
+			} else if (karakterInput.equalsIgnoreCase("torp")) {
+				karakter = (GyuruSzovetsege) jatekMotor.szaruman.palya.getPrototipusokGyuru().get(2).clone();
+			} else if (karakterInput.equalsIgnoreCase("ember")) {
+				karakter = (GyuruSzovetsege) jatekMotor.szaruman.palya.getPrototipusokGyuru().get(0).clone();
+			} else if (karakterInput.equalsIgnoreCase("hobbit")) {
+				karakter = (GyuruSzovetsege) jatekMotor.szaruman.palya.getPrototipusokGyuru().get(1).clone();
+			}
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		jatekMotor.szaruman.palya.mezok.get(0).karakterRegiszter(karakter);
@@ -186,23 +201,33 @@ public class Main {
 			jatekMotor = new JatekMotor();
 		GyuruSzovetsege karakter = null;
 		
-		Mezo ut = jatekMotor.szaruman.palya.mezok.get(0);
-		ut.epitmenyRegiszter(jatekMotor.szaruman.palya.prototipusokEpitmeny.get(0));
+		Mezo ut = jatekMotor.szaruman.palya.mezok.get(1);
+		try {
+			ut.epitmenyRegiszter((Torony)jatekMotor.szaruman.palya.prototipusokEpitmeny.get(0).clone());
+		} catch (CloneNotSupportedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		System.out.print("[?] Milyen ellenseg (tunde/torp/ember/hobbit):");
 		String karakterInput = input();
 		
-		if (karakterInput.equalsIgnoreCase("tunde")) {
-			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(3);
-		} else if (karakterInput.equalsIgnoreCase("torp")) {
-			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(2);
-		} else if (karakterInput.equalsIgnoreCase("ember")) {
-			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(0);
-		} else if (karakterInput.equalsIgnoreCase("hobbit")) {
-			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(1);
+		try {
+			if (karakterInput.equalsIgnoreCase("tunde")) {
+				karakter = (GyuruSzovetsege) jatekMotor.szaruman.palya.getPrototipusokGyuru().get(3).clone();	
+			} else if (karakterInput.equalsIgnoreCase("torp")) {
+				karakter = (GyuruSzovetsege) jatekMotor.szaruman.palya.getPrototipusokGyuru().get(2).clone();
+			} else if (karakterInput.equalsIgnoreCase("ember")) {
+				karakter = (GyuruSzovetsege) jatekMotor.szaruman.palya.getPrototipusokGyuru().get(0).clone();
+			} else if (karakterInput.equalsIgnoreCase("hobbit")) {
+				karakter = (GyuruSzovetsege) jatekMotor.szaruman.palya.getPrototipusokGyuru().get(1).clone();
+			}
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
-		jatekMotor.szaruman.palya.mezok.get(0).karakterRegiszter(karakter);
+		ut.karakterRegiszter(karakter);
 	}
 
 	/**
@@ -216,14 +241,19 @@ public class Main {
 		System.out.print("[?] Milyen ellenseg (tunde/torp/ember/hobbit):");
 		String karakterInput = input();
 		
-		if (karakterInput.equalsIgnoreCase("tunde")) {
-			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(3);
-		} else if (karakterInput.equalsIgnoreCase("torp")) {
-			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(2);
-		} else if (karakterInput.equalsIgnoreCase("ember")) {
-			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(0);
-		} else if (karakterInput.equalsIgnoreCase("hobbit")) {
-			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(1);
+		try {
+			if (karakterInput.equalsIgnoreCase("tunde")) {
+				karakter = (GyuruSzovetsege) jatekMotor.szaruman.palya.getPrototipusokGyuru().get(3).clone();	
+			} else if (karakterInput.equalsIgnoreCase("torp")) {
+				karakter = (GyuruSzovetsege) jatekMotor.szaruman.palya.getPrototipusokGyuru().get(2).clone();
+			} else if (karakterInput.equalsIgnoreCase("ember")) {
+				karakter = (GyuruSzovetsege) jatekMotor.szaruman.palya.getPrototipusokGyuru().get(0).clone();
+			} else if (karakterInput.equalsIgnoreCase("hobbit")) {
+				karakter = (GyuruSzovetsege) jatekMotor.szaruman.palya.getPrototipusokGyuru().get(1).clone();
+			}
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		jatekMotor.szaruman.palya.mezok.get(2).karakterRegiszter(karakter);
@@ -239,20 +269,29 @@ public class Main {
 		
 		System.out.print("[?] Milyen ellenseg (tunde/torp/ember/hobbit):");
 		String karakterInput = input();
-		
-		if (karakterInput.equalsIgnoreCase("tunde")) {
-			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(3);
-		} else if (karakterInput.equalsIgnoreCase("torp")) {
-			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(2);
-		} else if (karakterInput.equalsIgnoreCase("ember")) {
-			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(0);
-		} else if (karakterInput.equalsIgnoreCase("hobbit")) {
-			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(1);
+		try {
+			if (karakterInput.equalsIgnoreCase("tunde")) {
+				karakter = (GyuruSzovetsege) jatekMotor.szaruman.palya.getPrototipusokGyuru().get(3).clone();	
+			} else if (karakterInput.equalsIgnoreCase("torp")) {
+				karakter = (GyuruSzovetsege) jatekMotor.szaruman.palya.getPrototipusokGyuru().get(2).clone();
+			} else if (karakterInput.equalsIgnoreCase("ember")) {
+				karakter = (GyuruSzovetsege) jatekMotor.szaruman.palya.getPrototipusokGyuru().get(0).clone();
+			} else if (karakterInput.equalsIgnoreCase("hobbit")) {
+				karakter = (GyuruSzovetsege) jatekMotor.szaruman.palya.getPrototipusokGyuru().get(1).clone();
+			}
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		if(!jatekMotor.szaruman.palya.mezok.get(1).isBeepitett())
-			jatekMotor.szaruman.palya.mezok.get(1).epitmenyRegiszter(jatekMotor.szaruman.palya.getPrototipusokEpitmeny().get(0));
-		jatekMotor.szaruman.palya.mezok.get(1).karakterRegiszter(karakter);
+		Mezo uresMezo = jatekMotor.szaruman.palya.mezok.get(1);
+		if(!uresMezo.isBeepitett())
+			try {
+				uresMezo.epitmenyRegiszter((Torony)jatekMotor.szaruman.palya.getPrototipusokEpitmeny().get(0).clone());
+			} catch (CloneNotSupportedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		uresMezo.karakterRegiszter(karakter);
 	}
 
 	/**

@@ -17,7 +17,7 @@ public class JatekMotor {
 	
 	public JatekMotor() {
 		super();
-		System.out.println(""+this.getClass().getName()+".constructor()");
+		System.out.println("-->"+this.getClass().getName()+".constructor()");
 		className = this.getClass().getName();
 		this.szaruman = new Szaruman();
 		System.out.println("<--");
@@ -35,15 +35,15 @@ public class JatekMotor {
 	 * Játék vége a játékos vereségével.
 	 */
 	public static void jatekVegeVeszit(){
-		System.out.println("\t-->"+className+".jatekVegeVeszit()");
-		System.out.println("\t<--void");
+		System.out.println("\t\t-->"+className+".jatekVegeVeszit()");
+		System.out.println("\t\t<--void");
 	}
 	/**
 	 * Játék vége a játékos győzelmével.
 	 */
 	public static void jatekVegeNyert(){
-		System.out.println("\t-->"+className+".jatekVegeNyert()");
-		System.out.println("\t<--void");
+		System.out.println("\t\t\t\t\t\t-->"+className+".jatekVegeNyert()");
+		System.out.println("\t\t\t\t\t\t<--void");
 	}
 	/**
 	 * Játék indítása először

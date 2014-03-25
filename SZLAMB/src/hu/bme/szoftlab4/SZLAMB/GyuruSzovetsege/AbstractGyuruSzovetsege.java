@@ -2,6 +2,7 @@ package hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege;
 
 import hu.bme.szoftlab4.SZLAMB.JatekMotor;
 import hu.bme.szoftlab4.SZLAMB.Main;
+import hu.bme.szoftlab4.SZLAMB.Palya;
 import hu.bme.szoftlab4.SZLAMB.Epitmeny.Epitmeny;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
 
@@ -44,6 +45,7 @@ public abstract class AbstractGyuruSzovetsege implements GyuruSzovetsege {
 	 */
 	protected void elpusztul() {
 		System.out.println("\t\t\t\t-->"+this.getClass().getName()+".elpusztul()");
+		Palya.ellensegCsokkent();
 		System.out.println("\t\t\t\t<--void");
 	}
 
@@ -57,6 +59,11 @@ public abstract class AbstractGyuruSzovetsege implements GyuruSzovetsege {
 	public void setUtvonal(List<Mezo> utvonal) {
 		System.out.println("\t\t\t\t\t-->"+this.getClass().getName()+".setUtvonal("+utvonal.toString()+")");
 		System.out.println("\t\t\t\t\t<--void");
+	}
+	
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 
 }

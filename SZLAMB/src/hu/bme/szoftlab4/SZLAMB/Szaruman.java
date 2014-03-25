@@ -37,9 +37,14 @@ public class Szaruman {
 	 * @param mezo
 	 */
 	public void epitTorony(Mezo mezo) {
-		System.out.println("\t-->"+this.getClass().getName()+".epitTorony("+mezo.getClass()+")");
-		mezo.epitmenyRegiszter(new Torony());
-		System.out.println("\t<--void");
+		System.out.println("-->"+this.getClass().getName()+".epitTorony("+mezo.getClass()+")");
+		try {
+			mezo.epitmenyRegiszter((Torony) this.palya.getPrototipusokEpitmeny().get(0).clone());
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("<--void");
 	}
 	
 	/**
@@ -48,9 +53,14 @@ public class Szaruman {
 	 * @param mezo
 	 */
 	public void epitAkadaly(Mezo mezo) {
-		System.out.println("\t-->"+this.getClass().getName()+".epitAkadaly("+mezo.getClass()+")");
-		mezo.epitmenyRegiszter(new Akadaly());
-		System.out.println("\t<--void");
+		System.out.println("-->"+this.getClass().getName()+".epitAkadaly("+mezo.getClass()+")");
+		try {
+			mezo.epitmenyRegiszter((Akadaly)this.palya.getPrototipusokEpitmeny().get(1).clone());
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("<--void");
 	}
 	
 	/**
@@ -61,9 +71,9 @@ public class Szaruman {
 	 * @param varazsKo
 	 */
 	public void felruhaz(Mezo mezo, VarazsKo varazsKo) {
-		System.out.println("\t-->"+this.getClass().getName()+".epitAkadaly("+varazsKo.getClass()+")");
+		System.out.println("-->"+this.getClass().getName()+".epitAkadaly("+varazsKo.getClass()+")");
 		mezo.epitmenyFelruhazas(varazsKo);
-		System.out.println("\t<--void");
+		System.out.println("<--void");
 	}
 	
 	/**

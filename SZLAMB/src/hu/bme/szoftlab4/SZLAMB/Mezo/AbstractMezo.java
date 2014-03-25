@@ -47,7 +47,7 @@ public abstract class AbstractMezo implements Mezo {
 	@Override
 	public boolean isBeepitett() {
 		System.out.println("\t-->"+this.getClass().getName()+".isBeepitett()");
-		System.out.print("[?] Beepitett? [igen/nem] :");
+		System.out.print("\t\t[?] Beepitett? [igen/nem] :");
 		String input = Main.input();
 		if (input.equalsIgnoreCase("igen")) {
 			this.beepitett = true;

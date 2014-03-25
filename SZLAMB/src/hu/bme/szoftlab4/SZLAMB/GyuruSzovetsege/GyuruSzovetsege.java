@@ -46,5 +46,7 @@ public interface GyuruSzovetsege extends Cloneable {
 	 * @param utvonal
 	 */
 	public void setUtvonal(List<Mezo> utvonal);
+	
+	public Object clone() throws CloneNotSupportedException;
 
 }

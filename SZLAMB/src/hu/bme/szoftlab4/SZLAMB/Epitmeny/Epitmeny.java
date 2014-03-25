@@ -47,4 +47,6 @@ public interface Epitmeny extends Cloneable {
 	 */
 	void setMezo(Mezo epitmenyMezo);
 
+	Object clone()  throws CloneNotSupportedException;
+
 }

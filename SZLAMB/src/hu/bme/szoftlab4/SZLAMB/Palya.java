@@ -94,13 +94,13 @@ public class Palya {
 	 * az ellenség számának csökkentéséért illetve 0 értékének vizsgálatára.
 	 */
 	public static void ellensegCsokkent() {
-		System.out.println("\t-->"+className+".ellensegCsokkent");
-		System.out.println("\t\t[?] Ez volt az utolso ellenseg (igen/nem): ");
+		System.out.println("\t\t\t\t\t-->"+className+".ellensegCsokkent");
+		System.out.print("\t\t\t\t\t\t[?] Ez volt az utolso ellenseg (igen/nem): ");
 		String input = Main.input();
 		if(input.equalsIgnoreCase("igen")) {
 			JatekMotor.jatekVegeNyert();
 		}
-		System.out.println("\t<--void");
+		System.out.println("\t\t\t\t\t<--void");
 	}
 	/**
 	 * Pálya felépítése a paraméterben kapott file alapján:
@@ -123,10 +123,10 @@ public class Palya {
 		System.out.println("\t\t\t-->"+this.getClass().getName()+".createPrototypes()");
 		prototipusokEpitmeny.add(new Torony());
 		prototipusokEpitmeny.add(new Akadaly());
-		prototipusokGyuru.add(new Ember(new ArrayList<Mezo>()));
-		prototipusokGyuru.add(new Hobbit(new ArrayList<Mezo>()));
-		prototipusokGyuru.add(new Torp(new ArrayList<Mezo>()));
-		prototipusokGyuru.add(new Tunde(new ArrayList<Mezo>()));
+		prototipusokGyuru.add(new Ember(mezok));
+		prototipusokGyuru.add(new Hobbit(mezok));
+		prototipusokGyuru.add(new Torp(mezok));
+		prototipusokGyuru.add(new Tunde(mezok));
 		System.out.println("\t\t\t<--void");
 	}
 	
