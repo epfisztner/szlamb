@@ -111,8 +111,8 @@ public class Palya {
 	public void palyaEpites(File file) {
 		System.out.println("\t\t\t-->"+this.getClass().getName()+".palyaEpites()");
 		mezok.add(new Ut());
-		mezok.add(new VegzetHegye());
 		mezok.add(new UresMezo());
+        mezok.add(new VegzetHegye());
 		System.out.println("\t\t\t<--void");
 	}
 	

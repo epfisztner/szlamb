@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A szkeleton lelke ez az osztály,
@@ -85,13 +87,11 @@ public class Main {
 				break;
 			}
 			System.out.println("A menube visszatereshez nyomj enter-t");
-			input();
-			//Console console = 
-                                System.console().flush();
-                       /* 
+                        input();
+			Console console = System.console();
 			if (console != null) {
 				console.flush();
-			}*/
+			}
 		}
 	}
 	/**
@@ -116,7 +116,7 @@ public class Main {
 	private void test3() {
 		if(jatekMotor == null)
 			jatekMotor = new JatekMotor();
-		jatekMotor.szaruman.epitTorony(new UresMezo());
+		jatekMotor.szaruman.epitTorony(jatekMotor.szaruman.palya.mezok.get(1));
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class Main {
 	private void test4() {
 		if(jatekMotor == null)
 			jatekMotor = new JatekMotor();
-		jatekMotor.szaruman.epitAkadaly(new Ut());
+		jatekMotor.szaruman.epitAkadaly(jatekMotor.szaruman.palya.mezok.get(0));
 	}
 
 	/**
@@ -139,14 +139,14 @@ public class Main {
 		if(epitmenyInput.equalsIgnoreCase("torony")) {
 			System.out.print("[?] Milyen varazsKovet akarsz rarakni (TUNDE, TORP,	HOBBIT,	EMBER, HATOTAV,	TUZELES): ");
 			String varKo = input();
-			Mezo uresMezo = new UresMezo();
-			uresMezo.epitmenyRegiszter(new Torony());
+			Mezo uresMezo = jatekMotor.szaruman.palya.mezok.get(1);
+			uresMezo.epitmenyRegiszter(jatekMotor.szaruman.palya.getPrototipusokEpitmeny().get(0));
 			jatekMotor.szaruman.felruhaz(uresMezo, VarazsKo.valueOf(varKo));
 		} else if(epitmenyInput.equalsIgnoreCase("akadaly")) {
 			System.out.print("[?] Milyen varazsKovet akarsz rarakni (TUNDE, TORP,	HOBBIT,	EMBER): ");
 			String varKo = input();
-			Mezo ut = new Ut();
-			ut.epitmenyRegiszter(new Akadaly());
+			Mezo ut = jatekMotor.szaruman.palya.mezok.get(0);
+			ut.epitmenyRegiszter(jatekMotor.szaruman.palya.prototipusokEpitmeny.get(1));
 			jatekMotor.szaruman.felruhaz(ut, VarazsKo.valueOf(varKo));
 		}
 	}
@@ -158,25 +158,24 @@ public class Main {
 		if(jatekMotor == null)
 			jatekMotor = new JatekMotor();
 		GyuruSzovetsege karakter = null;
-		List<Mezo> utvonal = new ArrayList<Mezo>();
-		Mezo ut = new Ut();
-		ut.epitmenyRegiszter(new Akadaly());
-		utvonal.add(ut);
+		
+		Mezo ut = jatekMotor.szaruman.palya.mezok.get(0);
+		ut.epitmenyRegiszter(jatekMotor.szaruman.palya.prototipusokEpitmeny.get(1));
 		
 		System.out.print("[?] Milyen ellenseg (tunde/torp/ember/hobbit):");
 		String karakterInput = input();
 		
 		if (karakterInput.equalsIgnoreCase("tunde")) {
-			karakter = new Tunde(utvonal);
+			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(0);
 		} else if (karakterInput.equalsIgnoreCase("torp")) {
-			karakter = new Torp(utvonal);
+			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(0);
 		} else if (karakterInput.equalsIgnoreCase("ember")) {
-			karakter = new Ember(utvonal);
+			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(0);
 		} else if (karakterInput.equalsIgnoreCase("hobbit")) {
-			karakter = new Hobbit(utvonal);
+			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(0);
 		}
 		
-		utvonal.get(0).karakterRegiszter(karakter);
+		jatekMotor.szaruman.palya.mezok.get(0).karakterRegiszter(karakter);
 	}
 
 	/**
@@ -186,25 +185,24 @@ public class Main {
 		if(jatekMotor == null)
 			jatekMotor = new JatekMotor();
 		GyuruSzovetsege karakter = null;
-		List<Mezo> utvonal = new ArrayList<Mezo>();
-		Mezo uresMezo = new UresMezo();
-		uresMezo.epitmenyRegiszter(new Torony());
-		utvonal.add(uresMezo);
+		
+		Mezo ut = jatekMotor.szaruman.palya.mezok.get(0);
+		ut.epitmenyRegiszter(jatekMotor.szaruman.palya.prototipusokEpitmeny.get(0));
 		
 		System.out.print("[?] Milyen ellenseg (tunde/torp/ember/hobbit):");
 		String karakterInput = input();
 		
 		if (karakterInput.equalsIgnoreCase("tunde")) {
-			karakter = new Tunde(utvonal);
+			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(3);
 		} else if (karakterInput.equalsIgnoreCase("torp")) {
-			karakter = new Torp(utvonal);
+			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(2);
 		} else if (karakterInput.equalsIgnoreCase("ember")) {
-			karakter = new Ember(utvonal);
+			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(0);
 		} else if (karakterInput.equalsIgnoreCase("hobbit")) {
-			karakter = new Hobbit(utvonal);
+			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(1);
 		}
 		
-		utvonal.get(0).karakterRegiszter(karakter);
+		jatekMotor.szaruman.palya.mezok.get(0).karakterRegiszter(karakter);
 	}
 
 	/**
@@ -214,25 +212,21 @@ public class Main {
 		if(jatekMotor == null)
 			jatekMotor = new JatekMotor();
 		GyuruSzovetsege karakter = null;
-		List<Mezo> utvonal = new ArrayList<Mezo>();
-		Mezo vegzetHegye = new VegzetHegye();
-		
-		utvonal.add(vegzetHegye);
 		
 		System.out.print("[?] Milyen ellenseg (tunde/torp/ember/hobbit):");
 		String karakterInput = input();
 		
 		if (karakterInput.equalsIgnoreCase("tunde")) {
-			karakter = new Tunde(utvonal);
+			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(3);
 		} else if (karakterInput.equalsIgnoreCase("torp")) {
-			karakter = new Torp(utvonal);
+			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(2);
 		} else if (karakterInput.equalsIgnoreCase("ember")) {
-			karakter = new Ember(utvonal);
+			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(0);
 		} else if (karakterInput.equalsIgnoreCase("hobbit")) {
-			karakter = new Hobbit(utvonal);
+			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(1);
 		}
 		
-		utvonal.get(0).karakterRegiszter(karakter);
+		jatekMotor.szaruman.palya.mezok.get(2).karakterRegiszter(karakter);
 	}
 
 	/**
@@ -242,25 +236,23 @@ public class Main {
 		if(jatekMotor == null)
 			jatekMotor = new JatekMotor();
 		GyuruSzovetsege karakter = null;
-		List<Mezo> utvonal = new ArrayList<Mezo>();
-		Mezo uresMezo = new UresMezo();
-		uresMezo.epitmenyRegiszter(new Torony());
-		utvonal.add(uresMezo);
 		
 		System.out.print("[?] Milyen ellenseg (tunde/torp/ember/hobbit):");
 		String karakterInput = input();
 		
 		if (karakterInput.equalsIgnoreCase("tunde")) {
-			karakter = new Tunde(utvonal);
+			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(3);
 		} else if (karakterInput.equalsIgnoreCase("torp")) {
-			karakter = new Torp(utvonal);
+			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(2);
 		} else if (karakterInput.equalsIgnoreCase("ember")) {
-			karakter = new Ember(utvonal);
+			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(0);
 		} else if (karakterInput.equalsIgnoreCase("hobbit")) {
-			karakter = new Hobbit(utvonal);
+			karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(1);
 		}
 		
-		utvonal.get(0).karakterRegiszter(karakter);
+		if(!jatekMotor.szaruman.palya.mezok.get(1).isBeepitett())
+			jatekMotor.szaruman.palya.mezok.get(1).epitmenyRegiszter(jatekMotor.szaruman.palya.getPrototipusokEpitmeny().get(0));
+		jatekMotor.szaruman.palya.mezok.get(1).karakterRegiszter(karakter);
 	}
 
 	/**
