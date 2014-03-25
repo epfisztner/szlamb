@@ -13,15 +13,16 @@ import hu.bme.szoftlab4.SZLAMB.Mezo.Ut;
 import hu.bme.szoftlab4.SZLAMB.Mezo.VegzetHegye;
 
 import java.io.BufferedReader;
+import java.io.Console;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A szkeleton lelke ez az osztály,
- * itt soroljuk fel a különbözõ teszteseteket illetve el is végezzük azokat a felhasználó
- * kérése szerint.
+ * A szkeleton lelke ez az osztÃ¡ly,
+ * itt soroljuk fel a kÃ¼lÃ¶nbÃ¶zÅ‘ teszteseteket illetve el is vÃ©gezzÃ©k azokat a felhasznÃ¡lÃ³
+ * kÃ©rÃ©se szerint.
  * 
  * @author Erhard Pfisztner
  *
@@ -85,10 +86,16 @@ public class Main {
 			}
 			System.out.println("A menube visszatereshez nyomj enter-t");
 			input();
+			//Console console = 
+                                System.console().flush();
+                       /* 
+			if (console != null) {
+				console.flush();
+			}*/
 		}
 	}
 	/**
-	 * Elsõ teszteset:  Jatek inditas
+	 * ElsÅ‘ teszteset:  Jatek inditas
 	 */
 	private void test1() {
 		jatekMotor = new JatekMotor();
@@ -257,8 +264,8 @@ public class Main {
 	}
 
 	/**
-	 *  A felhasználói inputokat ezen a metóduson keresztül kérjük be a program minden részén,
-	 *  ezért statikus.
+	 *  A felhasznÃ¡lÃ³i inputokat ezen a metÃ³duson keresztÅ±l kÃ©rjÃ¼k be a program minden rÃ©szÃ©n,
+	 *  ezÃ©rt statikus.
 	 * @return {@link String}
 	 */
 	public static String input() {

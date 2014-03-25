@@ -6,7 +6,7 @@ import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Ut;
 
 /**
- * Az {@link Epitmeny} egyik implementációja, melyet csak {@link Ut} típusú objektumra tudunk építeni.
+ * Az {@link Epitmeny} egyik implementÃ¡ciÃ³ja, melyet csak {@link Ut} tÃ­pusÃº objektumra tudunk Ã©pÃ­teni.
  * 
  * @author Erhard Pfisztner
  *

@@ -9,39 +9,42 @@ import hu.bme.szoftlab4.SZLAMB.Lovedek.Lovedek;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
 
 /**
- * A játékban lévõ ellenségek reprezentációja lesz ezen interface leszármazottja.
+ * A jÃ¡tÃ©kban lÃ©vÅ‘ ellensÃ©gek reprezentÃ¡ciÃ³ja lesz ezen interface leszÃ¡rmazottja.
  * 
  * @author Erhard Pfisztner
  *
  */
 public interface GyuruSzovetsege extends Cloneable {
-	
+
 	/**
-	 * A játék indulásakor ezen metódus meghívása indítja el a karaktert a kapott útvonalon
+	 * A jÃ¡tÃ©k indulÃ¡sakor ezen metÃ³dus meghÃ­vÃ¡sa indÃ­tja el a karaktert a
+	 * kapott Ãºtvonalon
 	 */
 	public void indul();
-	
+
 	/**
-	 * {@link Torony} -al való reakció következményeként ez a metódus hívódik meg, 
-	 * melyben a karakter életereje a {@link Lovedek} típusának megfelelõen fog csökkenni.
+	 * {@link Torony} -al valÃ³ reakciÃ³ kÃ¶vetkezmÃ©nyekÃ©nt ez a metÃ³dus hÃ­vÃ³dik
+	 * meg, melyben a karakter Ã©letereje a {@link Lovedek} tÃ­pusÃ¡nak megfelelÅ‘en
+	 * fog csÃ¶kkenni.
 	 * 
 	 * @param lovedek
 	 */
 	public void sebez(Lovedek lovedek);
-	
+
 	/**
-	 * {@link Akadaly} -al való reakció következményeként ez a metódus hívódik meg, 
-	 * melyben a karakter sebessége a {@link Akadaly} típusának megfelelõen fog csökkenni.
+	 * {@link Akadaly} -al valÃ³ reakciÃ³ kÃ¶vetkezmÃ©nyekÃ©nt ez a metÃ³dus hÃ­vÃ³dik
+	 * meg, melyben a karakter sebessÃ©ge a {@link Akadaly} tÃ­pusÃ¡nak megfelelÅ‘en
+	 * fog csÃ¶kkenni.
 	 * 
 	 * @param varazsKo
 	 */
 	public void setSebesseg(List<VarazsKo> varazsKo);
-	
+
 	/**
-	 * Beállítja a karakternek a lehetséges útvonalat.
+	 * BeÃ¡llÃ­tja a karakternek a lehetsÃ©ges Ãºtvonalat.
 	 * 
 	 * @param utvonal
 	 */
 	public void setUtvonal(List<Mezo> utvonal);
-	
+
 }

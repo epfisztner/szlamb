@@ -7,8 +7,8 @@ import hu.bme.szoftlab4.SZLAMB.Epitmeny.Torony;
 
 /**
  * 
- * Ez az interface deklarálja a {@link Torony} által
- * paraméterként átadott lövedég objektumot a célbavett karakternek.
+ * Ez az interface deklarÃ¡lja a {@link Torony} Ã¡ltal
+ * paramÃ©terkÃ©nt Ã¡tadott lÃ¶vedÃ©k objektumot a cÃ©lbavett karakternek.
  * 
  * @author Erhard Pfisztner
  *
@@ -16,7 +16,7 @@ import hu.bme.szoftlab4.SZLAMB.Epitmeny.Torony;
 public interface Lovedek {
 	
 	/**
-	 * Visszaadja a lövedék tulajdonságait meghatározó {@link VarazsKo} elemek listáját
+	 * Visszaadja a lÃ¶vedÃ©k tulajdonsÃ¡gait meghatÃ¡rozÃ³ {@link VarazsKo} elemek listÃ¡jÃ¡t
 	 * 
 	 * @return List<VarazsKo>
 	 */

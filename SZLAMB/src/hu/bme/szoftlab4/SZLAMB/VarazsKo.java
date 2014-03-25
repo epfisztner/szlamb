@@ -1,8 +1,8 @@
 package hu.bme.szoftlab4.SZLAMB;
 
 /**
- * Ez az enum valósítja meg a program objektumai által
- * tulajdonságok meghatározására használt VarázsKöveket.
+ * Ez az enum valÃ³sÃ­tja meg a program objektumai Ã¡ltal
+ * tulajdonsÃ¡gok meghatÃ¡rozÃ¡sÃ¡ra hasznÃ¡lt VarÃ¡zsKÃ¶veket.
  * 
  * @author Erhard Pfisztner
  *

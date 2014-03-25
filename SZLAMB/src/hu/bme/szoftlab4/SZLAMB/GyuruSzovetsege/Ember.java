@@ -6,12 +6,10 @@ import hu.bme.szoftlab4.SZLAMB.Palya;
 import hu.bme.szoftlab4.SZLAMB.VarazsKo;
 import hu.bme.szoftlab4.SZLAMB.Lovedek.Lovedek;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
-
 import java.util.List;
 
-
 /**
- * Ez az oszt·ly a {@link GyuruSzovetsege} egyik implement·ciÛja.
+ * Ez az oszt√°ly a {@link GyuruSzovetsege} egyik implement√°ci√≥ja.
  * 
  * @author Erhard Pfisztner
  *

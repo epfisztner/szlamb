@@ -1,8 +1,8 @@
 package hu.bme.szoftlab4.SZLAMB;
 
 /**
- * Ez az osztály lesz a játék indításáért illetve befejezéséért felelõs, itt
- * van referencia a játékost reprezentáló {@link Szaruman} -ra is.
+ * Ez az osztÃ¡ly lesz a jÃ¡tÃ©k indÃ­tÃ¡sÃ¡Ã©rt illetve befejezÃ©sÃ©Ã©rt felelÅ‘s, itt
+ * van referencia a jÃ¡tÃ©kost reprezentÃ¡lÃ³ {@link Szaruman} -ra is.
  * 
  * @author Erhard Pfisztner
  *
@@ -11,7 +11,7 @@ public class JatekMotor {
 	
 	static String className;
 	/**
-	 * Játékost reprezentáló objektum.
+	 * JÃ¡tÃ©kost reprezentÃ¡lÃ³ objektum.
 	 */
 	protected Szaruman szaruman;
 	
@@ -24,7 +24,7 @@ public class JatekMotor {
 	}
 
 	/**
-	 * Új játék indítása, amennyiben a játék már egyszer végetért.
+	 * Ãºj jÃ¡tÃ©k indÃ­tÃ¡sa, amennyiben a jÃ¡tÃ©k mÃ¡r egyszer vÃ©getÃ©rt.
 	 */
 	public void ujJatek(){
 		System.out.println("\t-->"+className+".ujJatek");
@@ -32,21 +32,21 @@ public class JatekMotor {
 		System.out.println("\t<--void");
 	}
 	/**
-	 * Játék vége a játékos vereségével.
+	 * JÃ¡tÃ©k vÃ©ge a jÃ¡tÃ©kos veresÃ©gÃ©vel.
 	 */
 	public static void jatekVegeVeszit(){
 		System.out.println("\t-->"+className+".jatekVegeVeszit()");
 		System.out.println("\t<--void");
 	}
 	/**
-	 * Játék vége a játékos gyõzelmével.
+	 * JÃ¡tÃ©k vÃ©ge a jÃ¡tÃ©kos gyÅ‘zelmÃ©vel.
 	 */
 	public static void jatekVegeNyert(){
 		System.out.println("\t-->"+className+".jatekVegeNyert()");
 		System.out.println("\t<--void");
 	}
 	/**
-	 * Játék indítása elõször
+	 * JÃ¡tÃ©k indÃ­tÃ¡sa elÅ‘szÃ¶r
 	 */
 	public void start(){	
 		System.out.println("-->"+className+".start()");

@@ -8,8 +8,8 @@ import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.GyuruSzovetsege;
 
 public class LovedekImpl implements Lovedek {
 	/**
-	 * A {@link Lovedek} -el való reakcióját határozzák meg az õt megkapo {@link GyuruSzovetsege}
-	 * típusú objektumnak.
+	 * A {@link Lovedek} -el valÃ³ reakciÃ³jÃ¡t hatÃ¡rozzÃ¡k meg az Å‘t megkapÃ³ {@link GyuruSzovetsege}
+	 * tÃ­pusÃº objektumnak.
 	 */
 	protected List<VarazsKo> varazsKovek;
 

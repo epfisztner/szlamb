@@ -6,8 +6,8 @@ import hu.bme.szoftlab4.SZLAMB.Epitmeny.Torony;
 import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.GyuruSzovetsege;
 
 /**
- * Ez az oszt·ly a {@link Mezo} egyik implement·ciÛja.
- * Ezen a mezın lehet elhelyezni {@link Torony} tÌpus˙ objetumokat, de
+ * Ez az oszt√°ly a {@link Mezo} egyik implement√°ci√≥ja.
+ * Ezen a mez≈ën lehet elhelyezni {@link Torony} t√≠pus√∫ objetumokat, de
  * csakis azokat.
  * 
  * @author Erhard Pfisztner

@@ -8,29 +8,29 @@ import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
 import java.util.List;
 
 /**
- * Ez az osztály implementálja az {@link GyuruSzovetsege} interface által deklarált,
- * minden leszármazott által közösen értelmezett metódusokat.
+ * Ez az osztÃ¡ly implementÃ¡lja az {@link GyuruSzovetsege} interface Ã¡ltal deklarÃ¡lt,
+ * minden leszÃ¡rmazott Ã¡ltal kÃ¶zÃ¶sen Ã©rtelmezett metÃ³dusokat.
  * 
  * @author Erhard Pfisztner
  *
  */
 public abstract class AbstractGyuruSzovetsege implements GyuruSzovetsege {
 	/**
-	 * {@link GyuruSzovetsege} objektum életereje
+	 * {@link GyuruSzovetsege} objektum Ã©letereje
 	 */
 	protected int eletero;
 	
 	/**
-	 * {@link GyuruSzovetsege} objektum sebessége
+	 * {@link GyuruSzovetsege} objektum sebessÃ©ge
 	 */
 	protected int sebesseg;
 	
 	/**
-	 * Azon indek szám amelyiken {@link Mezo} -n éppen rajta van a karakter az utvonal-ból
+	 * Azon index sÃ¡m amelyiken {@link Mezo} -n Ã©ppen rajta van a karakter az utvonal-bÃ³l
 	 */
 	protected int aktualisMezoIndex;
 	/**
-	 * Az karakter által megteendõ útvonal
+	 * Az karakter Ã¡ltal megteendÅ‘ Ãºtvonal
 	 */
 	protected List<Mezo> utvonal;
 
@@ -40,7 +40,7 @@ public abstract class AbstractGyuruSzovetsege implements GyuruSzovetsege {
 		System.out.println("\t\t\t\t<--");
 	}
 	/**
-	 * Amennyiben elfogy a karakter életereje a sebzéskor ez a metódus hívódik meg.
+	 * Amennyiben elfogy a karakter Ã©letereje a sebzÃ©skor ez a metÃ³dus hÃ­vÃ³dik meg.
 	 */
 	protected void elpusztul() {
 		System.out.println("\t\t\t\t-->"+this.getClass().getName()+".elpusztul()");

@@ -7,39 +7,41 @@ import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.GyuruSzovetsege;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
 
 /**
- * Ez az interface deklarálja a {@link Torony} illetve {@link Akadaly} típusú objektumok
- * publikus metódusait.
+ * Ez az interface deklarÃ¡lja a {@link Torony} illetve {@link Akadaly} tÃ­pusÃº
+ * objektumok publikus metï¿½dusait.
  * 
  * @author Erhard Pfisztner
- *
+ * 
  */
-public interface Epitmeny extends Cloneable{
-	
+public interface Epitmeny extends Cloneable {
+
 	/**
-	 * A paraméterben kapott {@link VarazsKo} -vel felruházza az adott építményt.
+	 * A paramï¿½terben kapott {@link VarazsKo} -vel felruhÃ¡zza az adott
+	 * Ã©pÃ­tmÃ©nyt.
 	 * 
 	 * @param varazsKo
 	 */
 	void felruhaz(VarazsKo varazsKo);
-	
+
 	/**
-	 * A paraméterben kapott {@link GyuruSzovetsege} karakterre meghívja minden
-	 * leszármazott a saját reakció metódusát ami vagy sebzést vagy lassítást eredményez.
+	 * A paramÃ©terben kapott {@link GyuruSzovetsege} karakterre meghÃ­vja minden
+	 * leszÃ¡rmazott a sajÃ¡t reakciÃ³ metÃ³dust ami vagy sebzÃ©st vagy lassutÃ¡st
+	 * eredmÃ©nyez.
 	 * 
 	 * @param gyuruSzovetsege
 	 */
 	void reakcio(GyuruSzovetsege gyuruSzovetsege);
-	
+
 	/**
-	 * Visszaadja az építményre rakható {@link VarazsKo} - vek listáját.
+	 * Visszaadja az Ã©pÃ­tmÃ©nyre rakhatÃ³ {@link VarazsKo} - vek listÃ¡jÃ¡t.
 	 * 
 	 * @return {@link List} {@link VarazsKo}
 	 */
 	List<VarazsKo> getValidKovek();
-	
+
 	/**
-	 * Beállítja a paraméterben kapott {@link Mezo} -t az epítmény epitmenyMezo-jének,
-	 * hogy legyen referenciája rá.
+	 * BeÃ¡llÃ­tja a paramÃ©terben kapott {@link Mezo} -t az Ã©pÃ­tmÃ©ny
+	 * epitmenyMezo-jÃ©nek, hogy legyen referenciÃ¡ja rÃ¡.
 	 * 
 	 * @param epitmenyMezo
 	 */

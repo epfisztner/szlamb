@@ -18,20 +18,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A j·tÈk teret reprezent·lÛ oszt·ly,
- *  ı felel a {@link GyuruSzovetsege}, {@link Mezo} illetve {@link Epitmeny} objektumok lÈtrehoz·s·Èrt Ès nyilv·ntart·Ès·Èrt.
+ * A j√°t√©k teret reprezent√°l√≥ oszt√°ly,
+ *  ≈ë felel a {@link GyuruSzovetsege}, {@link Mezo} illetve {@link Epitmeny} objektumok l√©trehoz√°s√°√©rt √©s nyilv√°ntart√°s√°√©rt.
  * 
  * @author Erhard Pfisztner
  *
  */
 public class Palya {
 	/**
-	 * J·tÈk mezıi (maga a p·lya)
+	 * J√°t√©k mez≈ëi (maga a p√°lya)
 	 */
 	protected List<Mezo> mezok;
 	
 	/**
-	 * MÈg h·tra levı ellensÈgek sz·ma.
+	 * M√©g h√°tra lev≈ë ellens√©gek sz√°ma.
 	 */
 	protected static int ellensegeSzama;
 	
@@ -59,7 +59,7 @@ public class Palya {
 		System.out.println("\t\t<--");
 	}
 	/**
-	 * J·tÈk indÌt·sa, {@link GyuruSzovetsege} karakterek elindÌt·sa az ˙tvonalon
+	 * J√°t√©k ind√≠t√°sa, {@link GyuruSzovetsege} karakterek elind√≠t√°sa az √∫tvonalon
 	 */
 	public void start() {
 		System.out.println("\t\t-->"+this.getClass().getName()+".start()");
@@ -90,8 +90,8 @@ public class Palya {
 	}
 
 	/**
-	 * Amennyiben elpusztul egy ellensÈg ez a metÛdus hÌvÛdik meg 
-	 * az ellensÈg sz·m·nak csˆkkentÈsÈÈrt illetve 0 ÈrtÈkÈnek vizsg·lat·ra.
+	 * Amennyiben elpusztul egy ellens√©g ez a met√≥dus h√≠v√≥dik meg 
+	 * az ellens√©g sz√°m√°nak cs√∂kkent√©s√©√©rt illetve 0 √©rt√©k√©nek vizsg√°lat√°ra.
 	 */
 	public static void ellensegCsokkent() {
 		System.out.println("\t-->"+className+".ellensegCsokkent");
@@ -103,7 +103,7 @@ public class Palya {
 		System.out.println("\t<--void");
 	}
 	/**
-	 * P·lya felÈpÌtÈse a paramÈterben kapott file alapj·n:
+	 * P√°lya fel√©p√≠t√©se a param√©terben kapott file alapj√°n:
 	 * 0/UresMezo | 1/Ut | x/VegzetHegye
 	 * 
 	 * @param file
@@ -117,7 +117,7 @@ public class Palya {
 	}
 	
 	/**
-	 * PrototÌpusok lÈtrehoz·sa a j·tÈk indÌt·sakor.
+	 * Protot√≠pusok l√©trehoz√°sa a j√°t√©k ind√≠t√°sakor.
 	 */
 	private void createPrototypes() {
 		System.out.println("\t\t\t-->"+this.getClass().getName()+".createPrototypes()");

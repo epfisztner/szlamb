@@ -9,32 +9,32 @@ import hu.bme.szoftlab4.SZLAMB.Epitmeny.Torony;
 import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.GyuruSzovetsege;
 
 /**
- * Ez az osztály a {@link Mezo} abstract implementációja, ebben az osztályban
- * implementáljuk az összes leszármazott által közösen értelmezett metódusokat.
+ * Ez az osztÃ¡ly a {@link Mezo} abstract implementÃ¡ciÃ³ja, ebben az osztÃ¡lyban
+ * implementÃ¡ljuk az Ã¶sszes leszÃ¡rmazott Ã¡ltal kÃ¶zÃ¶sen Ã©rtelmezett metÃ³dusokat.
  * 
  * @author Erhard Pfisztner
  */
 public abstract class AbstractMezo implements Mezo {
 	
 	/**
-	 * {@link Epitmeny} amit az adott mezõre épített a játékos.
+	 * {@link Epitmeny} amit az adott mezÅ‘re Ã©pÃ­tett a jÃ¡tÃ©kos.
 	 */
 	protected Epitmeny epitmeny;
 	
 	/**
-	 * {@link GyuruSzovetsege} lista, mely az aktuálisan a mezõn( {@link Ut}) 
-	 * elhelyezkedõ karaktereket tartja nyilván.
+	 * {@link GyuruSzovetsege} lista, mely az aktuÃ¡lisan a mezÅ‘n( {@link Ut}) 
+	 * elhelyezkedÅ‘ karaktereket tartja nyilvÃ¡n.
 	 */
 	protected List<GyuruSzovetsege> karakterek;
 	
 	/**
-	 * {@link Mezo} szomszédos mezõk nyilvántartása, melyet arra használunk,
-	 * hogy az aktuális mezõ értesíthesse a hatótávon belül esõ szomszédok tornyait a karakter érkeztérõl.
+	 * {@link Mezo} szomszÃ©dos mezÅ‘k nyilvÃ¡ntartÃ¡sa, melyet arra hasznÃ¡lunk,
+	 * hogy az aktuÃ¡lis mezÅ‘ Ã©rtesÃ­thesse a hatÃ³tÃ¡von belÃ¼l esÅ‘ szomszÃ©dok tornyait a karakter Ã©rkeztÃ©rÅ‘l.
 	 */
 	protected List<Mezo> szomszedok;
 	
 	/**
-	 * Amennyiben a mezõre már épített a játékos mezõt úgy ezen érték fogja számunkra nyilvánatartani.
+	 * Amennyiben a mezÅ‘re mÃ¡r Ã©pÃ­tett a jÃ¡tÃ©kos egy mezÅ‘t, ezen Ã©rtÃ©k fogja szÃ¡munkra nyilvÃ¡ntartani.
 	 */
 	protected boolean beepitett;
 	
@@ -44,10 +44,6 @@ public abstract class AbstractMezo implements Mezo {
 		System.out.println("\t\t\t\t<--");
 	}
 
-	/**
-	 * Visszatér a beepitett mezõ értékével.
-	 * @return beepitett
-	 */
 	@Override
 	public boolean isBeepitett() {
 		System.out.println("\t-->"+this.getClass().getName()+".isBeepitett()");
@@ -62,18 +58,12 @@ public abstract class AbstractMezo implements Mezo {
 		return this.beepitett;
 	}
 	
-	/**
-	 * Beállítja a mezõ szomszédait a sugár alapján.
-	 */
 	@Override
 	public void setSzomszedok(int szomszedSugar) {
 		System.out.println("\t-->"+this.getClass().getName()+".setSzomszedok("+szomszedSugar+")");
 		System.out.println("\t<--void");
 	}
 	
-	/**
-	 * Amennyiben karakter lép a mezõre reagáltatja a az építményét.
-	 */
 	@Override
 	public void karakterRegiszter(GyuruSzovetsege gyuruSzovetsege) {
 		System.out.println("\t-->"+this.getClass().getName()+".karakterRegiszter("+gyuruSzovetsege.getClass().getName()+")");

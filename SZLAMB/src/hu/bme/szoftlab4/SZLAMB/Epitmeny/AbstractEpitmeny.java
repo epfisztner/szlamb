@@ -7,23 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Ez az osztály implementálja az {@link Epitmeny} interface által deklarált,
- * minden leszármazott által közösen értelmezett metódusokat.
+ * Ez az osztÃ¡ly implementÃ¡lja az {@link Epitmeny} interface Ã¡ltal deklarÃ¡lt,
+ * minden leszÃ¡rmazott Ã¡ltal kÃ¶zÃ¶sen Ã©rtelmezett metÃ³dusokat.
  * 
  * @author Erhard Pfisztner
  *
  */
+
 public abstract class AbstractEpitmeny implements Epitmeny {
-	
-	/**
-	 * {@link VarazsKo} -vek listája, melyeket a felruházással
-	 * lehet bõvíteni.
-	 */
 	protected List<VarazsKo> varazsKovek;
 	
 	/**
-	 * Az {@link Epitmeny} típusú osztály saját referenciája az õt tartalmazó
-	 * mezõre.
+	 * Az {@link Epitmeny} tÃ­pusÃº osztÃ¡ly sajÃ¡t referenciÃ¡ja az Å‘t tartalmazÃ³
+	 * mezÅ‘re.
 	 */
 	protected Mezo epitmenyMezo;
 	

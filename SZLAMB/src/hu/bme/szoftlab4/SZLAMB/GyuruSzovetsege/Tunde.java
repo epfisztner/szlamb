@@ -9,7 +9,7 @@ import hu.bme.szoftlab4.SZLAMB.Lovedek.Lovedek;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
 
 /**
- * Ez az oszt·ly a {@link GyuruSzovetsege} egyik implement·ciÛja.
+ * Ez az oszt√°ly a {@link GyuruSzovetsege} egyik implement√°ci√≥ja.
  * 
  * @author Erhard Pfisztner
  */

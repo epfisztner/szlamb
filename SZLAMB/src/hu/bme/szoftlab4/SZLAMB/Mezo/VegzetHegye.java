@@ -7,9 +7,9 @@ import hu.bme.szoftlab4.SZLAMB.Epitmeny.Torony;
 import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.GyuruSzovetsege;
 
 /**
- * Ez az osztály a {@link Mezo} egyik implementációja.
- * Ezen a mezõn nem lehet elhelyezni semmilyen {@link Epitmeny} típusú objetumokat,
- * az erre szolgáló metódusait üresen írjuk felül.
+ * Ez az osztÃ¡ly a {@link Mezo} egyik implementÃ¡ciÃ³ja.
+ * Ezen a mezÅ‘n nem lehet elhelyezni semmilyen {@link Epitmeny} tÃ­pusÃº objetumot,
+ * az erre szolgÃ¡lÃ³ metÃ³dusait Ã¼resen Ã­rjuk felÃ¼l.
  * 
  * @author Erhard Pfisztner
  */

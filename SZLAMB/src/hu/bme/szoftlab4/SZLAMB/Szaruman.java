@@ -6,8 +6,8 @@ import hu.bme.szoftlab4.SZLAMB.Epitmeny.Torony;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
 
 /**
- * Ez az osztály valósítja meg magát a játékost reprezentáló objektumot.
- * A játékos varázsereje itt van nyilvántartva.
+ * Ez az osztÃ¡ly valÃ³sÃ­tja meg magÃ¡t a jÃ¡tÃ©kost reprezentÃ¡lÃ³ objektumot.
+ * A jÃ¡tÃ©kos varÃ¡zsereje itt van nyilvÃ¡ntartva.
  * 
  * @author Erhard Pfisztner
  *
@@ -15,12 +15,12 @@ import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
 public class Szaruman {
 	
 	/**
-	 * A játékban felhasznált játék mezõ.
+	 * A jÃ¡tÃ©kban felhasznÃ¡lt jÃ¡tÃ©k mezÅ‘.
 	 */
 	public static Palya palya;
 	
 	/**
-	 * A játékos varázsereje.
+	 * A jÃ¡tÃ©kos varÃ¡zsereje.
 	 */
 	protected int varazsEro;
 	
@@ -32,7 +32,7 @@ public class Szaruman {
 	}
 
 	/**
-	 * A paraméterben kapott {@link Mezo} -re új {@link Torony} építése.
+	 * A paramÃ©terben kapott {@link Mezo} -re Ãºj {@link Torony} Ã©pÃ­tÃ©se.
 	 * 
 	 * @param mezo
 	 */
@@ -43,7 +43,7 @@ public class Szaruman {
 	}
 	
 	/**
-	 * A paraméterben kapott {@link Mezo} -re új {@link Akadaly} építése.
+	 * A paramÃ©terben kapott {@link Mezo} -re Ãºj {@link Akadaly} Ã©pÃ­tÃ©se.
 	 * 
 	 * @param mezo
 	 */
@@ -54,8 +54,8 @@ public class Szaruman {
 	}
 	
 	/**
-	 * A paraméterben kapott {@link Mezo} objektumon lévõ {@link Epitmeny} objektum 
-	 * felruházása(fejlesztése) a paraméterben adott {@link VarazsKo} -vel.
+	 * A paramÃ©terben kapott {@link Mezo} objektumon lÃ©vÅ‘ {@link Epitmeny} objektum 
+	 * felruhÃ¡zÃ¡sa(fejlesztÃ©se) a paramÃ©terben adott {@link VarazsKo} -vel.
 	 * 
 	 * @param mezo
 	 * @param varazsKo
@@ -67,7 +67,7 @@ public class Szaruman {
 	}
 	
 	/**
-	 * Jaték indítása
+	 * JÃ¡tÃ©k indÃ­tÃ¡sa
 	 */
 	public void start() {
 		System.out.println("\t-->"+this.getClass().getName()+".start()");
