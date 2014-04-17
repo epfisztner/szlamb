@@ -11,3 +11,7 @@
 *.jar
 *.war
 *.ear
+*/nbproject/*
+*/build/*
+*.mf
+build.xml
