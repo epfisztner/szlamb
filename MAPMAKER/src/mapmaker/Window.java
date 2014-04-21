@@ -13,6 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -137,10 +138,17 @@ public class Window extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                generateUtvonalak();
-                XmlGenerator.setFields(mapFields);
-                XmlGenerator.setUtvonalak(utvonalak);
-                XmlGenerator.makeXml();
+                SwingUtilities.invokeLater(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        generateUtvonalak();
+                        XmlGenerator.setFields(mapFields);
+                        XmlGenerator.setUtvonalak(utvonalak);
+                        XmlGenerator.makeXml();
+                    }
+                });
+
             }
 
         });
@@ -441,7 +449,7 @@ public class Window extends JFrame {
     protected void pinAllRoad() {
         for (int x = 0; x < xSize; x++) {
             for (int y = 0; y < ySize; y++) {
-                if (mapFields[x][y].getFieldType().equals(FieldTypes.UT) || mapFields[x][y].getFieldType().equals(FieldTypes.BELEPO)) {
+                if (mapFields[x][y].getFieldType().equals(FieldTypes.UT)) {
                     mapFields[x][y].setFieldType(FieldTypes.KESZUT);
                 }
             }
@@ -449,18 +457,245 @@ public class Window extends JFrame {
     }
 
     private void generateUtvonalak() {
-        int belepoCount=0;
+        int belepoCount = 0;
+        utvonalak.add(new ArrayList<MapFieldButton>());
+        
         for (int x = 0; x < mapFields.length; x++) {
             for (int y = 0; y < mapFields[x].length; y++) {
                 if (mapFields[x][y].getFieldType().equals(FieldTypes.BELEPO)) {
-                    belepoCount++;
+                    mapFields[x][y].setFieldType(FieldTypes.UT);
+                    utvonalak.get(0).add(mapFields[x][y]);
+                    findWay(0, x, y);
+                    System.out.println(utvonalak.get(0).size());
+                    return;
                 }
             }
         }
-        
-        
-        
-        
-        
+
+    }
+
+    private boolean findWay(int utvonalIndex, int actualXCoord, int actualYCoord) {
+        for (int x = 0; x < mapFields.length; x++) {
+            for (int y = 0; y < mapFields[x].length; y++) {
+                if (mapFields[x][y].getFieldType().equals(FieldTypes.KESZUT)) {
+                    mapFields[x][y].setFieldType(FieldTypes.UT);
+                }
+            }
+        }
+        ciklus:
+        while (actualXCoord < xSize && actualYCoord < ySize && actualXCoord >= 0 && actualYCoord >= 0) {
+            System.out.println("export X: "+actualXCoord+"  export Y:"+actualYCoord);
+            /*
+             * *********
+             * *EZT ITT*
+             * *EZT ITT*
+             * *********
+             */
+            if (actualXCoord > 0 && actualXCoord < xSize - 1 && actualYCoord > 0 && actualYCoord < ySize - 1) {
+                if (mapFields[actualXCoord - 1][actualYCoord].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord - 1][actualYCoord])) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord - 1][actualYCoord]);
+                    actualXCoord--;
+                    continue ciklus;
+                } else if (mapFields[actualXCoord - 1][actualYCoord].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord - 1][actualYCoord]);
+                    return true;
+                }
+
+                if (mapFields[actualXCoord + 1][actualYCoord].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord + 1][actualYCoord])) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord + 1][actualYCoord]);
+                    actualXCoord++;
+                    continue ciklus;
+                } else if (mapFields[actualXCoord + 1][actualYCoord].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord + 1][actualYCoord]);
+                    return true;
+                }
+                if (mapFields[actualXCoord][actualYCoord + 1].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord][actualYCoord + 1])) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord + 1]);
+                    actualYCoord++;
+                    continue ciklus;
+                } else if (mapFields[actualXCoord][actualYCoord + 1].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord + 1]);
+                    return true;
+                }
+                if (mapFields[actualXCoord][actualYCoord - 1].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord][actualYCoord - 1])) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord - 1]);
+                    actualYCoord--;
+                    continue ciklus;
+                } else if (mapFields[actualXCoord][actualYCoord - 1].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord - 1]);
+                    return true;
+                }
+            } else if (actualXCoord == 0 && actualYCoord > 0 && actualYCoord < ySize - 1) {
+                if (mapFields[actualXCoord][actualYCoord + 1].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord][actualYCoord + 1])) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord + 1]);
+                    actualYCoord++;
+                    continue ciklus;
+                } else if (mapFields[actualXCoord][actualYCoord + 1].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord + 1]);
+                    return true;
+                }
+                if (mapFields[actualXCoord + 1][actualYCoord].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord + 1][actualYCoord])) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord + 1][actualYCoord]);
+                    actualXCoord++;
+                    continue ciklus;
+                } else if (mapFields[actualXCoord + 1][actualYCoord].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord + 1][actualYCoord]);
+                    return true;
+                }
+                if (mapFields[actualXCoord][actualYCoord - 1].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord][actualYCoord - 1])) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord - 1]);
+                    actualYCoord--;
+                    continue ciklus;
+                } else if (mapFields[actualXCoord][actualYCoord - 1].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord - 1]);
+                    return true;
+                }
+            } else if (actualXCoord == 0 && actualYCoord == 0) {
+                if (mapFields[actualXCoord][actualYCoord + 1].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord][actualYCoord + 1])) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord + 1]);
+                    actualYCoord++;
+                    continue ciklus;
+                } else if (mapFields[actualXCoord][actualYCoord + 1].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord + 1]);
+                    return true;
+                }
+                if (mapFields[actualXCoord + 1][actualYCoord].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord + 1][actualYCoord])) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord + 1][actualYCoord]);
+                    actualXCoord++;
+                    continue ciklus;
+                } else if (mapFields[actualXCoord + 1][actualYCoord].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord + 1][actualYCoord]);
+                    return true;
+                }
+            } else if (actualXCoord == 0 && actualYCoord == ySize - 1) {
+                if (mapFields[actualXCoord][actualYCoord - 1].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord][actualYCoord - 1])) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord - 1]);
+                    actualYCoord--;
+                    continue ciklus;
+                } else if (mapFields[actualXCoord][actualYCoord - 1].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord - 1]);
+                    return true;
+                }
+                if (mapFields[actualXCoord + 1][actualYCoord].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord + 1][actualYCoord])) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord + 1][actualYCoord]);
+                    actualXCoord++;
+                    continue ciklus;
+                } else if (mapFields[actualXCoord + 1][actualYCoord].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord + 1][actualYCoord]);
+                    return true;
+                }
+            } else if (actualXCoord == xSize - 1 && actualYCoord == 0) {
+                if (mapFields[actualXCoord][actualYCoord + 1].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord][actualYCoord + 1])) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord + 1]);
+                    actualYCoord++;
+                    continue ciklus;
+                } else if (mapFields[actualXCoord][actualYCoord + 1].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord + 1]);
+                    return true;
+                }
+                if (mapFields[actualXCoord - 1][actualYCoord].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord - 1][actualYCoord])) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord - 1][actualYCoord]);
+                    actualXCoord--;
+                    continue ciklus;
+                } else if (mapFields[actualXCoord - 1][actualYCoord].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord - 1][actualYCoord]);
+                    return true;
+                }
+            } else if (actualXCoord == xSize - 1 && actualYCoord == ySize - 1) {
+                if (mapFields[actualXCoord][actualYCoord - 1].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord][actualYCoord - 1])) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord - 1]);
+                    actualYCoord--;
+                    continue ciklus;
+                } else if (mapFields[actualXCoord][actualYCoord - 1].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord - 1]);
+                    return true;
+                }
+                if (mapFields[actualXCoord - 1][actualYCoord].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord - 1][actualYCoord])) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord - 1][actualYCoord]);
+                    actualXCoord--;
+                    continue ciklus;
+                } else if (mapFields[actualXCoord - 1][actualYCoord].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord - 1][actualYCoord]);
+                    return true;
+                }
+            } else if (actualXCoord == xSize - 1 && actualYCoord > 0 && actualYCoord < ySize - 1) {
+                if (mapFields[actualXCoord][actualYCoord - 1].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord][actualYCoord - 1])) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord - 1]);
+                    actualYCoord--;
+                    continue ciklus;
+                } else if (mapFields[actualXCoord][actualYCoord - 1].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord - 1]);
+                    return true;
+                }
+                if (mapFields[actualXCoord - 1][actualYCoord].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord - 1][actualYCoord])) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord - 1][actualYCoord]);
+                    actualXCoord--;
+                    continue ciklus;
+                } else if (mapFields[actualXCoord - 1][actualYCoord].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord - 1][actualYCoord]);
+                    return true;
+                }
+                if (mapFields[actualXCoord][actualYCoord + 1].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord][actualYCoord + 1])) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord + 1]);
+                    actualYCoord++;
+                    continue ciklus;
+                } else if (mapFields[actualXCoord][actualYCoord + 1].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord + 1]);
+                    return true;
+                }
+            } else if (actualXCoord > 0 && actualXCoord < xSize - 1 && actualYCoord == ySize - 1) {
+                if (mapFields[actualXCoord][actualYCoord - 1].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord][actualYCoord - 1])) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord - 1]);
+                    actualYCoord--;
+                    continue ciklus;
+                } else if (mapFields[actualXCoord][actualYCoord - 1].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord - 1]);
+                    return true;
+                }
+                if (mapFields[actualXCoord + 1][actualYCoord].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord + 1][actualYCoord])) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord + 1][actualYCoord]);
+                    actualXCoord++;
+                    continue ciklus;
+                } else if (mapFields[actualXCoord + 1][actualYCoord].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord + 1][actualYCoord]);
+                    return true;
+                }
+                if (mapFields[actualXCoord - 1][actualYCoord].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord - 1][actualYCoord])) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord - 1][actualYCoord]);
+                    actualXCoord--;
+                    continue ciklus;
+                } else if (mapFields[actualXCoord - 1][actualYCoord].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord - 1][actualYCoord]);
+                    return true;
+                }
+            } else if (actualXCoord > 0 && actualXCoord < xSize - 1 && actualYCoord == 0) {
+                if (mapFields[actualXCoord][actualYCoord + 1].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord][actualYCoord + 1])) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord + 1]);
+                    actualYCoord++;
+                    continue ciklus;
+                } else if (mapFields[actualXCoord][actualYCoord + 1].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord + 1]);
+                    return true;
+                }
+                if (mapFields[actualXCoord + 1][actualYCoord].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord + 1][actualYCoord])) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord + 1][actualYCoord]);
+                    actualXCoord++;
+                    continue ciklus;
+                } else if (mapFields[actualXCoord + 1][actualYCoord].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord + 1][actualYCoord]);
+                    return true;
+                }
+                if (mapFields[actualXCoord - 1][actualYCoord].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord - 1][actualYCoord])) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord - 1][actualYCoord]);
+                    actualXCoord--;
+                    continue ciklus;
+                } else if (mapFields[actualXCoord - 1][actualYCoord].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
+                    utvonalak.get(utvonalIndex).add(mapFields[actualXCoord - 1][actualYCoord]);
+                    return true;
+                }
+            }
+
+        }
+        return false;
     }
 }

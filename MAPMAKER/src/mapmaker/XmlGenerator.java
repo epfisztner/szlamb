@@ -96,20 +96,22 @@ public class XmlGenerator {
                             }
                         }
                     }
-                    String utString = "";
-                    if (secondIndex == utvonalak.get(firstIndex).size()-1) {
-                        utString = "vegzetHegye";
-                    } else {
-                        utString = "ut";
+                    if (firstCoord>=0 && nextCoord>=0) {
+                        String utString = "";
+                        if (secondIndex == utvonalak.get(firstIndex).size()-1) {
+                            utString = "vegzetHegye";
+                        } else {
+                            utString = "ut";
+                        }
+                        Element ut = doc.createElement(utString);
+                        utvonal.appendChild(ut);
+                        Element xCoord = doc.createElement("x");
+                        xCoord.appendChild(doc.createTextNode(Integer.toString(firstCoord)));
+                        ut.appendChild(xCoord);
+                        Element yCoord = doc.createElement("y");
+                        yCoord.appendChild(doc.createTextNode(Integer.toString(nextCoord)));
+                        ut.appendChild(yCoord);
                     }
-                    Element ut = doc.createElement(utString);
-                    utvonal.appendChild(ut);
-                    Element xCoord = doc.createElement("x");
-                    xCoord.appendChild(doc.createTextNode(Integer.toString(firstCoord)));
-                    ut.appendChild(xCoord);
-                    Element yCoord = doc.createElement("y");
-                    yCoord.appendChild(doc.createTextNode(Integer.toString(nextCoord)));
-                    ut.appendChild(yCoord);
                 }
             }
 
