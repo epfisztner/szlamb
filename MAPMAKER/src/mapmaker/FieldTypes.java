@@ -8,11 +8,12 @@ package mapmaker;
 
 /**
  *
- * @author pfisz_000
+ * @author Erhard Pfisztner
  */
 public enum FieldTypes {
     VEGZETHEGYE,
     URESMEZO,
     UT,
+    KERESZT,
     BELEPO
 }

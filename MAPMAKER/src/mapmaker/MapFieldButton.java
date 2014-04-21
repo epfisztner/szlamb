@@ -6,13 +6,15 @@
 
 package mapmaker;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 /**
  *
- * @author pfisz_000
+ * @author Erhard Pfisztner
  */
 public class MapFieldButton extends JButton{
     private FieldTypes fieldType;
@@ -29,11 +31,13 @@ public class MapFieldButton extends JButton{
     public void setFieldType(FieldTypes fieldType) {
         this.fieldType = fieldType;
         super.setText(this.fieldType.name());
+        if (this.fieldType.equals(FieldTypes.BELEPO)) {
+            this.setBackground(Color.green);
+        } else if (this.fieldType.equals(FieldTypes.UT)) {
+            this.setBackground(Color.yellow);
+        } else if (this.fieldType.equals(FieldTypes.VEGZETHEGYE)) {
+            this.setBackground(Color.red);
+        }
+        
     }
-    
-    
-    
-    
-    
-    
 }
