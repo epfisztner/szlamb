@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -19,8 +20,7 @@ import javax.swing.JPanel;
  */
 public class Window extends JFrame {
 
-    protected String utvonalTemp = "";
-    protected List<String> utvonalak;
+    protected List<List<MapFieldButton>> utvonalak;
     protected JLabel label;
     protected Integer[] items;
     protected JComboBox<Integer> mapSizeXInput;
@@ -49,7 +49,7 @@ public class Window extends JFrame {
     }
 
     private void init() {
-        utvonalak = new ArrayList<String>();
+        utvonalak = new ArrayList<List<MapFieldButton>>();
         items = new Integer[11];
         for (int i = 0; i < 11; i++) {
             items[i] = i + 4;
@@ -82,10 +82,11 @@ public class Window extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setAllFieldActionListener(FieldTypes.BELEPO);
-                setFieldEnabled(FieldTypes.URESMEZO, true);
-                setFieldEnabled(FieldTypes.BELEPO, false);
-                setFieldEnabled(FieldTypes.VEGZETHEGYE, false);
-                setFieldEnabled(FieldTypes.UT, false);
+                setFieldsEnabled(FieldTypes.URESMEZO, true);
+                setFieldsEnabled(FieldTypes.BELEPO, true);
+                setFieldsEnabled(FieldTypes.KESZUT, true);
+                setFieldsEnabled(FieldTypes.VEGZETHEGYE, false);
+                setFieldsEnabled(FieldTypes.UT, false);
                 newUtvonalButton.setEnabled(false);
                 okButton.addActionListener(new ActionListener() {
 
@@ -93,11 +94,10 @@ public class Window extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         okButton.setEnabled(false);
                         setAllFieldActionListener(FieldTypes.UT);
-                        setFieldEnabled(FieldTypes.URESMEZO, true);
-                        setFieldEnabled(FieldTypes.BELEPO, false);
-                        setFieldEnabled(FieldTypes.VEGZETHEGYE, false);
-                        setFieldEnabled(FieldTypes.UT, false);
-
+                        setFieldsEnabled(FieldTypes.URESMEZO, true);
+                        setFieldsEnabled(FieldTypes.BELEPO, false);
+                        setFieldsEnabled(FieldTypes.VEGZETHEGYE, false);
+                        setFieldsEnabled(FieldTypes.UT, false);
                     }
                 });
             }
@@ -109,10 +109,10 @@ public class Window extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setAllFieldActionListener(FieldTypes.VEGZETHEGYE);
-                setFieldEnabled(FieldTypes.URESMEZO, true);
-                setFieldEnabled(FieldTypes.BELEPO, false);
-                setFieldEnabled(FieldTypes.VEGZETHEGYE, false);
-                setFieldEnabled(FieldTypes.UT, false);
+                setFieldsEnabled(FieldTypes.URESMEZO, true);
+                setFieldsEnabled(FieldTypes.BELEPO, false);
+                setFieldsEnabled(FieldTypes.VEGZETHEGYE, false);
+                setFieldsEnabled(FieldTypes.UT, false);
             }
         });
         okButton = new JButton("Oké");
@@ -133,11 +133,22 @@ public class Window extends JFrame {
         mainPanel.add(mapPanel, BorderLayout.CENTER);
         exportButton = new JButton("Térkép exportálása");
         exportButton.setEnabled(false);
+        exportButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                generateUtvonalak();
+                XmlGenerator.setFields(mapFields);
+                XmlGenerator.setUtvonalak(utvonalak);
+                XmlGenerator.makeXml();
+            }
+
+        });
         mainPanel.add(exportButton, BorderLayout.SOUTH);
         getContentPane().add(mainPanel);
     }
 
-    protected void setFieldEnabled(FieldTypes fieldTypes, boolean enabled) {
+    protected void setFieldsEnabled(FieldTypes fieldTypes, boolean enabled) {
         for (int x = 0; x < xSize; x++) {
             for (int y = 0; y < ySize; y++) {
                 if (mapFields[x][y].getFieldType().equals(fieldTypes)) {
@@ -168,7 +179,7 @@ public class Window extends JFrame {
 
     protected void setMap() {
         mapPanel.removeAll();
-        mapPanel.setLayout(new GridLayout(xSize, ySize));
+        mapPanel.setLayout(new GridLayout(ySize, xSize));
         mapFields = new MapFieldButton[xSize][ySize];
         for (int x = 0; x < xSize; x++) {
             for (int y = 0; y < ySize; y++) {
@@ -198,14 +209,14 @@ public class Window extends JFrame {
         public void actionPerformed(ActionEvent e) {
 
             if (fieldType.equals(FieldTypes.VEGZETHEGYE)) {
-                setFieldEnabled(FieldTypes.URESMEZO, true);
-                setFieldEnabled(FieldTypes.BELEPO, false);
+                setFieldsEnabled(FieldTypes.URESMEZO, true);
+                setFieldsEnabled(FieldTypes.BELEPO, false);
 
-                setFieldEnabled(FieldTypes.UT, false);
+                setFieldsEnabled(FieldTypes.UT, false);
                 newVegzetHegyeButton.setEnabled(false);
                 newUtvonalButton.setEnabled(true);
                 for (int x = 0; x < xSize; x++) {
-                    for (int y = 0; y < xSize; y++) {
+                    for (int y = 0; y < ySize; y++) {
                         if (mapFields[x][y].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
                             mapFields[x][y].setFieldType(FieldTypes.URESMEZO);
                             mapFields[x][y].setEnabled(true);
@@ -214,219 +225,242 @@ public class Window extends JFrame {
                 }
                 selectedButton.setFieldType(this.fieldType);
                 selectedButton.setText(this.fieldType.name());
-                setFieldEnabled(FieldTypes.VEGZETHEGYE, false);
+                setFieldsEnabled(FieldTypes.VEGZETHEGYE, false);
             } else if (fieldType.equals(FieldTypes.BELEPO)) {
-                setFieldEnabled(FieldTypes.URESMEZO, true);
-                setFieldEnabled(FieldTypes.BELEPO, false);
-                setFieldEnabled(FieldTypes.VEGZETHEGYE, false);
-                setFieldEnabled(FieldTypes.UT, false);
+                setFieldsEnabled(FieldTypes.URESMEZO, true);
+                setFieldsEnabled(FieldTypes.BELEPO, false);
+                setFieldsEnabled(FieldTypes.VEGZETHEGYE, false);
+                setFieldsEnabled(FieldTypes.UT, false);
                 okButton.setEnabled(true);
                 newVegzetHegyeButton.setEnabled(false);
                 newUtvonalButton.setEnabled(false);
                 for (int x = 0; x < xSize; x++) {
-                    for (int y = 0; y < xSize; y++) {
+                    for (int y = 0; y < ySize; y++) {
                         if (mapFields[x][y].getFieldType().equals(FieldTypes.BELEPO)) {
                             mapFields[x][y].setFieldType(FieldTypes.URESMEZO);
                             mapFields[x][y].setEnabled(true);
                         }
                     }
                 }
-                utvonalTemp.concat(utvonalTemp);
+
                 selectedButton.setFieldType(this.fieldType);
-                for (int x = 0; x < xSize; x++) {
-                    for (int y = 0; y < xSize; y++) {
-                        if (mapFields[x][y].getFieldType().equals(FieldTypes.BELEPO)) {
-                            utvonalTemp = "";
-                            utvonalTemp.concat(x+":"+y+",");
-                        }
-                    }
-                }
-                setFieldEnabled(FieldTypes.BELEPO, false);
+                setFieldsEnabled(FieldTypes.BELEPO, false);
                 selectedButton.setText(this.fieldType.name());
             } else if (fieldType.equals(FieldTypes.UT)) {
-                setFieldEnabled(FieldTypes.URESMEZO, false);
-                setFieldEnabled(FieldTypes.BELEPO, false);
-                setFieldEnabled(FieldTypes.VEGZETHEGYE, false);
-                setFieldEnabled(FieldTypes.UT, false);
+                setFieldsEnabled(FieldTypes.URESMEZO, false);
+                setFieldsEnabled(FieldTypes.BELEPO, false);
+                setFieldsEnabled(FieldTypes.VEGZETHEGYE, false);
+                setFieldsEnabled(FieldTypes.UT, false);
                 newVegzetHegyeButton.setEnabled(false);
                 newUtvonalButton.setEnabled(false);
-                selectedButton.setFieldType(this.fieldType);
-                selectedButton.setText(this.fieldType.name());
-                for (int x = 0; x < xSize; x++) {
-                    for (int y = 0; y < xSize; y++) {
-                        if (mapFields[x][y].equals(this.selectedButton)) {
-                            System.out.println("x: " + x + " y: " + y);
-                            if (x > 0 && x < xSize - 1 && y > 0 && y < ySize - 1) {
-                                if (mapFields[x - 1][y].getFieldType().equals(FieldTypes.URESMEZO)) {
-                                    mapFields[x - 1][y].setEnabled(true);
-                                }
-                                if (checkIfMapIsValid(x + 1, y)) {
-                                    return;
-                                }
-                                if (mapFields[x + 1][y].getFieldType().equals(FieldTypes.URESMEZO)) {
-                                    mapFields[x + 1][y].setEnabled(true);
-                                }
-                                if (checkIfMapIsValid(x + 1, y)) {
-                                    return;
-                                }
-                                if (mapFields[x][y + 1].getFieldType().equals(FieldTypes.URESMEZO)) {
-                                    mapFields[x][y + 1].setEnabled(true);
-                                }
-                                if (checkIfMapIsValid(x, y + 1)) {
-                                    return;
-                                }
-                                if (mapFields[x][y - 1].getFieldType().equals(FieldTypes.URESMEZO)) {
-                                    mapFields[x][y - 1].setEnabled(true);
-                                }
-                                if (checkIfMapIsValid(x, y - 1)) {
-                                    return;
-                                }
-                            } else if (x == 0 && y > 0 && y < ySize - 1) {
-                                if (mapFields[x][y + 1].getFieldType().equals(FieldTypes.URESMEZO)) {
-                                    mapFields[x][y + 1].setEnabled(true);
-                                }
-                                if (checkIfMapIsValid(x, y + 1)) {
-                                    return;
-                                }
-                                if (mapFields[x + 1][y].getFieldType().equals(FieldTypes.URESMEZO)) {
-                                    mapFields[x + 1][y].setEnabled(true);
-                                }
-                                if (checkIfMapIsValid(x + 1, y)) {
-                                    return;
-                                }
-                                if (mapFields[x][y - 1].getFieldType().equals(FieldTypes.URESMEZO)) {
-                                    mapFields[x][y - 1].setEnabled(true);
-                                }
-                                if (checkIfMapIsValid(x, y - 1)) {
-                                    return;
-                                }
-                            } else if (x == 0 && y == 0) {
-                                if (mapFields[x][y + 1].getFieldType().equals(FieldTypes.URESMEZO)) {
-                                    mapFields[x][y + 1].setEnabled(true);
-                                }
-                                if (checkIfMapIsValid(x, y + 1)) {
-                                    return;
-                                }
-                                if (mapFields[x + 1][y].getFieldType().equals(FieldTypes.URESMEZO)) {
-                                    mapFields[x + 1][y].setEnabled(true);
-                                }
-                                if (checkIfMapIsValid(x + 1, y)) {
-                                    return;
-                                }
-                            } else if (x == 0 && y == ySize - 1) {
-                                if (mapFields[x][y - 1].getFieldType().equals(FieldTypes.URESMEZO)) {
-                                    mapFields[x][y - 1].setEnabled(true);
-                                }
-                                if (checkIfMapIsValid(x, y - 1)) {
-                                    return;
-                                }
-                                if (mapFields[x + 1][y].getFieldType().equals(FieldTypes.URESMEZO)) {
-                                    mapFields[x + 1][y].setEnabled(true);
-                                }
-                                if (checkIfMapIsValid(x + 1, y)) {
-                                    return;
-                                }
-                            } else if (x == xSize - 1 && y == 0) {
-                                if (mapFields[x][y + 1].getFieldType().equals(FieldTypes.URESMEZO)) {
-                                    mapFields[x][y + 1].setEnabled(true);
-                                }
-                                if (checkIfMapIsValid(x, y + 1)) {
-                                    return;
-                                }
-                                if (mapFields[x - 1][y].getFieldType().equals(FieldTypes.URESMEZO)) {
-                                    mapFields[x - 1][y].setEnabled(true);
-                                }
-                                if (checkIfMapIsValid(x - 1, y)) {
-                                    return;
-                                }
-                            } else if (x == xSize - 1 && y == ySize - 1) {
-                                if (mapFields[x][y - 1].getFieldType().equals(FieldTypes.URESMEZO)) {
-                                    mapFields[x][y - 1].setEnabled(true);
-                                }
-                                if (checkIfMapIsValid(x, y - 1)) {
-                                    return;
-                                }
-                                if (mapFields[x - 1][y].getFieldType().equals(FieldTypes.URESMEZO)) {
-                                    mapFields[x - 1][y].setEnabled(true);
-                                }
-                                if (checkIfMapIsValid(x - 1, y)) {
-                                    return;
-                                }
-                            } else if (x == xSize - 1 && y > 0 && y < ySize - 1) {
-                                if (mapFields[x][y - 1].getFieldType().equals(FieldTypes.URESMEZO)) {
-                                    mapFields[x][y - 1].setEnabled(true);
-                                }
-                                if (checkIfMapIsValid(x, y - 1)) {
-                                    return;
-                                }
-                                if (mapFields[x - 1][y].getFieldType().equals(FieldTypes.URESMEZO)) {
-                                    mapFields[x - 1][y].setEnabled(true);
-                                }
-                                if (checkIfMapIsValid(x - 1, y)) {
-                                    return;
-                                }
-                                if (mapFields[x][y + 1].getFieldType().equals(FieldTypes.URESMEZO)) {
-                                    mapFields[x][y + 1].setEnabled(true);
-                                }
-                                if (checkIfMapIsValid(x, y + 1)) {
-                                    return;
-                                }
-                            } else if (x > 0 && x < xSize - 1 && y == ySize - 1) {
-                                if (mapFields[x][y - 1].getFieldType().equals(FieldTypes.URESMEZO)) {
-                                    mapFields[x][y - 1].setEnabled(true);
-                                }
-                                if (checkIfMapIsValid(x, y - 1)) {
-                                    return;
-                                }
-                                if (mapFields[x + 1][y].getFieldType().equals(FieldTypes.URESMEZO)) {
-                                    mapFields[x + 1][y].setEnabled(true);
-                                }
-                                if (checkIfMapIsValid(x + 1, y)) {
-                                    return;
-                                }
-                                if (mapFields[x - 1][y].getFieldType().equals(FieldTypes.URESMEZO)) {
-                                    mapFields[x - 1][y].setEnabled(true);
-                                }
-                                if (checkIfMapIsValid(x - 1, y)) {
-                                    return;
-                                }
-                            } else if (x > 0 && x < xSize - 1 && y == 0) {
-                                if (mapFields[x][y + 1].getFieldType().equals(FieldTypes.URESMEZO)) {
-                                    mapFields[x][y + 1].setEnabled(true);
-                                }
-                                if (checkIfMapIsValid(x, y + 1)) {
-                                    return;
-                                }
-                                if (mapFields[x + 1][y].getFieldType().equals(FieldTypes.URESMEZO)) {
-                                    mapFields[x + 1][y].setEnabled(true);
-                                }
-                                if (checkIfMapIsValid(x + 1, y)) {
-                                    return;
-                                }
-                                if (mapFields[x - 1][y].getFieldType().equals(FieldTypes.URESMEZO)) {
-                                    mapFields[x - 1][y].setEnabled(true);
-                                }
-                                if (checkIfMapIsValid(x - 1, y)) {
-                                    return;
-                                }
-                            }
+                this.selectedButton.setFieldType(this.fieldType);
+                this.selectedButton.setText(this.fieldType.name());
+                showClickAbleNeighbours(this.selectedButton);
+                setFieldsEnabled(FieldTypes.UT, false);
+            }
+        }
+    }
+
+    private void showClickAbleNeighbours(JButton selectedButton) {
+        for (int x = 0; x < xSize; x++) {
+            for (int y = 0; y < ySize; y++) {
+                if (mapFields[x][y].equals(selectedButton)) {
+                    System.out.println("x: " + x + " y: " + y);
+                    if (x > 0 && x < xSize - 1 && y > 0 && y < ySize - 1) {
+                        if (mapFields[x - 1][y].getFieldType().equals(FieldTypes.URESMEZO)) {
+                            mapFields[x - 1][y].setEnabled(true);
+                        }
+                        if (checkIfMapIsValid(x + 1, y)) {
+                            return;
+                        }
+                        if (mapFields[x + 1][y].getFieldType().equals(FieldTypes.URESMEZO)) {
+                            mapFields[x + 1][y].setEnabled(true);
+                        }
+                        if (checkIfMapIsValid(x + 1, y)) {
+                            return;
+                        }
+                        if (mapFields[x][y + 1].getFieldType().equals(FieldTypes.URESMEZO)) {
+                            mapFields[x][y + 1].setEnabled(true);
+                        }
+                        if (checkIfMapIsValid(x, y + 1)) {
+                            return;
+                        }
+                        if (mapFields[x][y - 1].getFieldType().equals(FieldTypes.URESMEZO)) {
+                            mapFields[x][y - 1].setEnabled(true);
+                        }
+                        if (checkIfMapIsValid(x, y - 1)) {
+                            return;
+                        }
+                    } else if (x == 0 && y > 0 && y < ySize - 1) {
+                        if (mapFields[x][y + 1].getFieldType().equals(FieldTypes.URESMEZO)) {
+                            mapFields[x][y + 1].setEnabled(true);
+                        }
+                        if (checkIfMapIsValid(x, y + 1)) {
+                            return;
+                        }
+                        if (mapFields[x + 1][y].getFieldType().equals(FieldTypes.URESMEZO)) {
+                            mapFields[x + 1][y].setEnabled(true);
+                        }
+                        if (checkIfMapIsValid(x + 1, y)) {
+                            return;
+                        }
+                        if (mapFields[x][y - 1].getFieldType().equals(FieldTypes.URESMEZO)) {
+                            mapFields[x][y - 1].setEnabled(true);
+                        }
+                        if (checkIfMapIsValid(x, y - 1)) {
+                            return;
+                        }
+                    } else if (x == 0 && y == 0) {
+                        if (mapFields[x][y + 1].getFieldType().equals(FieldTypes.URESMEZO)) {
+                            mapFields[x][y + 1].setEnabled(true);
+                        }
+                        if (checkIfMapIsValid(x, y + 1)) {
+                            return;
+                        }
+                        if (mapFields[x + 1][y].getFieldType().equals(FieldTypes.URESMEZO)) {
+                            mapFields[x + 1][y].setEnabled(true);
+                        }
+                        if (checkIfMapIsValid(x + 1, y)) {
+                            return;
+                        }
+                    } else if (x == 0 && y == ySize - 1) {
+                        if (mapFields[x][y - 1].getFieldType().equals(FieldTypes.URESMEZO)) {
+                            mapFields[x][y - 1].setEnabled(true);
+                        }
+                        if (checkIfMapIsValid(x, y - 1)) {
+                            return;
+                        }
+                        if (mapFields[x + 1][y].getFieldType().equals(FieldTypes.URESMEZO)) {
+                            mapFields[x + 1][y].setEnabled(true);
+                        }
+                        if (checkIfMapIsValid(x + 1, y)) {
+                            return;
+                        }
+                    } else if (x == xSize - 1 && y == 0) {
+                        if (mapFields[x][y + 1].getFieldType().equals(FieldTypes.URESMEZO)) {
+                            mapFields[x][y + 1].setEnabled(true);
+                        }
+                        if (checkIfMapIsValid(x, y + 1)) {
+                            return;
+                        }
+                        if (mapFields[x - 1][y].getFieldType().equals(FieldTypes.URESMEZO)) {
+                            mapFields[x - 1][y].setEnabled(true);
+                        }
+                        if (checkIfMapIsValid(x - 1, y)) {
+                            return;
+                        }
+                    } else if (x == xSize - 1 && y == ySize - 1) {
+                        if (mapFields[x][y - 1].getFieldType().equals(FieldTypes.URESMEZO)) {
+                            mapFields[x][y - 1].setEnabled(true);
+                        }
+                        if (checkIfMapIsValid(x, y - 1)) {
+                            return;
+                        }
+                        if (mapFields[x - 1][y].getFieldType().equals(FieldTypes.URESMEZO)) {
+                            mapFields[x - 1][y].setEnabled(true);
+                        }
+                        if (checkIfMapIsValid(x - 1, y)) {
+                            return;
+                        }
+                    } else if (x == xSize - 1 && y > 0 && y < ySize - 1) {
+                        if (mapFields[x][y - 1].getFieldType().equals(FieldTypes.URESMEZO)) {
+                            mapFields[x][y - 1].setEnabled(true);
+                        }
+                        if (checkIfMapIsValid(x, y - 1)) {
+                            return;
+                        }
+                        if (mapFields[x - 1][y].getFieldType().equals(FieldTypes.URESMEZO)) {
+                            mapFields[x - 1][y].setEnabled(true);
+                        }
+                        if (checkIfMapIsValid(x - 1, y)) {
+                            return;
+                        }
+                        if (mapFields[x][y + 1].getFieldType().equals(FieldTypes.URESMEZO)) {
+                            mapFields[x][y + 1].setEnabled(true);
+                        }
+                        if (checkIfMapIsValid(x, y + 1)) {
+                            return;
+                        }
+                    } else if (x > 0 && x < xSize - 1 && y == ySize - 1) {
+                        if (mapFields[x][y - 1].getFieldType().equals(FieldTypes.URESMEZO)) {
+                            mapFields[x][y - 1].setEnabled(true);
+                        }
+                        if (checkIfMapIsValid(x, y - 1)) {
+                            return;
+                        }
+                        if (mapFields[x + 1][y].getFieldType().equals(FieldTypes.URESMEZO)) {
+                            mapFields[x + 1][y].setEnabled(true);
+                        }
+                        if (checkIfMapIsValid(x + 1, y)) {
+                            return;
+                        }
+                        if (mapFields[x - 1][y].getFieldType().equals(FieldTypes.URESMEZO)) {
+                            mapFields[x - 1][y].setEnabled(true);
+                        }
+                        if (checkIfMapIsValid(x - 1, y)) {
+                            return;
+                        }
+                    } else if (x > 0 && x < xSize - 1 && y == 0) {
+                        if (mapFields[x][y + 1].getFieldType().equals(FieldTypes.URESMEZO)) {
+                            mapFields[x][y + 1].setEnabled(true);
+                        }
+                        if (checkIfMapIsValid(x, y + 1)) {
+                            return;
+                        }
+                        if (mapFields[x + 1][y].getFieldType().equals(FieldTypes.URESMEZO)) {
+                            mapFields[x + 1][y].setEnabled(true);
+                        }
+                        if (checkIfMapIsValid(x + 1, y)) {
+                            return;
+                        }
+                        if (mapFields[x - 1][y].getFieldType().equals(FieldTypes.URESMEZO)) {
+                            mapFields[x - 1][y].setEnabled(true);
+                        }
+                        if (checkIfMapIsValid(x - 1, y)) {
+                            return;
                         }
                     }
                 }
-                setFieldEnabled(FieldTypes.UT, false);
             }
         }
     }
 
     protected boolean checkIfMapIsValid(int x, int y) {
-        if (mapFields[x][y].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {            
+        if (mapFields[x][y].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
             setAllFieldEnabled(false);
             newUtvonalButton.setEnabled(true);
             okButton.setEnabled(false);
             cancelButton.setEnabled(false);
             exportButton.setEnabled(true);
+            pinAllRoad();
             return true;
         }
         return false;
+    }
+
+    protected void pinAllRoad() {
+        for (int x = 0; x < xSize; x++) {
+            for (int y = 0; y < ySize; y++) {
+                if (mapFields[x][y].getFieldType().equals(FieldTypes.UT) || mapFields[x][y].getFieldType().equals(FieldTypes.BELEPO)) {
+                    mapFields[x][y].setFieldType(FieldTypes.KESZUT);
+                }
+            }
+        }
+    }
+
+    private void generateUtvonalak() {
+        int belepoCount=0;
+        for (int x = 0; x < mapFields.length; x++) {
+            for (int y = 0; y < mapFields[x].length; y++) {
+                if (mapFields[x][y].getFieldType().equals(FieldTypes.BELEPO)) {
+                    belepoCount++;
+                }
+            }
+        }
+        
+        
+        
+        
+        
     }
 }

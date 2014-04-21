@@ -14,6 +14,6 @@ public enum FieldTypes {
     VEGZETHEGYE,
     URESMEZO,
     UT,
-    KERESZT,
+    KESZUT,
     BELEPO
 }

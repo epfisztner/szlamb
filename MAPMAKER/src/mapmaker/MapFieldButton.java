@@ -7,9 +7,6 @@
 package mapmaker;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 /**
@@ -21,14 +18,24 @@ public class MapFieldButton extends JButton{
 
     public MapFieldButton(FieldTypes fieldType) {
         super(fieldType.name());
-        this.fieldType = fieldType;
+        this.setFieldType(fieldType);
+    }
+
+    @Override
+    public void setEnabled(boolean b) {
+        super.setEnabled(b);
+        if (b && this.fieldType.equals(FieldTypes.URESMEZO)) {
+            this.setBackground(Color.CYAN);
+        } else if(!b && this.fieldType.equals(FieldTypes.URESMEZO)){
+            this.setBackground(Color.lightGray);
+        }
     }
 
     public FieldTypes getFieldType() {
         return fieldType;
     }
 
-    public void setFieldType(FieldTypes fieldType) {
+    public final void setFieldType(FieldTypes fieldType) {
         this.fieldType = fieldType;
         super.setText(this.fieldType.name());
         if (this.fieldType.equals(FieldTypes.BELEPO)) {
@@ -37,7 +44,10 @@ public class MapFieldButton extends JButton{
             this.setBackground(Color.yellow);
         } else if (this.fieldType.equals(FieldTypes.VEGZETHEGYE)) {
             this.setBackground(Color.red);
+        } else if (this.fieldType.equals(FieldTypes.URESMEZO)) {
+            this.setBackground(Color.lightGray);
+        } else if (this.fieldType.equals(FieldTypes.KESZUT)) {
+            this.setBackground(Color.WHITE);
         }
-        
     }
 }
