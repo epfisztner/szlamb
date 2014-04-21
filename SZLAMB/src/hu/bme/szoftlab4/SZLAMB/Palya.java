@@ -44,7 +44,19 @@ public class Palya {
 	 * {@link GyuruSzovetsege} prototipusok
 	 */
 	protected List<GyuruSzovetsege> prototipusokGyuru;
-
+	
+	/**
+	 * szerkesztve
+	 * a pálya útvonalainak listályát tárolja lista a listában jelleggel.
+	 */
+	protected Mezo[][] utvonalak;
+	
+	/**
+	 * szerkesztve
+	 * a játékban még életben lévő karakterek listája
+	 */
+	protected GyuruSzovetsege[] karakterek;
+	
 	private static String className;
 	
 	public Palya() {

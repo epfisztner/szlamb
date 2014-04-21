@@ -44,6 +44,13 @@ public abstract class AbstractMezo implements Mezo {
 		System.out.println("\t\t\t\t<--");
 	}
 
+	
+	/**
+	 * szerkesztve
+	 * üres metódus nem csinál semmit
+	 */
+	public void setKod(boolean vanKod){}
+	
 	@Override
 	public boolean isBeepitett() {
 		System.out.println("\t-->"+this.getClass().getName()+".isBeepitett()");

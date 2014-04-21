@@ -31,6 +31,20 @@ public class Torony extends AbstractEpitmeny {
 	 */
 	protected int tuzelesSzorzo;
 
+	/**
+	 * szerkesztve
+	 * csak az adott épületre rakható kövek listáját adja vissza
+	 */
+	@Override
+	public List<VarazsKo> getValidKovek(){
+		return varazsKovek;}
+	
+	/**
+	 * szerkesztve
+	 * üres metódus nem csinál semmit
+	 */
+	public void setKod(boolean vanKod){}
+	
 	@Override
 	public void felruhaz(VarazsKo varazsKo) {
 		System.out.println("\t\t-->"+this.getClass().getName()+"felruhaz("+varazsKo.name()+");");
