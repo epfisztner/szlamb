@@ -1,5 +1,7 @@
 package hu.bme.szoftlab4.SZLAMB.Epitmeny;
 
+import java.util.List;
+
 import hu.bme.szoftlab4.SZLAMB.VarazsKo;
 import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.GyuruSzovetsege;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
@@ -13,6 +15,21 @@ import hu.bme.szoftlab4.SZLAMB.Mezo.Ut;
  */
 public class Akadaly extends AbstractEpitmeny {
 
+	/**
+	 * szerkesztve
+	 * csak az adott épületre rakható kövek listáját adja vissza
+	 */
+	@Override
+	public List<VarazsKo> getValidKovek(){
+		return varazsKovek;}
+	
+	/**
+	 * szerkesztve
+	 * üres metódus nem csinál semmit
+	 */
+	public void setKod(boolean vanKod){}
+	
+	
 	@Override
 	public void felruhaz(VarazsKo varazsKo) {
 		System.out.println("\t\t-->"+this.getClass().getName()+".felruhaz("+varazsKo.name()+")");

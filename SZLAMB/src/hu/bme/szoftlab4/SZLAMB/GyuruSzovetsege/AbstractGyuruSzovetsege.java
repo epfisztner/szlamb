@@ -34,7 +34,17 @@ public abstract class AbstractGyuruSzovetsege implements GyuruSzovetsege {
 	 * Az karakter által megteendő útvonal
 	 */
 	protected List<Mezo> utvonal;
+	
+	/**szerkesztve
+	 * X-beli koordinata
+	 */
+	protected int positionX;
 
+	/**szerkesztve
+	 * Y-beli koordinata
+	 */
+	protected int positionY;
+	
 	public AbstractGyuruSzovetsege(List<Mezo> utvonal){
 		System.out.println("\t\t\t\t-->"+this.getClass().getName()+".constructor("+utvonal.toString()+")");
 			this.setUtvonal(utvonal);
