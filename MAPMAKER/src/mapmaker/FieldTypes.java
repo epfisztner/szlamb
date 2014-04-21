@@ -15,5 +15,6 @@ public enum FieldTypes {
     URESMEZO,
     UT,
     KESZUT,
+    KESZBELEPO,
     BELEPO
 }

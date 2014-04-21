@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.Action;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,7 +26,7 @@ public class Window extends JFrame {
     protected JLabel label;
     protected Integer[] items;
     protected JComboBox<Integer> mapSizeXInput;
-    protected JComboBox<Integer> mapSizeYInput;
+    //protected JComboBox<Integer> mapSizeYInput;
     protected JPanel inputPanel;
     protected JPanel mapPanel;
     protected JButton setButton;
@@ -33,11 +34,12 @@ public class Window extends JFrame {
     protected JButton newVegzetHegyeButton;
     protected JButton newUtvonalButton;
     protected JButton okButton;
-    protected JButton cancelButton;
+    protected JCheckBox newStartPoint;
+    //protected JButton cancelButton;
     protected MapFieldButton[][] mapFields;
     protected JPanel mainPanel;
     protected int xSize;
-    protected int ySize;
+    //protected int xSize;
 
     public Window() throws HeadlessException {
         super("Map maker");
@@ -56,7 +58,7 @@ public class Window extends JFrame {
             items[i] = i + 4;
         }
         xSize = 10;
-        ySize = 10;
+        xSize = 10;
         mainPanel = new JPanel(new BorderLayout(10, 10));
         mainPanel.add(new JPanel(), BorderLayout.EAST);
         mainPanel.add(new JPanel(), BorderLayout.WEST);
@@ -66,29 +68,32 @@ public class Window extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 xSize = (int) mapSizeXInput.getSelectedItem();
-                ySize = (int) mapSizeYInput.getSelectedItem();
-                System.out.println("x: " + xSize + "y: " + ySize);
+                //xSize = (int) mapSizeYInput.getSelectedItem();
+                System.out.println("x: " + xSize + "y: " + xSize);
                 setMap();
             }
         });
         label = new JLabel("Add meg a pálya méretét (X,Y): ");
         mapSizeXInput = new JComboBox<Integer>(items);
         mapSizeXInput.setSize(40, 1);
-        mapSizeXInput.addKeyListener(null);
-        mapSizeYInput = new JComboBox<Integer>(items);
-        mapSizeYInput.setSize(40, 1);
+        //mapSizeXInput.addKeyListener(null);
+        //mapSizeYInput = new JComboBox<Integer>(items);
+        //mapSizeYInput.setSize(40, 1);
         newUtvonalButton = new JButton("Új útvonal");
         newUtvonalButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 setAllFieldActionListener(FieldTypes.BELEPO);
-                setFieldsEnabled(FieldTypes.URESMEZO, true);
-                setFieldsEnabled(FieldTypes.BELEPO, true);
-                setFieldsEnabled(FieldTypes.KESZUT, true);
-                setFieldsEnabled(FieldTypes.VEGZETHEGYE, false);
-                setFieldsEnabled(FieldTypes.UT, false);
+                if (newStartPoint.isSelected()) {
+                    setAllFieldEnabled(false);
+                    setFieldsEnabled(FieldTypes.URESMEZO, true);
+                } else {
+                    setAllFieldEnabled(false);
+                    setFieldsEnabled(FieldTypes.UT, true);
+                }
                 newUtvonalButton.setEnabled(false);
+                newStartPoint.setEnabled(false);
                 okButton.addActionListener(new ActionListener() {
 
                     @Override
@@ -117,18 +122,21 @@ public class Window extends JFrame {
             }
         });
         okButton = new JButton("Oké");
-        okButton.setEnabled(false);
-        cancelButton = new JButton("Mégse");
+        okButton.setEnabled(false);        
+        newStartPoint = new JCheckBox("Új belépő pont");
+        newStartPoint.setEnabled(false);
+        newStartPoint.setSelected(true);
         newVegzetHegyeButton.setEnabled(false);
-        inputPanel = new JPanel(new GridLayout(2, 4, 5, 5));
+        inputPanel = new JPanel(new GridLayout(3, 3, 5, 5));
         inputPanel.add(label);
         inputPanel.add(mapSizeXInput);
-        inputPanel.add(mapSizeYInput);
         inputPanel.add(setButton);
         inputPanel.add(newVegzetHegyeButton);
+        inputPanel.add(new JPanel());
+        inputPanel.add(new JPanel());
         inputPanel.add(newUtvonalButton);
+        inputPanel.add(newStartPoint);
         inputPanel.add(okButton);
-        inputPanel.add(cancelButton);
         mainPanel.add(inputPanel, BorderLayout.NORTH);
         mapPanel = new JPanel(new GridLayout(4, 4));
         mainPanel.add(mapPanel, BorderLayout.CENTER);
@@ -158,7 +166,7 @@ public class Window extends JFrame {
 
     protected void setFieldsEnabled(FieldTypes fieldTypes, boolean enabled) {
         for (int x = 0; x < xSize; x++) {
-            for (int y = 0; y < ySize; y++) {
+            for (int y = 0; y < xSize; y++) {
                 if (mapFields[x][y].getFieldType().equals(fieldTypes)) {
                     mapFields[x][y].setEnabled(enabled);
                 }
@@ -168,7 +176,7 @@ public class Window extends JFrame {
 
     protected void setAllFieldEnabled(boolean enabled) {
         for (int x = 0; x < xSize; x++) {
-            for (int y = 0; y < ySize; y++) {
+            for (int y = 0; y < xSize; y++) {
                 mapFields[x][y].setEnabled(enabled);
             }
         }
@@ -176,7 +184,7 @@ public class Window extends JFrame {
 
     protected void setAllFieldActionListener(FieldTypes fieldTypes) {
         for (int x = 0; x < xSize; x++) {
-            for (int y = 0; y < ySize; y++) {
+            for (int y = 0; y < xSize; y++) {
                 if (mapFields[x][y].getActionListeners().length != 0) {
                     mapFields[x][y].removeActionListener(mapFields[x][y].getActionListeners()[0]);
                 }
@@ -187,10 +195,10 @@ public class Window extends JFrame {
 
     protected void setMap() {
         mapPanel.removeAll();
-        mapPanel.setLayout(new GridLayout(ySize, xSize));
-        mapFields = new MapFieldButton[xSize][ySize];
+        mapPanel.setLayout(new GridLayout(xSize, xSize));
+        mapFields = new MapFieldButton[xSize][xSize];
         for (int x = 0; x < xSize; x++) {
-            for (int y = 0; y < ySize; y++) {
+            for (int y = 0; y < xSize; y++) {
                 MapFieldButton button = new MapFieldButton(FieldTypes.URESMEZO);
                 button.setEnabled(false);
                 mapFields[x][y] = button;
@@ -224,7 +232,7 @@ public class Window extends JFrame {
                 newVegzetHegyeButton.setEnabled(false);
                 newUtvonalButton.setEnabled(true);
                 for (int x = 0; x < xSize; x++) {
-                    for (int y = 0; y < ySize; y++) {
+                    for (int y = 0; y < xSize; y++) {
                         if (mapFields[x][y].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
                             mapFields[x][y].setFieldType(FieldTypes.URESMEZO);
                             mapFields[x][y].setEnabled(true);
@@ -243,7 +251,7 @@ public class Window extends JFrame {
                 newVegzetHegyeButton.setEnabled(false);
                 newUtvonalButton.setEnabled(false);
                 for (int x = 0; x < xSize; x++) {
-                    for (int y = 0; y < ySize; y++) {
+                    for (int y = 0; y < xSize; y++) {
                         if (mapFields[x][y].getFieldType().equals(FieldTypes.BELEPO)) {
                             mapFields[x][y].setFieldType(FieldTypes.URESMEZO);
                             mapFields[x][y].setEnabled(true);
@@ -271,10 +279,10 @@ public class Window extends JFrame {
 
     private void showClickAbleNeighbours(JButton selectedButton) {
         for (int x = 0; x < xSize; x++) {
-            for (int y = 0; y < ySize; y++) {
+            for (int y = 0; y < xSize; y++) {
                 if (mapFields[x][y].equals(selectedButton)) {
                     System.out.println("x: " + x + " y: " + y);
-                    if (x > 0 && x < xSize - 1 && y > 0 && y < ySize - 1) {
+                    if (x > 0 && x < xSize - 1 && y > 0 && y < xSize - 1) {
                         if (mapFields[x - 1][y].getFieldType().equals(FieldTypes.URESMEZO)) {
                             mapFields[x - 1][y].setEnabled(true);
                         }
@@ -299,7 +307,7 @@ public class Window extends JFrame {
                         if (checkIfMapIsValid(x, y - 1)) {
                             return;
                         }
-                    } else if (x == 0 && y > 0 && y < ySize - 1) {
+                    } else if (x == 0 && y > 0 && y < xSize - 1) {
                         if (mapFields[x][y + 1].getFieldType().equals(FieldTypes.URESMEZO)) {
                             mapFields[x][y + 1].setEnabled(true);
                         }
@@ -331,7 +339,7 @@ public class Window extends JFrame {
                         if (checkIfMapIsValid(x + 1, y)) {
                             return;
                         }
-                    } else if (x == 0 && y == ySize - 1) {
+                    } else if (x == 0 && y == xSize - 1) {
                         if (mapFields[x][y - 1].getFieldType().equals(FieldTypes.URESMEZO)) {
                             mapFields[x][y - 1].setEnabled(true);
                         }
@@ -357,7 +365,7 @@ public class Window extends JFrame {
                         if (checkIfMapIsValid(x - 1, y)) {
                             return;
                         }
-                    } else if (x == xSize - 1 && y == ySize - 1) {
+                    } else if (x == xSize - 1 && y == xSize - 1) {
                         if (mapFields[x][y - 1].getFieldType().equals(FieldTypes.URESMEZO)) {
                             mapFields[x][y - 1].setEnabled(true);
                         }
@@ -370,7 +378,7 @@ public class Window extends JFrame {
                         if (checkIfMapIsValid(x - 1, y)) {
                             return;
                         }
-                    } else if (x == xSize - 1 && y > 0 && y < ySize - 1) {
+                    } else if (x == xSize - 1 && y > 0 && y < xSize - 1) {
                         if (mapFields[x][y - 1].getFieldType().equals(FieldTypes.URESMEZO)) {
                             mapFields[x][y - 1].setEnabled(true);
                         }
@@ -389,7 +397,7 @@ public class Window extends JFrame {
                         if (checkIfMapIsValid(x, y + 1)) {
                             return;
                         }
-                    } else if (x > 0 && x < xSize - 1 && y == ySize - 1) {
+                    } else if (x > 0 && x < xSize - 1 && y == xSize - 1) {
                         if (mapFields[x][y - 1].getFieldType().equals(FieldTypes.URESMEZO)) {
                             mapFields[x][y - 1].setEnabled(true);
                         }
@@ -432,13 +440,15 @@ public class Window extends JFrame {
             }
         }
     }
+    
+    
 
     protected boolean checkIfMapIsValid(int x, int y) {
         if (mapFields[x][y].getFieldType().equals(FieldTypes.VEGZETHEGYE)) {
             setAllFieldEnabled(false);
             newUtvonalButton.setEnabled(true);
+            newStartPoint.setEnabled(true);
             okButton.setEnabled(false);
-            cancelButton.setEnabled(false);
             exportButton.setEnabled(true);
             pinAllRoad();
             return true;
@@ -448,9 +458,11 @@ public class Window extends JFrame {
 
     protected void pinAllRoad() {
         for (int x = 0; x < xSize; x++) {
-            for (int y = 0; y < ySize; y++) {
+            for (int y = 0; y < xSize; y++) {
                 if (mapFields[x][y].getFieldType().equals(FieldTypes.UT)) {
                     mapFields[x][y].setFieldType(FieldTypes.KESZUT);
+                } else if (mapFields[x][y].getFieldType().equals(FieldTypes.BELEPO)) {
+                    mapFields[x][y].setFieldType(FieldTypes.KESZBELEPO);
                 }
             }
         }
@@ -458,16 +470,26 @@ public class Window extends JFrame {
 
     private void generateUtvonalak() {
         int belepoCount = 0;
-        utvonalak.add(new ArrayList<MapFieldButton>());
-        
-        for (int x = 0; x < mapFields.length; x++) {
+       
+         for (int x = 0; x < mapFields.length; x++) {
             for (int y = 0; y < mapFields[x].length; y++) {
-                if (mapFields[x][y].getFieldType().equals(FieldTypes.BELEPO)) {
-                    mapFields[x][y].setFieldType(FieldTypes.UT);
-                    utvonalak.get(0).add(mapFields[x][y]);
-                    findWay(0, x, y);
-                    System.out.println(utvonalak.get(0).size());
-                    return;
+                if (mapFields[x][y].getFieldType().equals(FieldTypes.KESZBELEPO)) {
+                    belepoCount++;
+                    utvonalak.add(new ArrayList<MapFieldButton>());
+                }
+            }
+         }
+         ciklus:
+        for (int index = 0; index <= belepoCount; index++) {
+            for (int x = 0; x < mapFields.length; x++) {
+                for (int y = 0; y < mapFields[x].length; y++) {
+                    if (mapFields[x][y].getFieldType().equals(FieldTypes.KESZBELEPO)) {
+                        utvonalak.get(index).add(mapFields[x][y]);
+                        findWay(index, x, y);
+                        mapFields[x][y].setFieldType(FieldTypes.UT);
+                        System.out.println(utvonalak.get(index).size());
+                        continue ciklus;
+                    }
                 }
             }
         }
@@ -482,8 +504,9 @@ public class Window extends JFrame {
                 }
             }
         }
+        System.out.println("utvonal index: "+utvonalIndex);
         ciklus:
-        while (actualXCoord < xSize && actualYCoord < ySize && actualXCoord >= 0 && actualYCoord >= 0) {
+        while (actualXCoord < xSize && actualYCoord < xSize && actualXCoord >= 0 && actualYCoord >= 0) {
             System.out.println("export X: "+actualXCoord+"  export Y:"+actualYCoord);
             /*
              * *********
@@ -491,7 +514,7 @@ public class Window extends JFrame {
              * *EZT ITT*
              * *********
              */
-            if (actualXCoord > 0 && actualXCoord < xSize - 1 && actualYCoord > 0 && actualYCoord < ySize - 1) {
+            if (actualXCoord > 0 && actualXCoord < xSize - 1 && actualYCoord > 0 && actualYCoord < xSize - 1) {
                 if (mapFields[actualXCoord - 1][actualYCoord].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord - 1][actualYCoord])) {
                     utvonalak.get(utvonalIndex).add(mapFields[actualXCoord - 1][actualYCoord]);
                     actualXCoord--;
@@ -525,7 +548,7 @@ public class Window extends JFrame {
                     utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord - 1]);
                     return true;
                 }
-            } else if (actualXCoord == 0 && actualYCoord > 0 && actualYCoord < ySize - 1) {
+            } else if (actualXCoord == 0 && actualYCoord > 0 && actualYCoord < xSize - 1) {
                 if (mapFields[actualXCoord][actualYCoord + 1].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord][actualYCoord + 1])) {
                     utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord + 1]);
                     actualYCoord++;
@@ -567,7 +590,7 @@ public class Window extends JFrame {
                     utvonalak.get(utvonalIndex).add(mapFields[actualXCoord + 1][actualYCoord]);
                     return true;
                 }
-            } else if (actualXCoord == 0 && actualYCoord == ySize - 1) {
+            } else if (actualXCoord == 0 && actualYCoord == xSize - 1) {
                 if (mapFields[actualXCoord][actualYCoord - 1].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord][actualYCoord - 1])) {
                     utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord - 1]);
                     actualYCoord--;
@@ -601,7 +624,7 @@ public class Window extends JFrame {
                     utvonalak.get(utvonalIndex).add(mapFields[actualXCoord - 1][actualYCoord]);
                     return true;
                 }
-            } else if (actualXCoord == xSize - 1 && actualYCoord == ySize - 1) {
+            } else if (actualXCoord == xSize - 1 && actualYCoord == xSize - 1) {
                 if (mapFields[actualXCoord][actualYCoord - 1].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord][actualYCoord - 1])) {
                     utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord - 1]);
                     actualYCoord--;
@@ -618,7 +641,7 @@ public class Window extends JFrame {
                     utvonalak.get(utvonalIndex).add(mapFields[actualXCoord - 1][actualYCoord]);
                     return true;
                 }
-            } else if (actualXCoord == xSize - 1 && actualYCoord > 0 && actualYCoord < ySize - 1) {
+            } else if (actualXCoord == xSize - 1 && actualYCoord > 0 && actualYCoord < xSize - 1) {
                 if (mapFields[actualXCoord][actualYCoord - 1].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord][actualYCoord - 1])) {
                     utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord - 1]);
                     actualYCoord--;
@@ -643,7 +666,7 @@ public class Window extends JFrame {
                     utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord + 1]);
                     return true;
                 }
-            } else if (actualXCoord > 0 && actualXCoord < xSize - 1 && actualYCoord == ySize - 1) {
+            } else if (actualXCoord > 0 && actualXCoord < xSize - 1 && actualYCoord == xSize - 1) {
                 if (mapFields[actualXCoord][actualYCoord - 1].getFieldType().equals(FieldTypes.UT) && !utvonalak.get(utvonalIndex).contains(mapFields[actualXCoord][actualYCoord - 1])) {
                     utvonalak.get(utvonalIndex).add(mapFields[actualXCoord][actualYCoord - 1]);
                     actualYCoord--;
