@@ -11,6 +11,7 @@ import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
 import hu.bme.szoftlab4.SZLAMB.Mezo.UresMezo;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Ut;
 import hu.bme.szoftlab4.SZLAMB.Mezo.VegzetHegye;
+import hu.bme.szoftlab4.SZLAMB.XMLHelper.XMLHelper;
 
 import java.io.BufferedReader;
 import java.io.Console;
@@ -36,8 +37,9 @@ public class Main {
 	public static void main(String[] args) {
 
 		Main main = new Main();
-		main.start();
-
+		//main.start();
+		//XMLHelper.loadMap("c:\\map.xml");
+		XMLHelper.readCommandFile("c:\\command2.xml");
 	}
 	
 	private void start() {
@@ -116,7 +118,7 @@ public class Main {
 	private void test3() {
 		if(jatekMotor == null)
 			jatekMotor = new JatekMotor();
-		jatekMotor.szaruman.epitTorony(jatekMotor.szaruman.palya.mezok.get(1));
+		jatekMotor.szaruman.epitTorony(jatekMotor.szaruman.palya.mezok[0][0]);
 	}
 
 	/**
@@ -125,7 +127,7 @@ public class Main {
 	private void test4() {
 		if(jatekMotor == null)
 			jatekMotor = new JatekMotor();
-		jatekMotor.szaruman.epitAkadaly(jatekMotor.szaruman.palya.mezok.get(0));
+		jatekMotor.szaruman.epitAkadaly(jatekMotor.szaruman.palya.mezok[0][0]);
 	}
 
 	/**
@@ -139,13 +141,13 @@ public class Main {
 		if(epitmenyInput.equalsIgnoreCase("torony")) {
 			System.out.print("[?] Milyen varazsKovet akarsz rarakni (TUNDE, TORP,	HOBBIT,	EMBER, HATOTAV,	TUZELES): ");
 			String varKo = input();
-			Mezo uresMezo = jatekMotor.szaruman.palya.mezok.get(1);
+			Mezo uresMezo = jatekMotor.szaruman.palya.mezok[0][1];
 			uresMezo.epitmenyRegiszter(jatekMotor.szaruman.palya.getPrototipusokEpitmeny().get(0));
 			jatekMotor.szaruman.felruhaz(uresMezo, VarazsKo.valueOf(varKo));
 		} else if(epitmenyInput.equalsIgnoreCase("akadaly")) {
 			System.out.print("[?] Milyen varazsKovet akarsz rarakni (TUNDE, TORP,	HOBBIT,	EMBER): ");
 			String varKo = input();
-			Mezo ut = jatekMotor.szaruman.palya.mezok.get(0);
+			Mezo ut = jatekMotor.szaruman.palya.mezok[0][0];
 			try {
 				ut.epitmenyRegiszter((Akadaly)jatekMotor.szaruman.palya.prototipusokEpitmeny.get(1).clone());
 			} catch (CloneNotSupportedException e) {
@@ -164,7 +166,7 @@ public class Main {
 			jatekMotor = new JatekMotor();
 		GyuruSzovetsege karakter = null;
 		
-		Mezo ut = jatekMotor.szaruman.palya.mezok.get(0);
+		Mezo ut = jatekMotor.szaruman.palya.mezok[0][0];
 		try {
 			ut.epitmenyRegiszter((Akadaly)jatekMotor.szaruman.palya.prototipusokEpitmeny.get(1).clone());
 		} catch (CloneNotSupportedException e1) {
@@ -190,7 +192,7 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		jatekMotor.szaruman.palya.mezok.get(0).karakterRegiszter(karakter);
+		jatekMotor.szaruman.palya.mezok[0][0].karakterRegiszter(karakter);
 	}
 
 	/**
@@ -201,7 +203,7 @@ public class Main {
 			jatekMotor = new JatekMotor();
 		GyuruSzovetsege karakter = null;
 		
-		Mezo ut = jatekMotor.szaruman.palya.mezok.get(1);
+		Mezo ut = jatekMotor.szaruman.palya.mezok[0][1];
 		try {
 			ut.epitmenyRegiszter((Torony)jatekMotor.szaruman.palya.prototipusokEpitmeny.get(0).clone());
 		} catch (CloneNotSupportedException e1) {
@@ -256,7 +258,7 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		jatekMotor.szaruman.palya.mezok.get(2).karakterRegiszter(karakter);
+		jatekMotor.szaruman.palya.mezok[0][2].karakterRegiszter(karakter);
 	}
 
 	/**
@@ -283,7 +285,7 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Mezo uresMezo = jatekMotor.szaruman.palya.mezok.get(1);
+		Mezo uresMezo = jatekMotor.szaruman.palya.mezok[0][1];
 		if(!uresMezo.isBeepitett())
 			try {
 				uresMezo.epitmenyRegiszter((Torony)jatekMotor.szaruman.palya.getPrototipusokEpitmeny().get(0).clone());

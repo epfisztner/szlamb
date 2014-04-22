@@ -28,5 +28,10 @@ public class UresMezo extends AbstractMezo {
 		this.epitmeny.felruhaz(varazsKo);
 		System.out.println("\t<--void");
 	}
+	
+	@Override
+	public String toString() {
+		return "UresMezo";
+	}
 
 }

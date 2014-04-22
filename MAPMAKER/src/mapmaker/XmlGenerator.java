@@ -57,17 +57,18 @@ public class XmlGenerator {
 
             // mapSize element
             Element mapSize = doc.createElement("mapSize");
+            mapSize.appendChild(doc.createTextNode(Integer.toString(fields.length)));
             rootMapElement.appendChild(mapSize);
 
             //horizontal size
-            Element horizontalSize = doc.createElement("horizontalSize");
-            horizontalSize.appendChild(doc.createTextNode(Integer.toString(fields.length)));
-            mapSize.appendChild(horizontalSize);
+            //Element horizontalSize = doc.createElement("horizontalSize");
+           // horizontalSize.appendChild(doc.createTextNode(Integer.toString(fields.length)));
+            //mapSize.appendChild(horizontalSize);
 
             //vertical size
-            Element verticalSize = doc.createElement("verticalSize");
-            verticalSize.appendChild(doc.createTextNode(Integer.toString(fields[0].length)));
-            mapSize.appendChild(verticalSize);
+           // Element verticalSize = doc.createElement("verticalSize");
+           // verticalSize.appendChild(doc.createTextNode(Integer.toString(fields[0].length)));
+           // mapSize.appendChild(verticalSize);
 
             Element mapMezok = doc.createElement("mapMezok");
             rootMapElement.appendChild(mapMezok);
@@ -76,6 +77,7 @@ public class XmlGenerator {
                 mapMezok.appendChild(mezoSor);
                 for (int y = 0; y < fields[0].length; y++) {
                     Element mezo = doc.createElement(fields[x][y].getFieldType().name());
+                    mezo.appendChild(doc.createTextNode(" "));
                     mezoSor.appendChild(mezo);
                 }
             }
@@ -99,9 +101,9 @@ public class XmlGenerator {
                     if (firstCoord>=0 && nextCoord>=0) {
                         String utString = "";
                         if (secondIndex == utvonalak.get(firstIndex).size()-1) {
-                            utString = "vegzetHegye";
+                            utString = "VEGZETHEGYE";
                         } else {
-                            utString = "ut";
+                            utString = "UT";
                         }
                         Element ut = doc.createElement(utString);
                         utvonal.appendChild(ut);
@@ -115,33 +117,6 @@ public class XmlGenerator {
                 }
             }
 
-//		// set attribute to staff element
-//		Attr attr = doc.createAttribute("id");
-//		attr.setValue("1");
-//		mapSize.setAttributeNode(attr);
-// 
-//		// shorten way
-//		// staff.setAttribute("id", "1");
-// 
-//		// firstname elements
-//		Element firstname = doc.createElement("firstname");
-//		firstname.appendChild(doc.createTextNode("yong"));
-//		mapSize.appendChild(firstname);
-// 
-//		// lastname elements
-//		Element lastname = doc.createElement("lastname");
-//		lastname.appendChild(doc.createTextNode("mook kim"));
-//		mapSize.appendChild(lastname);
-// 
-//		// nickname elements
-//		Element nickname = doc.createElement("nickname");
-//		nickname.appendChild(doc.createTextNode("mkyong"));
-//		mapSize.appendChild(nickname);
-// 
-//		// salary elements
-//		Element salary = doc.createElement("salary");
-//		salary.appendChild(doc.createTextNode("100000"));
-//		mapSize.appendChild(salary);
             // write the content into xml file
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
@@ -160,100 +135,6 @@ public class XmlGenerator {
             tfe.printStackTrace();
         }
     }
-//    
-//    public static void searchInFile(int fileIndex) {
-//
-//        try {
-//            /*
-//             * http://www.mkyong.com/java/how-to-read-xml-file-in-java-sax-parser/-ról néztem
-//             */
-//            SAXParserFactory factory = SAXParserFactory.newInstance();
-//            factory.setValidating(false);
-//            factory.setFeature("http://xml.org/sax/features/validation", false);
-//            factory.setFeature("http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false);
-//            factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-//            factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
-//            factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
-//
-//            SAXParser saxParser = factory.newSAXParser();
-//            DefaultHandler topicHandler = new DefaultHandler() {
-//
-//                boolean docno = false;
-//                boolean title = false;
-//                boolean lead = false;
-//                boolean text = false;
-//
-//                public void startElement(String uri, String localName, String qName,
-//                        Attributes attributes) throws SAXException {
-//                    if (qName.equalsIgnoreCase("DOCNO")) {
-//                        docno = true;
-//                    }
-//                    if (qName.equalsIgnoreCase("TEXT")) {
-//                        text = true;
-//                    }
-//                    if (qName.equalsIgnoreCase("LEAD")) {
-//                        lead = true;
-//                    }
-//                    if (qName.equalsIgnoreCase("TITLE")) {
-//                        title = true;
-//                    }
-//
-//                }
-//
-//                public void endElement(String uri, String localName,
-//                        String qName) throws SAXException {
-//                    if (qName.equalsIgnoreCase("DOCNO")) {
-//                        docno = false;
-//                    }
-//                    if (qName.equalsIgnoreCase("TEXT")) {
-//                        text = false;
-//                    }
-//                    if (qName.equalsIgnoreCase("LEAD")) {
-//                        text = false;
-//                    }
-//                    if (qName.equalsIgnoreCase("TITLE")) {
-//                        title = false;
-//                    }
-//                }
-//
-//                public void characters(char ch[], int start, int length) throws SAXException {
-//                    if (docno) {
-//                        aktualisDocno = new String(ch, start, length);
-//                        //kulcsSzavakSzama.put(aktualisDocno, 0);
-//                    }
-//
-//                    String forrasSzoveg = new String(new String(ch, start, length));
-//
-//                    forrasSzoveg = forrasSzoveg.replaceAll("[.,!?:()-]", " ");
-//
-//                    forrasSzoveg = forrasSzoveg.replaceAll("[0-9]", "");
-//
-//                    forrasSzoveg = forrasSzoveg.replaceAll("[ ]{2}+", " ");
-//                    for (int index = 0; index < keresoSzavak.size(); index++) {
-//                        Pattern pattern = Pattern.compile(keresoSzavak.get(index));
-//                        Matcher matcher = pattern.matcher(forrasSzoveg);
-//                        while (matcher.find()) {
-//                            aktualisKeresoSzo = keresoSzavak.get(index);
-//                            HashMap<String, Integer> tar = kulcsSzavakSzama.get(aktualisKeresoSzo);
-//                            Integer szamlalo = 0;
-//                            if (tar != null) {
-//                                if(tar.get(aktualisDocno) != null) {
-//                                    szamlalo = tar.get(aktualisDocno);
-//                                }
-//                            } else {
-//                                tar = new HashMap<String, Integer>();
-//                            }
-//                            szamlalo++;
-//                            tar.put(aktualisDocno, szamlalo);
-//                            kulcsSzavakSzama.put(aktualisKeresoSzo, tar);
-//                        }
-//                    }
-//                }
-//            };
-//            saxParser.parse(fajlok.get(fileIndex).getAbsolutePath(), topicHandler);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
 
+    
 }

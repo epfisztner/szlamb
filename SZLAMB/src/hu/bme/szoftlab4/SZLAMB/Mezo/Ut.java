@@ -31,4 +31,8 @@ public class Ut extends AbstractMezo {
 		
 	}
 
+	@Override
+	public String toString() {
+		return "Ut";
+	}
 }

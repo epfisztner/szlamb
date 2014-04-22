@@ -34,4 +34,8 @@ public class VegzetHegye extends AbstractMezo {
 		System.out.println("\t<--void");
 	}
 
+	@Override
+	public String toString() {
+		return "VegzetHegye";
+	}
 }

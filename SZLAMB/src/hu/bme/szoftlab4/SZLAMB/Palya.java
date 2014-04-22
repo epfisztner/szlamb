@@ -28,7 +28,7 @@ public class Palya {
 	/**
 	 * Játék mezői (maga a pálya)
 	 */
-	protected List<Mezo> mezok;
+	protected Mezo[][] mezok;
 	
 	/**
 	 * Még hátra levő ellenségek száma.
@@ -49,20 +49,20 @@ public class Palya {
 	 * szerkesztve
 	 * a pálya útvonalainak listályát tárolja lista a listában jelleggel.
 	 */
-	protected Mezo[][] utvonalak;
+	protected List<List<Mezo>> utvonalak;
 	
 	/**
 	 * szerkesztve
 	 * a játékban még életben lévő karakterek listája
 	 */
-	protected GyuruSzovetsege[] karakterek;
+	protected List<GyuruSzovetsege> karakterek;
 	
 	private static String className;
 	
 	public Palya() {
 		System.out.println("\t\t-->"+this.getClass().getName()+".constructor()");
 		className = this.getClass().getName();
-		this.mezok = new ArrayList<Mezo>();
+		this.mezok = new Mezo[5][5];
 		ellensegeSzama = 0;
 		this.prototipusokEpitmeny = new ArrayList<Epitmeny>();
 		this.prototipusokGyuru = new ArrayList<GyuruSzovetsege>();
@@ -122,9 +122,9 @@ public class Palya {
 	 */
 	public void palyaEpites(File file) {
 		System.out.println("\t\t\t-->"+this.getClass().getName()+".palyaEpites()");
-		mezok.add(new Ut());
-		mezok.add(new UresMezo());
-        mezok.add(new VegzetHegye());
+		mezok[0][0] = new Ut();
+		mezok[0][1] = new UresMezo();
+        mezok[0][2] = new VegzetHegye();
 		System.out.println("\t\t\t<--void");
 	}
 	
@@ -135,10 +135,10 @@ public class Palya {
 		System.out.println("\t\t\t-->"+this.getClass().getName()+".createPrototypes()");
 		prototipusokEpitmeny.add(new Torony());
 		prototipusokEpitmeny.add(new Akadaly());
-		prototipusokGyuru.add(new Ember(mezok));
-		prototipusokGyuru.add(new Hobbit(mezok));
-		prototipusokGyuru.add(new Torp(mezok));
-		prototipusokGyuru.add(new Tunde(mezok));
+		prototipusokGyuru.add(new Ember(utvonalak.get(0)));
+		prototipusokGyuru.add(new Hobbit(utvonalak.get(0)));
+		prototipusokGyuru.add(new Torp(utvonalak.get(0)));
+		prototipusokGyuru.add(new Tunde(utvonalak.get(0)));
 		System.out.println("\t\t\t<--void");
 	}
 	
