@@ -35,4 +35,10 @@ public class Ut extends AbstractMezo {
 	public String toString() {
 		return "Ut";
 	}
+	
+	@Override
+	public void setKod(boolean vanKod) {
+		// TODO Auto-generated method stub
+		
+	}
 }

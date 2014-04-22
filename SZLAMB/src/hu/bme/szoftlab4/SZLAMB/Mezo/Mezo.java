@@ -49,4 +49,9 @@ public interface Mezo {
 	 * @return beepitett
 	 */
 	boolean isBeepitett();
+	
+	/**
+	 * 
+	 */
+	public void setKod(boolean vanKod);
 }

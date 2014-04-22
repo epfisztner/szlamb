@@ -16,6 +16,7 @@ import hu.bme.szoftlab4.SZLAMB.Mezo.VegzetHegye;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * A játék teret reprezentáló osztály,
@@ -140,6 +141,20 @@ public class Palya {
 		prototipusokGyuru.add(new Torp(utvonalak.get(0)));
 		prototipusokGyuru.add(new Tunde(utvonalak.get(0)));
 		System.out.println("\t\t\t<--void");
+	}
+	
+	private void kodRandom() {
+		boolean vanKod = false;
+		Random r = new Random();
+		int num = r.nextInt();
+		if (num%11==0) {
+			
+		}
+		for (int x = 0; x < mezok.length; x++) {
+			for (int y = 0; y < mezok[x].length; y++) {
+				mezok[x][y].setKod(vanKod);
+			}
+		}
 	}
 	
 	

@@ -34,4 +34,10 @@ public class UresMezo extends AbstractMezo {
 		return "UresMezo";
 	}
 
+	@Override
+	public void setKod(boolean vanKod) {
+		this.epitmeny.setKod(vanKod);
+		
+	}
+
 }

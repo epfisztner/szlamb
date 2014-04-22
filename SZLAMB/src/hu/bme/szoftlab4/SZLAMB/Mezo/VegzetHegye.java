@@ -38,4 +38,10 @@ public class VegzetHegye extends AbstractMezo {
 	public String toString() {
 		return "VegzetHegye";
 	}
+
+	@Override
+	public void setKod(boolean vanKod) {
+		// TODO Auto-generated method stub
+		
+	}
 }

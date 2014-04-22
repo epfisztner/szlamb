@@ -49,4 +49,6 @@ public interface Epitmeny extends Cloneable {
 
 	Object clone()  throws CloneNotSupportedException;
 
+	void setKod(boolean vanKod);
+
 }
