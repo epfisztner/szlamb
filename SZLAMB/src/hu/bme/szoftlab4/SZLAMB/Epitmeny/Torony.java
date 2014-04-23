@@ -9,6 +9,7 @@ import hu.bme.szoftlab4.SZLAMB.Lovedek.LovedekImpl;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
 import hu.bme.szoftlab4.SZLAMB.Mezo.UresMezo;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Ut;
+import hu.bme.szoftlab4.SZLAMB.XMLHelper.XMLHelper;
 
 
 /**
@@ -47,21 +48,26 @@ public class Torony extends AbstractEpitmeny {
 	
 	@Override
 	public void felruhaz(VarazsKo varazsKo) {
-		System.out.println("\t\t-->"+this.getClass().getName()+"felruhaz("+varazsKo.name()+");");
-		System.out.println("\t\t<--void");
+		//System.out.println("\t\t-->"+this.getClass().getName()+"felruhaz("+varazsKo.name()+");");
+		//System.out.println("\t\t<--void");
+		if (!this.varazsKovek.contains(varazsKo)) {
+			this.varazsKovek.add(varazsKo);
+		}
 	}
 
 	@Override
 	public void reakcio(GyuruSzovetsege gyuruSzovetsege) {
-		System.out.println("\t\t-->"+this.getClass().getName()+".reakcio("+gyuruSzovetsege.getClass().getName()+")");
+		//System.out.println("\t\t-->"+this.getClass().getName()+".reakcio("+gyuruSzovetsege.getClass().getName()+")");
 		gyuruSzovetsege.sebez(new LovedekImpl(varazsKovek));
-		System.out.println("\t\t<--void");
+		XMLHelper.setOutPutFileContent(" torony hatotavba ert");
+		//System.out.println("\t\t<--void");
 	}
 
 	@Override
 	public void setMezo(Mezo epitmenyMezo) {
-		System.out.println("\t\t-->"+this.getClass().getName()+".setMezo("+epitmenyMezo.getClass().getName()+")");
-		System.out.println("\t\t<--void");
+		//System.out.println("\t\t-->"+this.getClass().getName()+".setMezo("+epitmenyMezo.getClass().getName()+")");
+		//System.out.println("\t\t<--void");
+		this.epitmenyMezo = epitmenyMezo;
 	}
 
 }

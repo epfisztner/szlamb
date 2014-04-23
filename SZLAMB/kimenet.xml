@@ -1,0 +1,6 @@
+<teszt><setOutputFile>kimenet.xml</setOutputFile>
+<loadMapFile>sikeres: map.xml->4x4-s palya, 2 db utvonal</loadMapFile>
+<random>off</random>
+<addKarakter> Sikeres TUNDE eletero [1] hozzaadasa az [3][2] utra</addKarakter>
+<karakterLep>TUNDEleptetes az [3][3] utra vegzet hegye jatekos veszitett</karakterLep><exit/>
+</teszt>

@@ -39,9 +39,19 @@ public class Main {
 		Main main = new Main();
 		//main.start();
 		//XMLHelper.loadMap("c:\\map.xml");
-		XMLHelper.readCommandFile("c:\\command2.xml");
+		XMLHelper xmlH = new XMLHelper();
+		while(true){
+			System.out.println("Add meg a tesztet tartalmazo xml-t vagy lepj ki az exit paranccsal:");
+			String in = input();
+			if (in.equals("exit")) {
+				System.exit(0);
+			} else {
+				xmlH.readCommandFile(in);
+			}
+		}
+		
 	}
-	
+	/*
 	private void start() {
 		
 		while (true) {
@@ -95,44 +105,44 @@ public class Main {
 				console.flush();
 			}
 		}
-	}
+	}*/
 	/**
 	 * Első teszteset:  Jatek inditas
-	 */
+	 *//*
 	private void test1() {
-		jatekMotor = new JatekMotor();
-	}
+		//jatekMotor = new JatekMotor();
+	}*/
 
 	/**
 	 * 2. Teszteset: Uj jatek");
-	 */
+	 *//*
 	private void test2() {
 		if(jatekMotor == null)
 			jatekMotor = new JatekMotor();
 		jatekMotor.start();
-	}
+	}*/
 
 	/**
 	 * 3. Teszteset: Torony epites");
-	 */
+	 *//*
 	private void test3() {
 		if(jatekMotor == null)
 			jatekMotor = new JatekMotor();
-		jatekMotor.szaruman.epitTorony(jatekMotor.szaruman.palya.mezok[0][0]);
-	}
+		jatekMotor.szaruman.epitTorony(jatekMotor.szaruman.palya.getMezok()[0][0]);
+	}*/
 
 	/**
 	 * 4. Teszteset: Akadaly epites");
-	 */
+	 *//*
 	private void test4() {
 		if(jatekMotor == null)
 			jatekMotor = new JatekMotor();
-		jatekMotor.szaruman.epitAkadaly(jatekMotor.szaruman.palya.mezok[0][0]);
-	}
+		jatekMotor.szaruman.epitAkadaly(jatekMotor.szaruman.palya.getMezok()[0][0]);
+	}*/
 
 	/**
 	 * 5. Teszteset: Epitmeny felruhazas");
-	 */
+	 *//*
 	private void test5() {
 		if(jatekMotor == null)
 			jatekMotor = new JatekMotor();
@@ -141,13 +151,13 @@ public class Main {
 		if(epitmenyInput.equalsIgnoreCase("torony")) {
 			System.out.print("[?] Milyen varazsKovet akarsz rarakni (TUNDE, TORP,	HOBBIT,	EMBER, HATOTAV,	TUZELES): ");
 			String varKo = input();
-			Mezo uresMezo = jatekMotor.szaruman.palya.mezok[0][1];
+			Mezo uresMezo = jatekMotor.szaruman.palya.getMezok()[0][1];
 			uresMezo.epitmenyRegiszter(jatekMotor.szaruman.palya.getPrototipusokEpitmeny().get(0));
 			jatekMotor.szaruman.felruhaz(uresMezo, VarazsKo.valueOf(varKo));
 		} else if(epitmenyInput.equalsIgnoreCase("akadaly")) {
 			System.out.print("[?] Milyen varazsKovet akarsz rarakni (TUNDE, TORP,	HOBBIT,	EMBER): ");
 			String varKo = input();
-			Mezo ut = jatekMotor.szaruman.palya.mezok[0][0];
+			Mezo ut = jatekMotor.szaruman.palya.getMezok()[0][0];
 			try {
 				ut.epitmenyRegiszter((Akadaly)jatekMotor.szaruman.palya.prototipusokEpitmeny.get(1).clone());
 			} catch (CloneNotSupportedException e) {
@@ -156,17 +166,17 @@ public class Main {
 			}
 			jatekMotor.szaruman.felruhaz(ut, VarazsKo.valueOf(varKo));
 		}
-	}
+	}*/
 
 	/**
 	 * 6. Teszteset: Karakter akadalyra lep");
-	 */
+	 *//*
 	private void test6() {
 		if(jatekMotor == null)
 			jatekMotor = new JatekMotor();
 		GyuruSzovetsege karakter = null;
 		
-		Mezo ut = jatekMotor.szaruman.palya.mezok[0][0];
+		Mezo ut = jatekMotor.szaruman.palya.getMezok()[0][0];
 		try {
 			ut.epitmenyRegiszter((Akadaly)jatekMotor.szaruman.palya.prototipusokEpitmeny.get(1).clone());
 		} catch (CloneNotSupportedException e1) {
@@ -192,18 +202,18 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		jatekMotor.szaruman.palya.mezok[0][0].karakterRegiszter(karakter);
-	}
+		jatekMotor.szaruman.palya.getMezok()[0][0].karakterRegiszter(karakter);
+	}*/
 
 	/**
 	 * 7. Teszteset: Karakter torony hatotavba er");
-	 */
+	 *//*
 	private void test7() {
 		if(jatekMotor == null)
 			jatekMotor = new JatekMotor();
 		GyuruSzovetsege karakter = null;
 		
-		Mezo ut = jatekMotor.szaruman.palya.mezok[0][1];
+		Mezo ut = jatekMotor.szaruman.palya.getMezok()[0][1];
 		try {
 			ut.epitmenyRegiszter((Torony)jatekMotor.szaruman.palya.prototipusokEpitmeny.get(0).clone());
 		} catch (CloneNotSupportedException e1) {
@@ -230,11 +240,11 @@ public class Main {
 		}
 		
 		ut.karakterRegiszter(karakter);
-	}
+	}*/
 
 	/**
 	 * 	8. Teszteset: Jatek vege- vesztes");
-	 */
+	 *//*
 	private void test8() {
 		if(jatekMotor == null)
 			jatekMotor = new JatekMotor();
@@ -258,12 +268,12 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		jatekMotor.szaruman.palya.mezok[0][2].karakterRegiszter(karakter);
-	}
+		jatekMotor.szaruman.palya.getMezok()[0][2].karakterRegiszter(karakter);
+	}*/
 
 	/**
 	 * 9. Teszteset: Jatek vege- nyert");
-	 */
+	 *//*
 	private void test9() {
 		if(jatekMotor == null)
 			jatekMotor = new JatekMotor();
@@ -285,7 +295,7 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Mezo uresMezo = jatekMotor.szaruman.palya.mezok[0][1];
+		Mezo uresMezo = jatekMotor.szaruman.palya.getMezok()[0][1];
 		if(!uresMezo.isBeepitett())
 			try {
 				uresMezo.epitmenyRegiszter((Torony)jatekMotor.szaruman.palya.getPrototipusokEpitmeny().get(0).clone());
@@ -294,7 +304,7 @@ public class Main {
 				e.printStackTrace();
 			}
 		uresMezo.karakterRegiszter(karakter);
-	}
+	}*/
 
 	/**
 	 *  A felhasználói inputokat ezen a metóduson keresztűl kérjük be a program minden részén,

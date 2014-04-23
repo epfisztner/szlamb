@@ -14,19 +14,24 @@ import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.GyuruSzovetsege;
  */
 public class UresMezo extends AbstractMezo {
 
+	public UresMezo(int x, int y) {
+		super(x, y);
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public void epitmenyRegiszter(Epitmeny epitmeny) {
-		System.out.println("\t-->"+this.getClass().getName()+".epitmenyRegiszter("+epitmeny.getClass().getName()+")");
+		//System.out.println("\t-->"+this.getClass().getName()+".epitmenyRegiszter("+epitmeny.getClass().getName()+")");
 		this.epitmeny = epitmeny;
 		this.epitmeny.setMezo(this);
-		System.out.println("\t<--void");
+		//System.out.println("\t<--void");
 	}
 
 	@Override
 	public void epitmenyFelruhazas(VarazsKo varazsKo) {
-		System.out.println("\t-->"+this.getClass().getName()+".epitmenyFelruhazas("+varazsKo.name()+")");
+		//System.out.println("\t-->"+this.getClass().getName()+".epitmenyFelruhazas("+varazsKo.name()+")");
 		this.epitmeny.felruhaz(varazsKo);
-		System.out.println("\t<--void");
+		//System.out.println("\t<--void");
 	}
 	
 	@Override

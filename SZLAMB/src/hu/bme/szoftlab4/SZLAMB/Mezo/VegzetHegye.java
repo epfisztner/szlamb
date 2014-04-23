@@ -15,23 +15,30 @@ import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.GyuruSzovetsege;
  */
 public class VegzetHegye extends AbstractMezo {
 	
+	public VegzetHegye(int x, int y) {
+		super(x, y);
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
-	public void karakterRegiszter(GyuruSzovetsege gyuruSzovetsege) {
-		System.out.println("\t-->"+this.getClass().getName()+".karakterRegiszter("+gyuruSzovetsege.getClass().getName()+")");
-		JatekMotor.jatekVegeVeszit();
-		System.out.println("\t<--void");
+	public void karakterRegiszter(GyuruSzovetsege gyuruSzovetsege, boolean szomszedCall) {
+		//System.out.println("\t-->"+this.getClass().getName()+".karakterRegiszter("+gyuruSzovetsege.getClass().getName()+")");
+		if (!szomszedCall) {
+			JatekMotor.jatekVegeVeszit();
+		}
+		//System.out.println("\t<--void");
 	}
 
 	@Override
 	public void epitmenyRegiszter(Epitmeny epitmeny) {
-		System.out.println("\t-->"+this.getClass().getName()+".epitmenyRegiszter("+epitmeny.getClass().getName()+")");
-		System.out.println("\t<--void");
+		//System.out.println("\t-->"+this.getClass().getName()+".epitmenyRegiszter("+epitmeny.getClass().getName()+")");
+		//System.out.println("\t<--void");
 	}
 
 	@Override
 	public void epitmenyFelruhazas(VarazsKo varazsKo) {
-		System.out.println("\t-->"+this.getClass().getName()+".epitmenyFelruhazas("+varazsKo.name()+")");
-		System.out.println("\t<--void");
+		//System.out.println("\t-->"+this.getClass().getName()+".epitmenyFelruhazas("+varazsKo.name()+")");
+		//System.out.println("\t<--void");
 	}
 
 	@Override

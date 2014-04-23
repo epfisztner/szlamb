@@ -1,5 +1,7 @@
 package hu.bme.szoftlab4.SZLAMB;
 
+import java.util.List;
+
 import hu.bme.szoftlab4.SZLAMB.Epitmeny.Akadaly;
 import hu.bme.szoftlab4.SZLAMB.Epitmeny.Epitmeny;
 import hu.bme.szoftlab4.SZLAMB.Epitmeny.Torony;
@@ -17,7 +19,7 @@ public class Szaruman {
 	/**
 	 * A játékban felhasznált játék mező.
 	 */
-	public static Palya palya;
+	public Palya palya;
 	
 	/**
 	 * A játékos varázsereje.
@@ -25,10 +27,10 @@ public class Szaruman {
 	protected int varazsEro;
 	
 	public Szaruman() {
-		System.out.println("\t-->"+this.getClass().getName()+".constructor()");
+		//System.out.println("\t-->"+this.getClass().getName()+".constructor()");
 		this.varazsEro = 100;
 		palya = new Palya();
-		System.out.println("\t<--");
+		//System.out.println("\t<--");
 	}
 
 	/**
@@ -37,14 +39,14 @@ public class Szaruman {
 	 * @param mezo
 	 */
 	public void epitTorony(Mezo mezo) {
-		System.out.println("-->"+this.getClass().getName()+".epitTorony("+mezo.getClass()+")");
+		//System.out.println("-->"+this.getClass().getName()+".epitTorony("+mezo.getClass()+")");
 		try {
 			mezo.epitmenyRegiszter((Torony) this.palya.getPrototipusokEpitmeny().get(0).clone());
 		} catch (CloneNotSupportedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("<--void");
+		//System.out.println("<--void");
 	}
 	
 	/**
@@ -53,14 +55,14 @@ public class Szaruman {
 	 * @param mezo
 	 */
 	public void epitAkadaly(Mezo mezo) {
-		System.out.println("-->"+this.getClass().getName()+".epitAkadaly("+mezo.getClass()+")");
+		//System.out.println("-->"+this.getClass().getName()+".epitAkadaly("+mezo.getClass()+")");
 		try {
 			mezo.epitmenyRegiszter((Akadaly)this.palya.getPrototipusokEpitmeny().get(1).clone());
 		} catch (CloneNotSupportedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("<--void");
+		//System.out.println("<--void");
 	}
 	
 	/**

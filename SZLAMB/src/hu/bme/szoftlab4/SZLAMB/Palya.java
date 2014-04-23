@@ -12,6 +12,7 @@ import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
 import hu.bme.szoftlab4.SZLAMB.Mezo.UresMezo;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Ut;
 import hu.bme.szoftlab4.SZLAMB.Mezo.VegzetHegye;
+import hu.bme.szoftlab4.SZLAMB.XMLHelper.XMLHelper;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class Palya {
 	/**
 	 * Játék mezői (maga a pálya)
 	 */
-	protected Mezo[][] mezok;
+	private static Mezo[][] mezok;
 	
 	/**
 	 * Még hátra levő ellenségek száma.
@@ -56,30 +57,29 @@ public class Palya {
 	 * szerkesztve
 	 * a játékban még életben lévő karakterek listája
 	 */
-	protected List<GyuruSzovetsege> karakterek;
+	private List<GyuruSzovetsege> karakterek;
 	
 	private static String className;
 	
 	public Palya() {
-		System.out.println("\t\t-->"+this.getClass().getName()+".constructor()");
+		//System.out.println("\t\t-->"+this.getClass().getName()+".constructor()");
 		className = this.getClass().getName();
-		this.mezok = new Mezo[5][5];
+		//this.mezok = mezok;
 		ellensegeSzama = 0;
-		this.prototipusokEpitmeny = new ArrayList<Epitmeny>();
-		this.prototipusokGyuru = new ArrayList<GyuruSzovetsege>();
-		palyaEpites(new File(""));
-		createPrototypes();
-		System.out.println("\t\t<--");
+		
+		//palyaEpites(new File(""));
+		//createPrototypes();
+		//System.out.println("\t\t<--");
 	}
 	/**
 	 * Játék indítása, {@link GyuruSzovetsege} karakterek elindítása az útvonalon
 	 */
 	public void start() {
-		System.out.println("\t\t-->"+this.getClass().getName()+".start()");
+		//System.out.println("\t\t-->"+this.getClass().getName()+".start()");
 		for (GyuruSzovetsege gyuruSzovetsege : prototipusokGyuru) {
 			gyuruSzovetsege.indul();
 		}
-		System.out.println("\t\t<--void");
+		//System.out.println("\t\t<--void");
 	}
 	
 	/**
@@ -87,8 +87,8 @@ public class Palya {
 	 * @return
 	 */
 	public List<GyuruSzovetsege> getPrototipusokGyuru() {
-		System.out.println("\t-->" + this.getClass().getName() + ".getPrototipusokGyuru()");
-		System.out.println("\t<--" + prototipusokGyuru.getClass().getName() + ": " + prototipusokGyuru.toString());
+		//System.out.println("\t-->" + this.getClass().getName() + ".getPrototipusokGyuru()");
+		//System.out.println("\t<--" + prototipusokGyuru.getClass().getName() + ": " + prototipusokGyuru.toString());
 		return prototipusokGyuru;
 	}
 
@@ -97,8 +97,8 @@ public class Palya {
 	 * @return
 	 */
 	public List<Epitmeny> getPrototipusokEpitmeny() {
-		System.out.println("\t-->"+this.getClass().getName()+".getPrototipusokEpitmeny()");
-		System.out.println("\t<--" + prototipusokEpitmeny.getClass().getName() + ": " + prototipusokEpitmeny.toString());
+		//System.out.println("\t-->"+this.getClass().getName()+".getPrototipusokEpitmeny()");
+		//System.out.println("\t<--" + prototipusokEpitmeny.getClass().getName() + ": " + prototipusokEpitmeny.toString());
 		return prototipusokEpitmeny;
 	}
 
@@ -107,13 +107,17 @@ public class Palya {
 	 * az ellenség számának csökkentéséért illetve 0 értékének vizsgálatára.
 	 */
 	public static void ellensegCsokkent() {
-		System.out.println("\t\t\t\t\t-->"+className+".ellensegCsokkent");
-		System.out.print("\t\t\t\t\t\t[?] Ez volt az utolso ellenseg (igen/nem): ");
-		String input = Main.input();
-		if(input.equalsIgnoreCase("igen")) {
+		//System.out.println("\t\t\t\t\t-->"+className+".ellensegCsokkent");
+		//System.out.print("\t\t\t\t\t\t[?] Ez volt az utolso ellenseg (igen/nem): ");
+		//String input = Main.input();
+		//if(input.equalsIgnoreCase("igen")) {
+		ellensegeSzama--;
+		if (ellensegeSzama<1) {
 			JatekMotor.jatekVegeNyert();
+		} else {
+			//XMLHelper.setOutPutFileContent("</karakterLep>");
 		}
-		System.out.println("\t\t\t\t\t<--void");
+		//System.out.println("\t\t\t\t\t<--void");
 	}
 	/**
 	 * Pálya felépítése a paraméterben kapott file alapján:
@@ -121,26 +125,35 @@ public class Palya {
 	 * 
 	 * @param file
 	 */
-	public void palyaEpites(File file) {
-		System.out.println("\t\t\t-->"+this.getClass().getName()+".palyaEpites()");
-		mezok[0][0] = new Ut();
-		mezok[0][1] = new UresMezo();
-        mezok[0][2] = new VegzetHegye();
-		System.out.println("\t\t\t<--void");
+	public void palyaEpites(Mezo[][] mezok, List<List<Mezo>> utvonalak) {
+		//System.out.println("\t\t\t-->"+this.getClass().getName()+".palyaEpites()");
+		setMezok(mezok);
+		this.utvonalak = utvonalak;
+		createPrototypes();
+		karakterek = new ArrayList<GyuruSzovetsege>();
+		ellensegeSzama = 0;
+		for (int x = 0; x < getMezok().length; x++) {
+			for (int y = 0; y < getMezok()[x].length; y++) {
+				getMezok()[x][y].setSzomszedok(1);
+			}
+		}
+		//System.out.println("\t\t\t<--void");
 	}
 	
 	/**
 	 * Prototípusok létrehozása a játék indításakor.
 	 */
 	private void createPrototypes() {
-		System.out.println("\t\t\t-->"+this.getClass().getName()+".createPrototypes()");
+		//System.out.println("\t\t\t-->"+this.getClass().getName()+".createPrototypes()");
+		this.prototipusokEpitmeny = new ArrayList<Epitmeny>();
+		this.prototipusokGyuru = new ArrayList<GyuruSzovetsege>();
 		prototipusokEpitmeny.add(new Torony());
 		prototipusokEpitmeny.add(new Akadaly());
-		prototipusokGyuru.add(new Ember(utvonalak.get(0)));
-		prototipusokGyuru.add(new Hobbit(utvonalak.get(0)));
-		prototipusokGyuru.add(new Torp(utvonalak.get(0)));
-		prototipusokGyuru.add(new Tunde(utvonalak.get(0)));
-		System.out.println("\t\t\t<--void");
+		prototipusokGyuru.add(new Ember());
+		prototipusokGyuru.add(new Hobbit());
+		prototipusokGyuru.add(new Torp());
+		prototipusokGyuru.add(new Tunde());
+		//System.out.println("\t\t\t<--void");
 	}
 	
 	private void kodRandom() {
@@ -148,13 +161,26 @@ public class Palya {
 		Random r = new Random();
 		int num = r.nextInt();
 		if (num%11==0) {
-			
+			vanKod = !vanKod;
 		}
-		for (int x = 0; x < mezok.length; x++) {
-			for (int y = 0; y < mezok[x].length; y++) {
-				mezok[x][y].setKod(vanKod);
+		for (int x = 0; x < getMezok().length; x++) {
+			for (int y = 0; y < getMezok()[x].length; y++) {
+				getMezok()[x][y].setKod(vanKod);
 			}
 		}
+	}
+	public List<GyuruSzovetsege> getKarakterek() {
+		return karakterek;
+	}
+	public void setKarakterek(List<GyuruSzovetsege> karakterek) {
+		this.karakterek = karakterek;
+		ellensegeSzama = this.karakterek.size();
+	}
+	public static Mezo[][] getMezok() {
+		return mezok;
+	}
+	public static void setMezok(Mezo[][] mezokInput) {
+		mezok = mezokInput;
 	}
 	
 	

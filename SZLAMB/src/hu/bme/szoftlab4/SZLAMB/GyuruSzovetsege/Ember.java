@@ -16,25 +16,30 @@ import java.util.List;
  */
 public class Ember extends AbstractGyuruSzovetsege {
 
-	public Ember(List<Mezo> utvonal) {
-		super(utvonal);
+	public Ember() {
+		super();
 	}
 
 	@Override
 	public void sebez(Lovedek lovedek) {
-		System.out.println("\t\t\t-->"+this.getClass().getName()+".sebez("+lovedek.getClass()+")");
-		System.out.print("\t\t\t\t[?] Elfogyott az eletereje? [igen/nem] :");
-		String input = Main.input();
-		if (input.equalsIgnoreCase("igen")) {
+		//System.out.println("\t\t\t-->"+this.getClass().getName()+".sebez("+lovedek.getClass()+")");
+		//System.out.print("\t\t\t\t[?] Elfogyott az eletereje? [igen/nem] :");
+		//String input = Main.input();
+		//if (input.equalsIgnoreCase("igen")) {
+		int eletero = this.getEletero();
+		eletero--;
+		this.setEletero(eletero);
+		
+		if (this.getEletero()<1) {
 			this.elpusztul();
 		}
-		System.out.println("\n\t\t\t<--void");
+		//System.out.println("\n\t\t\t<--void");
 	}
 
 	@Override
 	public void setSebesseg(List<VarazsKo> varazsKo) {
-		System.out.println("\t\t\t-->"+this.getClass().getName()+".setSebesseg("+varazsKo.toString()+")");
-		System.out.println("\t\t\t<--void");
+		//System.out.println("\t\t\t-->"+this.getClass().getName()+".setSebesseg("+varazsKo.toString()+")");
+		//System.out.println("\t\t\t<--void");
 	}
 
 

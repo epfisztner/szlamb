@@ -14,15 +14,15 @@ public class LovedekImpl implements Lovedek {
 	protected List<VarazsKo> varazsKovek;
 
 	public LovedekImpl(List<VarazsKo> varazsKovek){
-		System.out.println("\t\t\t-->"+this.getClass().getName()+".constructor("+varazsKovek.toString()+")");
+		//System.out.println("\t\t\t-->"+this.getClass().getName()+".constructor("+varazsKovek.toString()+")");
 		this.varazsKovek = varazsKovek;
-		System.out.println("\t\t\t<--");
+		//System.out.println("\t\t\t<--");
 	}
 
 	@Override
 	public List<VarazsKo> getVarazsKovek() {
-		System.out.println("\t\t\t-->"+this.getClass().getName()+".getVarazsKovek()");
-		System.out.println("\t\t\t<--"+varazsKovek.getClass()+": "+varazsKovek.toString());
+		//System.out.println("\t\t\t-->"+this.getClass().getName()+".getVarazsKovek()");
+		//System.out.println("\t\t\t<--"+varazsKovek.getClass()+": "+varazsKovek.toString());
 		return this.varazsKovek;
 	}
 

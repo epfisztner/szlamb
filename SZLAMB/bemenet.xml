@@ -1,0 +1,15 @@
+<parancs>
+<setOutputFile>kimenet.xml</setOutputFile>
+<loadMapFile>map.xml</loadMapFile>
+<random>off</random>
+<addKarakter>
+<karakterName>TUNDE</karakterName>
+<x>3</x>
+<y>2</y>
+<life>1</life>
+</addKarakter>
+<karakterLep>
+<karakterName>TUNDE</karakterName>
+</karakterLep>
+<exit> </exit>
+</parancs>

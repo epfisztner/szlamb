@@ -14,6 +14,11 @@ import hu.bme.szoftlab4.SZLAMB.Epitmeny.Torony;
  */
 public class Ut extends AbstractMezo {
 
+	public Ut(int x, int y) {
+		super(x, y);
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public void epitmenyRegiszter(Epitmeny epitmeny) {
 		System.out.println("\t-->"+this.getClass().getName()+".epitmenyRegiszter("+epitmeny.getClass().getName()+")");

@@ -1,12 +1,19 @@
 package hu.bme.szoftlab4.SZLAMB.XMLHelper;
 
+import hu.bme.szoftlab4.SZLAMB.JatekMotor;
 import hu.bme.szoftlab4.SZLAMB.Main;
+import hu.bme.szoftlab4.SZLAMB.Palya;
+import hu.bme.szoftlab4.SZLAMB.VarazsKo;
+import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.GyuruSzovetsege;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
 import hu.bme.szoftlab4.SZLAMB.Mezo.UresMezo;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Ut;
 import hu.bme.szoftlab4.SZLAMB.Mezo.VegzetHegye;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.MappedByteBuffer;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,17 +43,19 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class XMLHelper {
-	private static String outPutFileContent = "";
+	public static String outPutFileContent = "<teszt>";
 	
 	public static void setOutPutFileContent(String outPutFileContent) {
-		XMLHelper.outPutFileContent.concat(outPutFileContent);
+		XMLHelper.outPutFileContent += outPutFileContent;
 	}
 
-	private static String outPutFileName;
-	private static Mezo[][] map;
-	private static List<List<Mezo>> utvonalak = new ArrayList<List<Mezo>>();
+	private String outPutFileName;
+	private Mezo[][] map;
+	private List<List<Mezo>> utvonalak = new ArrayList<List<Mezo>>();
+	private JatekMotor jatekMotor;
 	
-	public static void readCommandFile(String fileName) {
+	
+	public void readCommandFile(String fileName) {
 
 		try {
 			/*
@@ -71,6 +80,7 @@ public class XMLHelper {
 
 			SAXParser saxParser = factory.newSAXParser();
 			DefaultHandler topicHandler = new DefaultHandler() {
+				int karakterLife = 0;
 				String karakterNeve = "";
 				int xCoord = -1;
 				int yCoord = -1;				
@@ -87,12 +97,13 @@ public class XMLHelper {
 				boolean epitAkadalyCommand = false;
 				boolean epitmenyFelruhazCommand = false;
 				boolean addKarakterCommand = false;
+				boolean life = false;
 				boolean karakterLepCommand = false;
 				boolean simulateCommand = false;
 				boolean helpCommand = false;
 				boolean exitCommand = false;
-				private String varazsKoNeve;
-				private String randomValue;
+				private String varazsKoNeve ="";
+				private String randomValue = "";
 				
 
 				public void startElement(String uri, String localName,
@@ -136,6 +147,9 @@ public class XMLHelper {
 					}
 					if (qName.equalsIgnoreCase("addKarakter")) {
 						addKarakterCommand = true;
+					}
+					if (qName.equalsIgnoreCase("life")) {
+						life = true;
 					}
 					if (qName.equalsIgnoreCase("karakterLep")) {
 						karakterLepCommand = true;
@@ -206,6 +220,9 @@ public class XMLHelper {
 					if (qName.equalsIgnoreCase("exit")) {
 						exitCommand = false;
 					}
+					if (qName.equalsIgnoreCase("life")) {
+						life = false;
+					}
 
 				}
 
@@ -216,6 +233,7 @@ public class XMLHelper {
 						if (!outPutFileName.contains(".xml")) {
 							outPutFileName.concat(".xml");
 						}
+						setOutPutFileContent("<setOutputFile>"+outPutFileName+"</setOutputFile>\n");
 					}
 					if (loadCommandFileCommand) {
 						String commandFileName = new String(ch, start, length);
@@ -267,7 +285,7 @@ public class XMLHelper {
 						yCoord = Integer.parseInt(new String(ch, start, length));
 					}
 					if (epitmenyFelruhazCommand && !varazsKoNeve.equals("") && xCoord >= 0 && yCoord >=0) {
-						epitmenyFelruhaz(karakterNeve, xCoord, yCoord);
+						epitmenyFelruhaz(varazsKoNeve, xCoord, yCoord);
 						varazsKoNeve = "";
 						xCoord = -1;
 						yCoord = -1;
@@ -281,9 +299,18 @@ public class XMLHelper {
 					if (addKarakterCommand && y) {
 						yCoord = Integer.parseInt(new String(ch, start, length));
 					}
-					if (addKarakterCommand && !karakterNeve.equals("") && xCoord >= 0 && yCoord >=0) {
-						addKarakter(karakterNeve, xCoord, yCoord);
+					if (addKarakterCommand && life) {
+						if (length ==0) {
+							karakterLife = 100;
+						} else {
+							karakterLife = Integer.parseInt(new String(ch, start, length));
+						}
+						
+					}
+					if (addKarakterCommand && !karakterNeve.equals("") && xCoord >= 0 && yCoord >=0 && karakterLife > 0) {
+						addKarakter(karakterNeve, xCoord, yCoord, karakterLife);
 						karakterNeve = "";
+						karakterLife = 0;
 						xCoord = -1;
 						yCoord = -1;
 					}
@@ -309,12 +336,13 @@ public class XMLHelper {
 		}
 	}
 
-	protected static void loadCommandFile(String commandFileName) {
-		// TODO Auto-generated method stub
-		
+	protected void loadCommandFile(String commandFileName) {
+		setOutPutFileContent("<loadCommandFile>"+commandFileName+"</loadCommandFile>\n<parancs>\n");
+		this.readCommandFile(commandFileName);
+		setOutPutFileContent("</parancs>");
 	}
 
-	public static void loadMap(String mapFileName) {
+	public void loadMap(String mapFileName) {
 		try {
 			/*
 			 * http://www.mkyong.com/java/how-to-read-xml-file-in-java-sax-parser
@@ -439,15 +467,15 @@ public class XMLHelper {
 					
 					if (mezoSor && UT) {
 						actualY++;
-						map[actualX][actualY] = new Ut();
+						map[actualX][actualY] = new Ut(actualX,actualY);
 					}
 					if (mezoSor && URESMEZO) {
 						actualY++;
-						map[actualX][actualY] = new UresMezo();
+						map[actualX][actualY] = new UresMezo(actualX,actualY);
 					}
 					if (mezoSor && VEGZETHEGYE) {
 						actualY++;
-						map[actualX][actualY] = new VegzetHegye();
+						map[actualX][actualY] = new VegzetHegye(actualX,actualY);
 					}
 					if (mapUtvonalak && utvonal) {
 						if (utvonalUjTemp) {
@@ -483,17 +511,25 @@ public class XMLHelper {
 				
 			};
 			saxParser.parse(new File(mapFileName).getAbsolutePath(), topicHandler);
+			setOutPutFileContent("<loadMapFile>sikeres: "+mapFileName+"->"+map.length+"x"+map.length+"-s palya, "+utvonalak.size()+" db utvonal</loadMapFile>\n");
+			initGame();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 	}
 	
-	public static void writeMapToConsole() {
+	public void writeMapToConsole() {
+		System.out.println("Palya kirajzolása:");
 		System.out.println("x: "+map.length+ "y: "+map[0].length);
 		for(int x= 0; x < map.length; x++) {
 			for(int y= 0; y < map[x].length; y++) {
-				System.out.print(map[x][y].toString());
+				if (map[x][y].toString().equalsIgnoreCase("UT")) {
+					System.out.print(map[x][y].toString()+"\t ");
+				} else {
+					System.out.print(map[x][y].toString()+" ");
+				}
+				
 			}
 			System.out.println();
 		}
@@ -505,61 +541,107 @@ public class XMLHelper {
 			System.out.println();
 		}
 	}
-
-	protected static void setRandom(String randomValue) {
-		// TODO Auto-generated method stub
-		
+	
+	protected void initGame() {
+		jatekMotor = new JatekMotor();
+		jatekMotor.szaruman.palya.palyaEpites(map, utvonalak);
 	}
 
-	protected static void epitTorony(int xCoord, int yCoord) {
-		// TODO Auto-generated method stub
-		
+	protected void setRandom(String randomValue) {
+		setOutPutFileContent("<random>"+randomValue+"</random>\n");
 	}
 
-	protected static void epitAkadaly(int xCoord, int yCoord) {
-		// TODO Auto-generated method stub
-		
+	protected void epitTorony(int xCoord, int yCoord) {
+		jatekMotor.szaruman.epitTorony(Palya.getMezok()[xCoord][yCoord]);
+		setOutPutFileContent("<epitTorony> Sikeres epites az ["+xCoord+"]["+yCoord+"] mezore</epitTorony>\n");
 	}
 
-	protected static void epitmenyFelruhaz(String karakterNeve, int xCoord,
+	protected void epitAkadaly(int xCoord, int yCoord) {
+		jatekMotor.szaruman.epitAkadaly(Palya.getMezok()[xCoord][yCoord]);
+		setOutPutFileContent("<epitAkadaly> Sikeres epites az ["+xCoord+"]["+yCoord+"] mezore</epitAkadaly>\n");
+	}
+
+	protected void epitmenyFelruhaz(String varazsKoNeve, int xCoord,
 			int yCoord) {
-		// TODO Auto-generated method stub
-		
+		VarazsKo varazsKo = VarazsKo.valueOf(varazsKoNeve);
+		jatekMotor.szaruman.felruhaz(Palya.getMezok()[xCoord][yCoord], varazsKo);
+		setOutPutFileContent("<epitmenyFelruhaz> Sikeres felruhazas az ["+xCoord+"]["+yCoord+"] mezore ["+varazsKoNeve+"]</epitmenyFelruhaz>\n");
 	}
 
-	protected static void addKarakter(String karakterNeve, int xCoord,
-			int yCoord) {
-		// TODO Auto-generated method stub
+	protected void addKarakter(String karakterNeve, int xCoord,
+			int yCoord, int karakterLife) {
 		
-	}
-
-	protected static void simulate() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	protected static void help() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	protected static void exit() {
-		writeMapToConsole();
-		if (Main.input().equals("yes")) {
-			
-			writeOutPutContentToFile();
-			System.exit(0);
+		List<GyuruSzovetsege> karakterek = jatekMotor.szaruman.palya.getKarakterek();
+		int karakterNum = 0;
+		if (karakterNeve.equalsIgnoreCase("ember")){
+			karakterNum = 0;
+		} else if (karakterNeve.equalsIgnoreCase("hobbit")) {
+			karakterNum = 1;
+		} else if (karakterNeve.equalsIgnoreCase("torp")) {
+			karakterNum = 2;
+		} else if (karakterNeve.equalsIgnoreCase("tunde")) {
+			karakterNum = 3;
 		}
+		GyuruSzovetsege karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(karakterNum);
+		karakter.setUtvonal(utvonalak.get(0));
+		karakter.setPositionX(xCoord);
+		karakter.setPositionY(yCoord);
+		
+		karakter.setEletero(karakterLife);
+		karakterek.add(karakter);
+		jatekMotor.szaruman.palya.setKarakterek(karakterek);
+		setOutPutFileContent("<addKarakter> Sikeres " + karakterNeve +" eletero ["+karakterLife+"] hozzaadasa az ["+xCoord+"]["+yCoord+"] utra</addKarakter>\n");
+	}
+
+	protected void simulate() {
+		jatekMotor.start();
+		setOutPutFileContent("<simulate> Sikeres szimulálás "+""+" mp</simulate>\n");
+	}
+
+	protected void help() {
+		// TODO Auto-generated method stub
+	}
+
+	protected void exit() {
+		writeMapToConsole();
+		//if (Main.input().equals("yes")) {
+			setOutPutFileContent("<exit/>\n</teszt>");
+			writeOutPutContentToFile();
+		//}
 	}
 	
-	private static void writeOutPutContentToFile() {
-		// TODO Auto-generated method stub
-		
+	private void writeOutPutContentToFile() {
+		FileWriter fw;
+		BufferedWriter bw;
+		try {
+			fw = new FileWriter(new File(outPutFileName));			
+			bw = new BufferedWriter(fw);
+			bw.write(outPutFileContent);
+			
+			bw.close();
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
 	}
 
-	protected static void karakterLep(String string) {
-		// TODO Auto-generated method stub
-		
+	protected void karakterLep(String karakterNeve) {
+		List<GyuruSzovetsege> karakterek = jatekMotor.szaruman.palya.getKarakterek();
+		int karakterNum = 0;
+		if (karakterNeve.equalsIgnoreCase("ember")){
+			karakterNum = 0;
+		} else if (karakterNeve.equalsIgnoreCase("hobbit")) {
+			karakterNum = 1;
+		} else if (karakterNeve.equalsIgnoreCase("torp")) {
+			karakterNum = 2;
+		} else if (karakterNeve.equalsIgnoreCase("tunde")) {
+			karakterNum = 3;
+		}
+		XMLHelper.setOutPutFileContent("<karakterLep>"+karakterNeve);
+		jatekMotor.szaruman.palya.getKarakterek().get(0).lep();
+		XMLHelper.setOutPutFileContent("</karakterLep>");
 	}
 
 }
