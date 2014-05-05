@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JFrame;
+
 /**
  * A szkeleton lelke ez az osztály,
  * itt soroljuk fel a különböző teszteseteket illetve el is végezzék azokat a felhasználó
@@ -30,7 +32,7 @@ import java.util.logging.Logger;
  * @author Erhard Pfisztner
  *
  */
-public class Main {
+public class Main extends JFrame{
 	
 	public JatekMotor jatekMotor = null;
 

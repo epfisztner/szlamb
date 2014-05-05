@@ -5,6 +5,8 @@ import hu.bme.szoftlab4.SZLAMB.XMLHelper.XMLHelper;
 
 import java.util.List;
 
+import javax.swing.JPanel;
+
 /**
  * Ez az osztály lesz a játék indításáért illetve befejezéséért felelős, itt
  * van referencia a játékost reprezentáló {@link Szaruman} -ra is.
@@ -19,6 +21,9 @@ public class JatekMotor {
 	 * Játékost reprezentáló objektum.
 	 */
 	public Szaruman szaruman;
+	
+	protected JPanel menuPanel;
+	protected JPanel palyaPanel;
 	
 	public JatekMotor() {
 		//System.out.println("-->"+this.getClass().getName()+".constructor()");

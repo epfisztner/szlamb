@@ -2,6 +2,7 @@ package hu.bme.szoftlab4.SZLAMB.Epitmeny;
 
 import hu.bme.szoftlab4.SZLAMB.VarazsKo;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
+import hu.bme.szoftlab4.SZLAMB.View.Paintable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,8 @@ public abstract class AbstractEpitmeny implements Epitmeny {
 	 */
 	protected Mezo epitmenyMezo;
 	
+	protected Paintable epitmenyPaintable;
+	
 	public AbstractEpitmeny() {
 		super();
 		//System.out.println("\t\t\t\t-->"+this.getClass().getName()+".constructor()");
@@ -40,6 +43,15 @@ public abstract class AbstractEpitmeny implements Epitmeny {
 	@Override
 	public Object clone() throws CloneNotSupportedException{
 		return super.clone();
+	}
+	
+	@Override
+	public void setPaintable(Paintable paintable) {
+		this.epitmenyPaintable = paintable;
+	}
+	
+	protected void repaint(){
+		
 	}
 
 }

@@ -12,6 +12,7 @@ import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
 import hu.bme.szoftlab4.SZLAMB.Mezo.UresMezo;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Ut;
 import hu.bme.szoftlab4.SZLAMB.Mezo.VegzetHegye;
+import hu.bme.szoftlab4.SZLAMB.View.View;
 import hu.bme.szoftlab4.SZLAMB.XMLHelper.XMLHelper;
 
 import java.io.File;
@@ -58,6 +59,8 @@ public class Palya {
 	 * a játékban még életben lévő karakterek listája
 	 */
 	private List<GyuruSzovetsege> karakterek;
+	
+	protected View view;
 	
 	private static String className;
 	

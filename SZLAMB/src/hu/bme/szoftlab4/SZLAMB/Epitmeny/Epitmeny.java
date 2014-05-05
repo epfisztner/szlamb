@@ -5,6 +5,7 @@ import java.util.List;
 import hu.bme.szoftlab4.SZLAMB.VarazsKo;
 import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.GyuruSzovetsege;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
+import hu.bme.szoftlab4.SZLAMB.View.Paintable;
 
 /**
  * Ez az interface deklarálja a {@link Torony} illetve {@link Akadaly} típusú
@@ -51,4 +52,5 @@ public interface Epitmeny extends Cloneable {
 
 	void setKod(boolean vanKod);
 
+	void setPaintable(Paintable paintable);
 }

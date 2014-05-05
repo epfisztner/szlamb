@@ -19,7 +19,7 @@ public class Szaruman {
 	/**
 	 * A játékban felhasznált játék mező.
 	 */
-	public Palya palya;
+	public static Palya palya;
 	
 	/**
 	 * A játékos varázsereje.

@@ -7,6 +7,7 @@ import hu.bme.szoftlab4.SZLAMB.Epitmeny.Akadaly;
 import hu.bme.szoftlab4.SZLAMB.Epitmeny.Torony;
 import hu.bme.szoftlab4.SZLAMB.Lovedek.Lovedek;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
+import hu.bme.szoftlab4.SZLAMB.View.Paintable;
 
 /**
  * A játékban lévő ellenségek reprezentációja lesz ezen interface leszármazottja.
@@ -46,6 +47,8 @@ public interface GyuruSzovetsege extends Cloneable {
 	 * @param utvonal
 	 */
 	public void setUtvonal(List<Mezo> utvonal);
+	
+	void setPaintable(Paintable paintable);
 	
 	public Object clone() throws CloneNotSupportedException;
 	public void lep();

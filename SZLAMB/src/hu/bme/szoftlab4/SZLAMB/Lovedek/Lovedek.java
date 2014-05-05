@@ -4,6 +4,7 @@ import java.util.List;
 
 import hu.bme.szoftlab4.SZLAMB.VarazsKo;
 import hu.bme.szoftlab4.SZLAMB.Epitmeny.Torony;
+import hu.bme.szoftlab4.SZLAMB.View.Paintable;
 
 /**
  * 
@@ -21,5 +22,7 @@ public interface Lovedek {
 	 * @return List<VarazsKo>
 	 */
 	List<VarazsKo> getVarazsKovek();
+	
+	void setPaintable(Paintable paintable);
 
 }

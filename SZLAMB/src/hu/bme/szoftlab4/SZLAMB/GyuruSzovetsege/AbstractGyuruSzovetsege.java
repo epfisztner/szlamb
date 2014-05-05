@@ -5,6 +5,7 @@ import hu.bme.szoftlab4.SZLAMB.Main;
 import hu.bme.szoftlab4.SZLAMB.Palya;
 import hu.bme.szoftlab4.SZLAMB.Epitmeny.Epitmeny;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
+import hu.bme.szoftlab4.SZLAMB.View.Paintable;
 import hu.bme.szoftlab4.SZLAMB.XMLHelper.XMLHelper;
 
 import java.util.List;
@@ -47,10 +48,17 @@ public abstract class AbstractGyuruSzovetsege implements GyuruSzovetsege {
 	 */
 	private int positionY;
 
+	protected Paintable gyuruSzovetsegePaintable;
+
 	public AbstractGyuruSzovetsege() {
 		// System.out.println("\t\t\t\t-->"+this.getClass().getName()+".constructor("+utvonal.toString()+")");
 		this.setUtvonal(utvonal);
 		// System.out.println("\t\t\t\t<--");
+	}
+
+	@Override
+	public void setPaintable(Paintable paintable) {
+		this.gyuruSzovetsegePaintable = paintable;
 	}
 
 	/**
@@ -97,7 +105,8 @@ public abstract class AbstractGyuruSzovetsege implements GyuruSzovetsege {
 		this.positionY = positionY;
 
 		for (int x = 0; x < utvonal.size(); x++) {
-			if (utvonal.get(x).getX() == this.positionY && utvonal.get(x).getY() == this.positionX) {
+			if (utvonal.get(x).getX() == this.positionY
+					&& utvonal.get(x).getY() == this.positionX) {
 				this.aktualisMezoIndex = x;
 				break;
 			}
@@ -134,6 +143,10 @@ public abstract class AbstractGyuruSzovetsege implements GyuruSzovetsege {
 
 	public void setEletero(int eletero) {
 		this.eletero = eletero;
+	}
+
+	protected void repaint() {
+
 	}
 
 }
