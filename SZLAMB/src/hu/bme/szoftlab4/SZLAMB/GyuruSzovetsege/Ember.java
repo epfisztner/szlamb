@@ -20,13 +20,19 @@ public class Ember extends AbstractGyuruSzovetsege {
 
 	public Ember(List<List<Mezo>>utvonalak) {
 		super(utvonalak);
-		this.sebesseg = 3;
+		this.setEletero(30);
+		this.sebesseg = 4;
 	}
 
 	@Override
 	public void sebez(Lovedek lovedek) {
 		int eletero = this.getEletero();
-		eletero--;
+		if (lovedek.getVarazsKovek().contains(VarazsKo.EMBER)) {
+			eletero-= 4;
+		} else {
+			eletero--;
+		}
+		
 		this.setEletero(eletero);
 		
 		if (this.getEletero()<1) {
@@ -36,11 +42,21 @@ public class Ember extends AbstractGyuruSzovetsege {
 
 	@Override
 	public void setSebesseg(List<VarazsKo> varazsKo) {
+		if (varazsKo.contains(VarazsKo.EMBER)) {
+			this.sebesseg=1;
+		} else {
+			this.sebesseg=4;
+		}
 	}
 
 	@Override
 	public ViewType getType() {
 		return ViewType.EMBER;
+	}
+
+	@Override
+	public void setDefaultSebesseg() {
+		this.sebesseg = 4;
 	}
 
 

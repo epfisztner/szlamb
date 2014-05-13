@@ -60,4 +60,10 @@ public interface GyuruSzovetsege extends Cloneable, ModelConnetor {
 	
 	public int getEletero() ;
 	public void setEletero(int eletero);
+	
+	public boolean isMegy();
+
+	public void setMegy(boolean megy);
+
+	public void setDefaultSebesseg();
 }

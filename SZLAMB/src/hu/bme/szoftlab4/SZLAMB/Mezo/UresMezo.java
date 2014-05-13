@@ -25,7 +25,8 @@ public class UresMezo extends AbstractMezo {
 	public void epitmenyRegiszter(Epitmeny epitmeny) {
 		this.epitmeny = epitmeny;
 		this.epitmeny.setMezo(this);
-		System.out.println("építmény bereg: X:"+this.getX()+"   y:"+this.getY()+" - ra");
+		this.beepitett = true;
+		//System.out.println("építmény bereg: X:"+this.getX()+"   y:"+this.getY()+" - ra");
 	}
 
 	@Override
@@ -40,8 +41,9 @@ public class UresMezo extends AbstractMezo {
 
 	@Override
 	public void setKod(boolean vanKod) {
-		this.epitmeny.setKod(vanKod);
-		
+		if (this.isBeepitett()) {
+			this.epitmeny.setKod(vanKod);
+		}
 	}
 
 	@Override
@@ -51,8 +53,12 @@ public class UresMezo extends AbstractMezo {
 
 	@Override
 	public List<GyuruSzovetsege> getKarakterek() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.karakterek;
+	}
+
+	@Override
+	public ViewType getEpitmenyType() {
+		return ViewType.TORONY;
 	}
 
 }

@@ -41,9 +41,9 @@ public class View extends JPanel implements ActionListener {
 		this.paintables = new ArrayList<Paintable>();
 		this.xd = 10;
 		this.y = 10;
-		this.setSize(500, 400);
+		this.setSize(600, 400);
 		this.addMouseListener(mouseListener);
-		Timer t = new Timer(50, this);
+		Timer t = new Timer(60, this);
 		t.start();
 	}
 
@@ -98,15 +98,15 @@ public class View extends JPanel implements ActionListener {
 
 		repaint();
 	}
-	
-	public Epitmeny getEpitmeny(MouseEvent e){
+
+	public Epitmeny getEpitmeny(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
 		for (int i = 0; i < paintables.size(); i++) {
 			if (paintables.get(i).getPositionX() <= x
-					&& paintables.get(i).getPositionX() + 47 > x
+					&& paintables.get(i).getPositionX() + 60 > x
 					&& paintables.get(i).getPositionY() <= y
-					&& paintables.get(i).getPositionY() + 47 > y) {
+					&& paintables.get(i).getPositionY() + 60 > y) {
 				if (paintables.get(i).handleUserInterction()
 						.equals(ViewType.TORONY)) {
 					return (Epitmeny) paintables.get(i).getModelObject();
@@ -118,7 +118,27 @@ public class View extends JPanel implements ActionListener {
 
 		}
 		return null;
-	
+	}
+
+	public Epitmeny getClicked(MouseEvent e) {
+		int x = e.getX();
+		int y = e.getY();
+		for (int i = 0; i < paintables.size(); i++) {
+			if (paintables.get(i).getPositionX() <= x
+					&& paintables.get(i).getPositionX() + 60 > x
+					&& paintables.get(i).getPositionY() <= y
+					&& paintables.get(i).getPositionY() + 60 > y) {
+				if (paintables.get(i).handleUserInterction()
+						.equals(ViewType.TORONY)) {
+					return (Epitmeny) paintables.get(i).getModelObject();
+				} else if (paintables.get(i).handleUserInterction()
+						.equals(ViewType.AKADALY)) {
+					return (Epitmeny) paintables.get(i).getModelObject();
+				}
+
+			}
+		}
+		return null;
 	}
 
 	public boolean mouseClicked(MouseEvent e, Epitmeny epitmeny) {
@@ -126,26 +146,32 @@ public class View extends JPanel implements ActionListener {
 		int y = e.getY();
 		for (int i = 0; i < paintables.size(); i++) {
 			if (paintables.get(i).getPositionX() <= x
-					&& paintables.get(i).getPositionX() + 47 > x
+					&& paintables.get(i).getPositionX() + 60 > x
 					&& paintables.get(i).getPositionY() <= y
-					&& paintables.get(i).getPositionY() + 47 > y) {
+					&& paintables.get(i).getPositionY() + 60 > y) {
 				if (paintables.get(i).handleUserInterction()
-						.equals(ViewType.URESMEZO) && JatekMotor.gameInteractionState.equals(ViewType.TORONY)) {
+						.equals(ViewType.URESMEZO)
+						&& JatekMotor.gameInteractionState
+								.equals(ViewType.TORONY)) {
 					Torony torony = (Torony) epitmeny;
 					torony.setX(paintables.get(i).getPositionX());
 					torony.setY(paintables.get(i).getPositionY());
 					this.addNewPaintable(new EpitmenyPaintable(ViewType.TORONY,
 							torony));
 					this.invalidate();
+					JatekMotor.gameInteractionState = ViewType.NONE;
 					return true;
 				} else if (paintables.get(i).handleUserInterction()
-						.equals(ViewType.UT) && JatekMotor.gameInteractionState.equals(ViewType.AKADALY)) {
+						.equals(ViewType.UT)
+						&& JatekMotor.gameInteractionState
+								.equals(ViewType.AKADALY)) {
 					Akadaly akadaly = (Akadaly) epitmeny;
 					akadaly.setX(paintables.get(i).getPositionX());
 					akadaly.setY(paintables.get(i).getPositionY());
 					this.addNewPaintable(new EpitmenyPaintable(
 							ViewType.AKADALY, akadaly));
 					this.invalidate();
+					JatekMotor.gameInteractionState = ViewType.NONE;
 					return true;
 				} else {
 					return false;

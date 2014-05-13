@@ -18,13 +18,18 @@ public class Hobbit extends AbstractGyuruSzovetsege {
 
 	public Hobbit(List<List<Mezo>>utvonalak) {
 		super(utvonalak);
-		this.sebesseg = 2;
+		this.setEletero(50);
+		this.sebesseg = 3;
 	}
 
 	@Override
 	public void sebez(Lovedek lovedek) {
 		int eletero = this.getEletero();
-		eletero--;
+		if (lovedek.getVarazsKovek().contains(VarazsKo.HOBBIT)) {
+			eletero-= 4;
+		} else {
+			eletero--;
+		}
 		this.setEletero(eletero);
 		if (this.getEletero()<1) {
 			this.elpusztul();
@@ -33,11 +38,21 @@ public class Hobbit extends AbstractGyuruSzovetsege {
 
 	@Override
 	public void setSebesseg(List<VarazsKo> varazsKo) {
+		if (varazsKo.contains(VarazsKo.HOBBIT)) {
+			this.sebesseg=1;
+		} else {
+			this.sebesseg=3;
+		}
 	}
 
 	@Override
 	public ViewType getType() {
 		return ViewType.HOBBIT;
+	}
+
+	@Override
+	public void setDefaultSebesseg() {
+		this.sebesseg = 3;
 	}
 
 }

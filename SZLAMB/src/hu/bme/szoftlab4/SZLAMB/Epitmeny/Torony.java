@@ -27,7 +27,7 @@ public class Torony extends AbstractEpitmeny {
 
 	boolean kod = false;
 	/**
-	 * A {@link VarazsKo} -vek hat�s�ra változó érték, mely megadja a torony
+	 * A {@link VarazsKo} -vek hatására változó érték, mely megadja a torony
 	 * hatótávjának mértékét.
 	 */
 	protected int hatotavSzorzo;
@@ -49,15 +49,15 @@ public class Torony extends AbstractEpitmeny {
 	 * szerkesztve csak az adott épületre rakható kövek listáját adja vissza
 	 */
 	@Override
-	public List<VarazsKo> getValidKovek() {
-		return varazsKovek;
+	public VarazsKo[] getValidKovek() {
+		return new VarazsKo[]{VarazsKo.EMBER, VarazsKo.HOBBIT, VarazsKo.TORP,VarazsKo.TUNDE, VarazsKo.HATOTAV, VarazsKo.TUZELES};
 	}
 
 	/**
 	 * szerkesztve üres metódus nem csinál semmit
 	 */
 	public void setKod(boolean vanKod) {
-		this.kod = true;
+		this.kod = vanKod;
 	}
 
 	public boolean isKod() {
@@ -66,29 +66,36 @@ public class Torony extends AbstractEpitmeny {
 
 	@Override
 	public void felruhaz(VarazsKo varazsKo) {
-		// System.out.println("\t\t-->"+this.getClass().getName()+"felruhaz("+varazsKo.name()+");");
-		// System.out.println("\t\t<--void");
-		if (!this.varazsKovek.contains(varazsKo)) {
-			this.varazsKovek.add(varazsKo);
+		if (!this.getVarazsKovek().contains(varazsKo)) {
+			this.getVarazsKovek().add(varazsKo);
+		}
+		if (varazsKo.equals(VarazsKo.HATOTAV)) {
+			this.tuzelesSzorzo ++;
+			timer.stop();
+			timer.setDelay(150/this.tuzelesSzorzo);
+			timer.start();
+		} else if (varazsKo.equals(VarazsKo.TUZELES)) {
+			this.hatotavSzorzo ++;
+			this.epitmenyMezo.setSzomszedok(hatotavSzorzo);
 		}
 	}
 
 	@Override
 	public void reakcio(GyuruSzovetsege gyuruSzovetsege) {
-		System.out.println("\t\t-->" + this.getClass().getName() + ".reakcio("
-				+ gyuruSzovetsege.getClass().getName() + ")");
-		gyuruSzovetsege.sebez(new LovedekImpl(varazsKovek));
-		timer.start();
+		if (!isKod()){
+			gyuruSzovetsege.sebez(new LovedekImpl(getVarazsKovek()));
+			timer.start();
+		}
 	}
 
 	@Override
 	public void setMezo(final Mezo epitmenyMezo) {
 		this.epitmenyMezo = epitmenyMezo;
-		timer = new Timer(tuzelesSzorzo * 10, new ActionListener() {
+		timer = new Timer(150/tuzelesSzorzo, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (epitmenyMezo.getKarakterek() != null) {
+				if (epitmenyMezo.getKarakterek() != null && !isKod()) {
 					for (GyuruSzovetsege gyuruSzovetsege : epitmenyMezo
 							.getKarakterek()) {
 						reakcio(gyuruSzovetsege);

@@ -61,4 +61,9 @@ public class VegzetHegye extends AbstractMezo {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public ViewType getEpitmenyType() {
+		return ViewType.NONE;
+	}
 }

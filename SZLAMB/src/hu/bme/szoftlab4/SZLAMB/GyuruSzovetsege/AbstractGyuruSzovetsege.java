@@ -54,11 +54,11 @@ public abstract class AbstractGyuruSzovetsege implements GyuruSzovetsege {
 
 	private List<List<Mezo>> utvonalak;
 
+	private boolean megy;
+
 	public AbstractGyuruSzovetsege(List<List<Mezo>> utvonalak) {
 		this.setUtvonalak(utvonalak);
 		this.aktualisMezoIndex = 0;
-		Random r = new Random(System.currentTimeMillis());
-		this.setUtvonal(getUtvonalak().get(r.nextInt(getUtvonalak().size())));
 	}
 
 	@Override
@@ -71,11 +71,15 @@ public abstract class AbstractGyuruSzovetsege implements GyuruSzovetsege {
 	 * meg.
 	 */
 	protected void elpusztul() {
-		Palya.ellensegCsokkent();
+		Palya.ellensegCsokkent(this);
 	}
 
 	@Override
 	public void indul() {
+		Random r = new Random(System.currentTimeMillis());
+		System.out.println("indul: "+this);
+		this.setUtvonal(getUtvonalak().get(r.nextInt(getUtvonalak().size())));
+		this.setMegy(true);
 	}
 
 	@Override
@@ -105,18 +109,9 @@ public abstract class AbstractGyuruSzovetsege implements GyuruSzovetsege {
 
 	public void setPositionY(int positionY) {
 		this.positionY = positionY;
-
-		/*
-		 * for (int x = 0; x < utvonal.size(); x++) { if (utvonal.get(x).getX()
-		 * == this.positionY && utvonal.get(x).getY() == this.positionX) {
-		 * this.aktualisMezoIndex = x; break; }
-		 * 
-		 * }
-		 */
 	}
 
 	public void lep() {
-		// this.aktualisMezoIndex++;
 		
 			if (positionX > utvonal.get(aktualisMezoIndex).getX()) {
 				positionX-=this.sebesseg;
@@ -133,14 +128,17 @@ public abstract class AbstractGyuruSzovetsege implements GyuruSzovetsege {
 			//if (!JatekMotor.isJatekVege()) {
 				
 			if (utvonal.get(aktualisMezoIndex).getX() <= positionX
-						&& utvonal.get(aktualisMezoIndex).getX() + 47 > positionX
+						&& utvonal.get(aktualisMezoIndex).getX() + 60 > positionX
 						&& utvonal.get(aktualisMezoIndex).getY() <= positionY
-						&& utvonal.get(aktualisMezoIndex).getY() + 47 > positionY) {
+						&& utvonal.get(aktualisMezoIndex).getY() + 60 > positionY) {
 				if (this.utvonal.size()-1>this.aktualisMezoIndex){
+					
+					this.utvonal.get(aktualisMezoIndex).karakterUnRegiszter(this, false);
+
 					this.aktualisMezoIndex++;
 	
-					this.utvonal.get(this.aktualisMezoIndex).karakterRegiszter(
-							this, false);
+						this.utvonal.get(this.aktualisMezoIndex).karakterRegiszter(
+								this, false);
 				}
 			}
 
@@ -174,5 +172,13 @@ public abstract class AbstractGyuruSzovetsege implements GyuruSzovetsege {
 
 	public void setUtvonalak(List<List<Mezo>> utvonalak) {
 		this.utvonalak = utvonalak;
+	}
+
+	public boolean isMegy() {
+		return megy;
+	}
+
+	public void setMegy(boolean megy) {
+		this.megy = megy;
 	}
 }

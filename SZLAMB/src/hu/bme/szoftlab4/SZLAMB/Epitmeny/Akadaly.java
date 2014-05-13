@@ -22,8 +22,9 @@ public class Akadaly extends AbstractEpitmeny {
 	 * csak az adott épületre rakható kövek listáját adja vissza
 	 */
 	@Override
-	public List<VarazsKo> getValidKovek(){
-		return varazsKovek;}
+	public VarazsKo[] getValidKovek(){
+		return new VarazsKo[]{VarazsKo.EMBER, VarazsKo.HOBBIT, VarazsKo.TORP,VarazsKo.TUNDE};
+	}
 	
 	/**
 	 * szerkesztve
@@ -34,29 +35,23 @@ public class Akadaly extends AbstractEpitmeny {
 	
 	@Override
 	public void felruhaz(VarazsKo varazsKo) {
-		//System.out.println("\t\t-->"+this.getClass().getName()+".felruhaz("+varazsKo.name()+")");
-		//System.out.println("\t\t<--void");
+		this.getVarazsKovek().add(varazsKo);
 	}
 
 	@Override
 	public void reakcio(GyuruSzovetsege gyuruSzovetsege) {
-		//System.out.println("\t\t-->"+this.getClass().getName()+".reakcio("+gyuruSzovetsege.getClass().getName()+")");
-		gyuruSzovetsege.setSebesseg(this.varazsKovek);
-		XMLHelper.setOutPutFileContent(" akadalyra lepett");
-		//System.out.println("\t\t<--void");
+		gyuruSzovetsege.setSebesseg(this.getVarazsKovek());
 	}
 
 	@Override
 	public void setMezo(Mezo epitmenyMezo) {
-		//System.out.println("\t\t-->"+this.getClass().getName()+".setMezo("+epitmenyMezo.getClass().getName()+")");
-		//System.out.println("\t\t<--void");
+		this.epitmenyMezo = epitmenyMezo;
 	}
 
 	@Override
 	public ViewType getType() {
 		return ViewType.AKADALY;
 	}
-	
 	
 
 }

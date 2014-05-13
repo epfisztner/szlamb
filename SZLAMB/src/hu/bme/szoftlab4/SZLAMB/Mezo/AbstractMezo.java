@@ -11,6 +11,7 @@ import hu.bme.szoftlab4.SZLAMB.Epitmeny.Epitmeny;
 import hu.bme.szoftlab4.SZLAMB.Epitmeny.Torony;
 import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.GyuruSzovetsege;
 import hu.bme.szoftlab4.SZLAMB.View.Paintable;
+import hu.bme.szoftlab4.SZLAMB.View.ViewType;
 import hu.bme.szoftlab4.SZLAMB.XMLHelper.XMLHelper;
 
 /**
@@ -122,14 +123,37 @@ public abstract class AbstractMezo implements Mezo {
 	@Override
 	public void karakterRegiszter(GyuruSzovetsege gyuruSzovetsege,
 			boolean szomszedCall) {
-		this.karakterek.add(gyuruSzovetsege);
+		//System.out.println("beregel: x:"+getX()+"y:"+getY()+"   "+gyuruSzovetsege.toString());
+		
+			this.karakterek.add(gyuruSzovetsege);
+			if (!szomszedCall) {
+				for (Mezo mezo : this.szomszedok) {
+					if (this.isBeepitett() && this.getEpitmenyType().equals(ViewType.AKADALY)){
+						this.epitmeny.reakcio(gyuruSzovetsege);
+						mezo.karakterRegiszter(gyuruSzovetsege, true);
+					} else {
+						mezo.karakterRegiszter(gyuruSzovetsege, true);
+					}
+				}
+			} else{
+				if (this.epitmeny != null && !this.getEpitmenyType().equals(ViewType.AKADALY)) {
+					this.epitmeny.reakcio(gyuruSzovetsege);
+				}
+			}
+		
+	}
+	
+	@Override
+	public void karakterUnRegiszter(GyuruSzovetsege gyuruSzovetsege,
+			boolean szomszedCall) {
+		if (this.beepitett && getEpitmenyType().equals(ViewType.AKADALY)) {
+			gyuruSzovetsege.setDefaultSebesseg();
+		}
+		this.karakterek.remove(gyuruSzovetsege);
+		//System.out.println("Kiregisztrál: x:"+getX()+"y:"+getY()+"   "+gyuruSzovetsege.toString());
 		if (!szomszedCall) {
 			for (Mezo mezo : this.szomszedok) {
-				mezo.karakterRegiszter(gyuruSzovetsege, true);
-			}
-		} else{
-			if (this.epitmeny != null) {
-				this.epitmeny.reakcio(gyuruSzovetsege);
+				mezo.karakterUnRegiszter(gyuruSzovetsege, true);
 			}
 		}
 	}

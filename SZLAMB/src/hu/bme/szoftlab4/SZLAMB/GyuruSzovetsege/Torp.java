@@ -18,13 +18,18 @@ public class Torp extends AbstractGyuruSzovetsege {
 
 	public Torp(List<List<Mezo>>utvonalak) {
 		super(utvonalak);
-		this.sebesseg = 1;
+		this.setEletero(200);
+		this.sebesseg = 2;
 	}
 
 	@Override
 	public void sebez(Lovedek lovedek) {
 		int eletero = this.getEletero();
-		eletero--;
+		if (lovedek.getVarazsKovek().contains(VarazsKo.TORP)) {
+			eletero-= 4;
+		} else {
+			eletero--;
+		}
 		this.setEletero(eletero);
 		if (this.getEletero()<1) {
 			this.elpusztul();
@@ -33,12 +38,21 @@ public class Torp extends AbstractGyuruSzovetsege {
 
 	@Override
 	public void setSebesseg(List<VarazsKo> varazsKo) {
-		
+		if (varazsKo.contains(VarazsKo.TORP)) {
+			this.sebesseg=1;
+		} else {
+			this.sebesseg=2;
+		}
 	}
 
 	@Override
 	public ViewType getType() {
 		return ViewType.TORP;
+	}
+
+	@Override
+	public void setDefaultSebesseg() {
+		this.sebesseg = 2;
 	}
 
 }

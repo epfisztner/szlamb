@@ -21,9 +21,9 @@ public class EpitmenyPaintable extends Paintable {
 	@Override
 	public void paint(Graphics graphics) {
 		Graphics2D gg = (Graphics2D) graphics;
-		gg.drawImage(this.getImage(), this.getPositionX(), this.getPositionY(), 47, 47, null);
-		if (this.getViewType().equals(ViewType.TORONY) && !((Torony)this.getModelObject()).isKod()) {
-			gg.drawImage(new ImageIcon(getClass().getClassLoader().getResource("\\Resources\\fog.png")).getImage(), this.getPositionX(), this.getPositionY(), 47, 47, null);
+		gg.drawImage(this.getImage(), this.getPositionX(), this.getPositionY(), 60, 60, null);
+		if (this.getViewType().equals(ViewType.TORONY) && ((Torony)this.getModelObject()).isKod()) {
+			gg.drawImage(new ImageIcon(getClass().getClassLoader().getResource("\\Resources\\fog.png")).getImage(), this.getPositionX(), this.getPositionY(), 60, 60, null);
 		}
 		
 	}

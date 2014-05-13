@@ -16,7 +16,8 @@ import java.util.List;
  *
  */
 public abstract class AbstractEpitmeny implements Epitmeny {
-	protected List<VarazsKo> varazsKovek;
+	
+	private List<VarazsKo> varazsKovek;
 	
 	/**
 	 * Az {@link Epitmeny} típusú osztály saját referenciája az őt tartalmazó
@@ -32,23 +33,15 @@ public abstract class AbstractEpitmeny implements Epitmeny {
 	
 	public AbstractEpitmeny() {
 		super();
-		//System.out.println("\t\t\t\t-->"+this.getClass().getName()+".constructor()");
-		//System.out.println("\t\t\t\t<--");
-		this.varazsKovek = new ArrayList<VarazsKo>();
+		this.setVarazsKovek(new ArrayList<VarazsKo>());
 		this.epitmenyMezo = null;
-	}
-
-	@Override
-	public List<VarazsKo> getValidKovek() {
-		//System.out.println("\t-->"+this.getClass().getName()+".getVarazsKovek()");
-		//System.out.println("\t<--"+varazsKovek.getClass().getName()+": " + varazsKovek.toString());
-		return this.varazsKovek;
 	}
 	
 	@Override
 	public Object clone() throws CloneNotSupportedException{
 		return super.clone();
 	}
+	
 	
 	@Override
 	public void setPaintable(Paintable paintable) {
@@ -78,5 +71,13 @@ public abstract class AbstractEpitmeny implements Epitmeny {
 	@Override
 	public int getY() {
 		return y;
+	}
+
+	public List<VarazsKo> getVarazsKovek() {
+		return varazsKovek;
+	}
+
+	public void setVarazsKovek(List<VarazsKo> varazsKovek) {
+		this.varazsKovek = varazsKovek;
 	}
 }

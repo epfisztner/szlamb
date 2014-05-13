@@ -24,6 +24,14 @@ public interface Mezo extends ModelConnetor{
 	 * @param gyuruSzovetsege
 	 */
 	void karakterRegiszter(GyuruSzovetsege gyuruSzovetsege, boolean szomszedCall);
+	
+	/**
+	 * Amennyiben karakter ellép a mezőről leiratkoztatja azt
+	 * 
+	 * @param gyuruSzovetsege
+	 */
+	void karakterUnRegiszter(GyuruSzovetsege gyuruSzovetsege, boolean szomszedCall);
+
 
 	/**
 	 * A paraméterben kapott {@link Epitmeny} típusú objektumot beállítja a mező
@@ -66,6 +74,8 @@ public interface Mezo extends ModelConnetor{
 	public void setY(int y);
 	
 	public ViewType getType();
+	
+	public ViewType getEpitmenyType();
 	
 	public List<GyuruSzovetsege> getKarakterek();
 	

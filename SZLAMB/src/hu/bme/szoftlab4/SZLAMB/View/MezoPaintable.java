@@ -21,11 +21,11 @@ public class MezoPaintable extends Paintable {
 	@Override
 	public void paint(Graphics graphics) {
 		Graphics2D gg = (Graphics2D) graphics;
-		//gg.clearRect(this.getPositionX(), this.getPositionY(), 47, 47);
+		//gg.clearRect(this.getPositionX(), this.getPositionY(), 60, 60);
 		if (this.getViewType().equals(ViewType.VEGZETHEGYE)){
-			gg.drawImage(new ImageIcon(getClass().getClassLoader().getResource("\\Resources\\ut.png")).getImage(), this.getPositionX(), this.getPositionY(), 47, 47, null);
+			gg.drawImage(new ImageIcon(getClass().getClassLoader().getResource("\\Resources\\ut.png")).getImage(), this.getPositionX(), this.getPositionY(), 60, 60, null);
 		}
-		gg.drawImage(this.getImage(), this.getPositionX(), this.getPositionY(), 47, 47, null);
+		gg.drawImage(this.getImage(), this.getPositionX(), this.getPositionY(), 60, 60, null);
 	}
 
 

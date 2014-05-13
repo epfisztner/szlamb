@@ -39,7 +39,9 @@ public interface Epitmeny extends Cloneable, ModelConnetor {
 	 * 
 	 * @return {@link List} {@link VarazsKo}
 	 */
-	List<VarazsKo> getValidKovek();
+	List<VarazsKo> getVarazsKovek();
+	
+	VarazsKo[] getValidKovek();
 
 	/**
 	 * Beállítja a paraméterben kapott {@link Mezo} -t az építmény
