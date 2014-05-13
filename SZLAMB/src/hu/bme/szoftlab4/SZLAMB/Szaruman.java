@@ -19,17 +19,17 @@ public class Szaruman {
 	/**
 	 * A játékban felhasznált játék mező.
 	 */
-	public static Palya palya;
+	private static Palya palya;
 	
 	/**
 	 * A játékos varázsereje.
 	 */
-	protected int varazsEro;
+	private int varazsEro;
 	
-	public Szaruman() {
+	public Szaruman(Mezo[][] mezo, List<List<Mezo>> utvonalak) {
 		//System.out.println("\t-->"+this.getClass().getName()+".constructor()");
 		this.varazsEro = 100;
-		palya = new Palya();
+		palya = new Palya(this,mezo, utvonalak);
 		//System.out.println("\t<--");
 	}
 
@@ -41,7 +41,9 @@ public class Szaruman {
 	public void epitTorony(Mezo mezo) {
 		//System.out.println("-->"+this.getClass().getName()+".epitTorony("+mezo.getClass()+")");
 		try {
-			mezo.epitmenyRegiszter((Torony) this.palya.getPrototipusokEpitmeny().get(0).clone());
+			mezo.epitmenyRegiszter((Torony) this.getPalya().getPrototipusokEpitmeny().get(0).clone());
+			this.incVarazsEro(this.getVarazsEro() - 10);
+			this.palya.setSzarumanProgress(this.getVarazsEro());
 		} catch (CloneNotSupportedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,7 +59,9 @@ public class Szaruman {
 	public void epitAkadaly(Mezo mezo) {
 		//System.out.println("-->"+this.getClass().getName()+".epitAkadaly("+mezo.getClass()+")");
 		try {
-			mezo.epitmenyRegiszter((Akadaly)this.palya.getPrototipusokEpitmeny().get(1).clone());
+			mezo.epitmenyRegiszter((Akadaly)this.getPalya().getPrototipusokEpitmeny().get(1).clone());
+			this.incVarazsEro(this.getVarazsEro() - 5);
+			palya.setSzarumanProgress(varazsEro);
 		} catch (CloneNotSupportedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -73,18 +77,41 @@ public class Szaruman {
 	 * @param varazsKo
 	 */
 	public void felruhaz(Mezo mezo, VarazsKo varazsKo) {
-		System.out.println("-->"+this.getClass().getName()+".epitAkadaly("+varazsKo.getClass()+")");
+		//System.out.println("-->"+this.getClass().getName()+".epitAkadaly("+varazsKo.getClass()+")");
 		mezo.epitmenyFelruhazas(varazsKo);
-		System.out.println("<--void");
+		this.incVarazsEro(this.getVarazsEro() - 10);
+		this.palya.setSzarumanProgress(this.getVarazsEro());
+		//System.out.println("<--void");
 	}
 	
 	/**
 	 * Játék indítása
 	 */
 	public void start() {
-		System.out.println("\t-->"+this.getClass().getName()+".start()");
+		//System.out.println("\t-->"+this.getClass().getName()+".start()");
+		//getPalya().start();
 		palya.start();
-		System.out.println("\t<--void");
+		//System.out.println("\t<--void");
+	}
+
+	public static Palya getPalya() {
+		return palya;
+	}
+
+	public static void setPalya(Palya palya) {
+		Szaruman.palya = palya;
+	}
+
+	public int getVarazsEro() {
+		return varazsEro;
+	}
+
+	public void incVarazsEro(int varazsEro) {
+		this.varazsEro += varazsEro;
+	}
+	
+	public  void decVarazsEro(int varazsEro) {
+		this.varazsEro -= varazsEro;
 	}
 
 }

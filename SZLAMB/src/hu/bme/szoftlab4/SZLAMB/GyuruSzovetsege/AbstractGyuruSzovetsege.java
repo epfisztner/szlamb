@@ -6,9 +6,11 @@ import hu.bme.szoftlab4.SZLAMB.Palya;
 import hu.bme.szoftlab4.SZLAMB.Epitmeny.Epitmeny;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
 import hu.bme.szoftlab4.SZLAMB.View.Paintable;
+import hu.bme.szoftlab4.SZLAMB.View.ViewType;
 import hu.bme.szoftlab4.SZLAMB.XMLHelper.XMLHelper;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Ez az osztály implementálja az {@link GyuruSzovetsege} interface által
@@ -50,10 +52,13 @@ public abstract class AbstractGyuruSzovetsege implements GyuruSzovetsege {
 
 	protected Paintable gyuruSzovetsegePaintable;
 
-	public AbstractGyuruSzovetsege() {
-		// System.out.println("\t\t\t\t-->"+this.getClass().getName()+".constructor("+utvonal.toString()+")");
-		this.setUtvonal(utvonal);
-		// System.out.println("\t\t\t\t<--");
+	private List<List<Mezo>> utvonalak;
+
+	public AbstractGyuruSzovetsege(List<List<Mezo>> utvonalak) {
+		this.setUtvonalak(utvonalak);
+		this.aktualisMezoIndex = 0;
+		Random r = new Random(System.currentTimeMillis());
+		this.setUtvonal(getUtvonalak().get(r.nextInt(getUtvonalak().size())));
 	}
 
 	@Override
@@ -66,26 +71,23 @@ public abstract class AbstractGyuruSzovetsege implements GyuruSzovetsege {
 	 * meg.
 	 */
 	protected void elpusztul() {
-		// System.out.println("\t\t\t\t-->"+this.getClass().getName()+".elpusztul()");
 		Palya.ellensegCsokkent();
-		// System.out.println("\t\t\t\t<--void");
 	}
 
 	@Override
 	public void indul() {
-		// System.out.println("\t\t\t-->"+this.getClass().getName()+".indul()");
-		// System.out.println("\t\t\t<--void");
 	}
 
 	@Override
 	public void setUtvonal(List<Mezo> utvonal) {
-		// System.out.println("\t\t\t\t\t-->"+this.getClass().getName()+".setUtvonal("+utvonal.toString()+")");
-		// System.out.println("\t\t\t\t\t<--void");
 		this.utvonal = utvonal;
+		this.positionX = this.utvonal.get(aktualisMezoIndex).getX();
+		this.positionY = this.utvonal.get(aktualisMezoIndex).getY();
 	}
 
 	@Override
 	public Object clone() throws CloneNotSupportedException {
+		System.out.println("Lemásolva: " + this.toString());
 		return super.clone();
 	}
 
@@ -104,37 +106,54 @@ public abstract class AbstractGyuruSzovetsege implements GyuruSzovetsege {
 	public void setPositionY(int positionY) {
 		this.positionY = positionY;
 
-		for (int x = 0; x < utvonal.size(); x++) {
-			if (utvonal.get(x).getX() == this.positionY
-					&& utvonal.get(x).getY() == this.positionX) {
-				this.aktualisMezoIndex = x;
-				break;
-			}
-
-		}
+		/*
+		 * for (int x = 0; x < utvonal.size(); x++) { if (utvonal.get(x).getX()
+		 * == this.positionY && utvonal.get(x).getY() == this.positionX) {
+		 * this.aktualisMezoIndex = x; break; }
+		 * 
+		 * }
+		 */
 	}
 
 	public void lep() {
-		this.aktualisMezoIndex++;
-		for (int x = 0; x < utvonal.size(); x++) {
-			if (x == aktualisMezoIndex) {
-				positionX = utvonal.get(x).getX();
-				positionY = utvonal.get(x).getY();
+		// this.aktualisMezoIndex++;
+		
+			if (positionX > utvonal.get(aktualisMezoIndex).getX()) {
+				positionX-=this.sebesseg;
+
+			} else if (positionX < utvonal.get(aktualisMezoIndex).getX()) {
+				positionX+=this.sebesseg;
 			}
-		}
-		XMLHelper.setOutPutFileContent("leptetes az [" + positionX + "]["
-				+ positionY + "] utra");
-		this.utvonal.get(aktualisMezoIndex).karakterRegiszter(this, false);
-		if (getEletero() <= 0) {
-			XMLHelper.setOutPutFileContent(" elpusztult");
-			elpusztul();
-		} else if (this.utvonal.get(aktualisMezoIndex).toString()
-				.equalsIgnoreCase("vegzetHegye")) {
-		} else {
-			if (XMLHelper.outPutFileContent.contains("</karakterLep>")) {
-				// XMLHelper.setOutPutFileContent("</karakterLep>");
+			if (positionY > utvonal.get(aktualisMezoIndex).getY()) {
+				positionY-=this.sebesseg;
+
+			} else if (positionY < utvonal.get(aktualisMezoIndex).getY()) {
+				positionY+=this.sebesseg;
 			}
-		}
+			//if (!JatekMotor.isJatekVege()) {
+				
+			if (utvonal.get(aktualisMezoIndex).getX() <= positionX
+						&& utvonal.get(aktualisMezoIndex).getX() + 47 > positionX
+						&& utvonal.get(aktualisMezoIndex).getY() <= positionY
+						&& utvonal.get(aktualisMezoIndex).getY() + 47 > positionY) {
+				if (this.utvonal.size()-1>this.aktualisMezoIndex){
+					this.aktualisMezoIndex++;
+	
+					this.utvonal.get(this.aktualisMezoIndex).karakterRegiszter(
+							this, false);
+				}
+			}
+
+			if (getEletero() <= 0) {
+
+				elpusztul();
+			} else if (this.utvonal.get(aktualisMezoIndex).toString()
+					.equalsIgnoreCase("vegzetHegye")) {
+				JatekMotor.jatekVegeVeszit();
+			} else {
+
+			}
+		//}
 	}
 
 	public int getEletero() {
@@ -149,4 +168,11 @@ public abstract class AbstractGyuruSzovetsege implements GyuruSzovetsege {
 
 	}
 
+	public List<List<Mezo>> getUtvonalak() {
+		return utvonalak;
+	}
+
+	public void setUtvonalak(List<List<Mezo>> utvonalak) {
+		this.utvonalak = utvonalak;
+	}
 }

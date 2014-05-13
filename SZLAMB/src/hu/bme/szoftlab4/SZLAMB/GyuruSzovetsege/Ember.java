@@ -6,6 +6,8 @@ import hu.bme.szoftlab4.SZLAMB.Palya;
 import hu.bme.szoftlab4.SZLAMB.VarazsKo;
 import hu.bme.szoftlab4.SZLAMB.Lovedek.Lovedek;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
+import hu.bme.szoftlab4.SZLAMB.View.ViewType;
+
 import java.util.List;
 
 /**
@@ -16,16 +18,13 @@ import java.util.List;
  */
 public class Ember extends AbstractGyuruSzovetsege {
 
-	public Ember() {
-		super();
+	public Ember(List<List<Mezo>>utvonalak) {
+		super(utvonalak);
+		this.sebesseg = 3;
 	}
 
 	@Override
 	public void sebez(Lovedek lovedek) {
-		//System.out.println("\t\t\t-->"+this.getClass().getName()+".sebez("+lovedek.getClass()+")");
-		//System.out.print("\t\t\t\t[?] Elfogyott az eletereje? [igen/nem] :");
-		//String input = Main.input();
-		//if (input.equalsIgnoreCase("igen")) {
 		int eletero = this.getEletero();
 		eletero--;
 		this.setEletero(eletero);
@@ -33,13 +32,15 @@ public class Ember extends AbstractGyuruSzovetsege {
 		if (this.getEletero()<1) {
 			this.elpusztul();
 		}
-		//System.out.println("\n\t\t\t<--void");
 	}
 
 	@Override
 	public void setSebesseg(List<VarazsKo> varazsKo) {
-		//System.out.println("\t\t\t-->"+this.getClass().getName()+".setSebesseg("+varazsKo.toString()+")");
-		//System.out.println("\t\t\t<--void");
+	}
+
+	@Override
+	public ViewType getType() {
+		return ViewType.EMBER;
 	}
 
 

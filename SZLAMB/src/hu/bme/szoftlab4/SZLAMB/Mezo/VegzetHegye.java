@@ -1,10 +1,13 @@
 package hu.bme.szoftlab4.SZLAMB.Mezo;
 
+import java.util.List;
+
 import hu.bme.szoftlab4.SZLAMB.JatekMotor;
 import hu.bme.szoftlab4.SZLAMB.VarazsKo;
 import hu.bme.szoftlab4.SZLAMB.Epitmeny.Epitmeny;
 import hu.bme.szoftlab4.SZLAMB.Epitmeny.Torony;
 import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.GyuruSzovetsege;
+import hu.bme.szoftlab4.SZLAMB.View.ViewType;
 
 /**
  * Ez az osztály a {@link Mezo} egyik implementációja.
@@ -22,23 +25,19 @@ public class VegzetHegye extends AbstractMezo {
 
 	@Override
 	public void karakterRegiszter(GyuruSzovetsege gyuruSzovetsege, boolean szomszedCall) {
-		//System.out.println("\t-->"+this.getClass().getName()+".karakterRegiszter("+gyuruSzovetsege.getClass().getName()+")");
 		if (!szomszedCall) {
 			JatekMotor.jatekVegeVeszit();
 		}
-		//System.out.println("\t<--void");
 	}
 
 	@Override
 	public void epitmenyRegiszter(Epitmeny epitmeny) {
-		//System.out.println("\t-->"+this.getClass().getName()+".epitmenyRegiszter("+epitmeny.getClass().getName()+")");
-		//System.out.println("\t<--void");
+
 	}
 
 	@Override
 	public void epitmenyFelruhazas(VarazsKo varazsKo) {
-		//System.out.println("\t-->"+this.getClass().getName()+".epitmenyFelruhazas("+varazsKo.name()+")");
-		//System.out.println("\t<--void");
+
 	}
 
 	@Override
@@ -50,5 +49,16 @@ public class VegzetHegye extends AbstractMezo {
 	public void setKod(boolean vanKod) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public ViewType getType() {
+		return ViewType.VEGZETHEGYE;
+	}
+
+	@Override
+	public List<GyuruSzovetsege> getKarakterek() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

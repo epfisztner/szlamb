@@ -40,8 +40,10 @@ public class Main extends JFrame{
 
 		Main main = new Main();
 		//main.start();
-		//XMLHelper.loadMap("c:\\map.xml");
 		XMLHelper xmlH = new XMLHelper();
+		xmlH.loadMap("c:\\map.xml");
+		
+		/*
 		while(true){
 			System.out.println("Add meg a tesztet tartalmazo xml-t vagy lepj ki az exit paranccsal:");
 			String in = input();
@@ -50,8 +52,9 @@ public class Main extends JFrame{
 			} else {
 				xmlH.readCommandFile(in);
 			}
-		}
-		
+		}*/
+		main.jatekMotor = new JatekMotor(xmlH.getMap(), xmlH.getUtvonalak());
+		//main.jatekMotor.szaruman.getPalya().setMezok(xmlH.getMap());
 	}
 	/*
 	private void start() {

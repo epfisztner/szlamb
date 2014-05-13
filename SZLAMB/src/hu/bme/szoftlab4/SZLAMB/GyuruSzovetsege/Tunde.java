@@ -1,12 +1,14 @@
 package hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege;
 
 import java.util.List;
+import java.util.Random;
 
 import hu.bme.szoftlab4.SZLAMB.Main;
 import hu.bme.szoftlab4.SZLAMB.Palya;
 import hu.bme.szoftlab4.SZLAMB.VarazsKo;
 import hu.bme.szoftlab4.SZLAMB.Lovedek.Lovedek;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
+import hu.bme.szoftlab4.SZLAMB.View.ViewType;
 
 /**
  * Ez az osztály a {@link GyuruSzovetsege} egyik implementációja.
@@ -15,30 +17,36 @@ import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
  */
 public class Tunde extends AbstractGyuruSzovetsege {
 
-	public Tunde() {
-		super();
+	public Tunde(List<List<Mezo>>utvonalak) {
+		super(utvonalak);
+		this.sebesseg = 4;
 	}
 
 	@Override
 	public void sebez(Lovedek lovedek) {
-		//System.out.println("\t\t\t-->"+this.getClass().getName()+".sebez("+lovedek.getClass()+")");
-		//System.out.print("\t\t\t\t[?] Elfogyott az eletereje? [igen/nem] :");
-		//String input = Main.input();
-		//if (input.equalsIgnoreCase("igen")) {
 		int eletero = this.getEletero();
 		eletero--;
 		this.setEletero(eletero);
 		if (this.getEletero()<1) {
 			this.elpusztul();
 		}
-		//}
-		//System.out.println("\t\t\t<--void");
+	}
+	
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		super.clone();
+		return new Tunde(this.getUtvonalak());
 	}
 
 	@Override
 	public void setSebesseg(List<VarazsKo> varazsKo) {
-		//System.out.println("\t\t\t-->"+this.getClass().getName()+".setSebesseg("+varazsKo.toString()+")");
-		//System.out.println("\t\t\t<--void");
+		
+	}
+	
+
+	@Override
+	public ViewType getType() {
+		return ViewType.TUNDE;
 	}
 
 }

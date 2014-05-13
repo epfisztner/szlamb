@@ -3,6 +3,7 @@ package hu.bme.szoftlab4.SZLAMB.Epitmeny;
 import hu.bme.szoftlab4.SZLAMB.VarazsKo;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
 import hu.bme.szoftlab4.SZLAMB.View.Paintable;
+import hu.bme.szoftlab4.SZLAMB.View.ViewType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,10 @@ public abstract class AbstractEpitmeny implements Epitmeny {
 	protected Mezo epitmenyMezo;
 	
 	protected Paintable epitmenyPaintable;
+	
+	protected int x;
+	
+	protected int y;
 	
 	public AbstractEpitmeny() {
 		super();
@@ -53,5 +58,25 @@ public abstract class AbstractEpitmeny implements Epitmeny {
 	protected void repaint(){
 		
 	}
-
+	
+	@Override
+	public void setX(int x) {
+		this.x = x;
+	}
+	
+	@Override
+	public int getX() {
+		return x;
+	}
+	
+	@Override
+	public void setY(int y) {
+		this.y = y;
+		
+	}
+	
+	@Override
+	public int getY() {
+		return y;
+	}
 }

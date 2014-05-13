@@ -2,6 +2,7 @@ package hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege;
 
 import java.util.List;
 
+import hu.bme.szoftlab4.SZLAMB.ModelConnetor;
 import hu.bme.szoftlab4.SZLAMB.VarazsKo;
 import hu.bme.szoftlab4.SZLAMB.Epitmeny.Akadaly;
 import hu.bme.szoftlab4.SZLAMB.Epitmeny.Torony;
@@ -15,7 +16,7 @@ import hu.bme.szoftlab4.SZLAMB.View.Paintable;
  * @author Erhard Pfisztner
  *
  */
-public interface GyuruSzovetsege extends Cloneable {
+public interface GyuruSzovetsege extends Cloneable, ModelConnetor {
 
 	/**
 	 * A játék indulásakor ezen metódus meghívása indítja el a karaktert a
@@ -47,8 +48,6 @@ public interface GyuruSzovetsege extends Cloneable {
 	 * @param utvonal
 	 */
 	public void setUtvonal(List<Mezo> utvonal);
-	
-	void setPaintable(Paintable paintable);
 	
 	public Object clone() throws CloneNotSupportedException;
 	public void lep();

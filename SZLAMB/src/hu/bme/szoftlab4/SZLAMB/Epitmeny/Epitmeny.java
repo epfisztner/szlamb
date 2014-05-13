@@ -2,6 +2,7 @@ package hu.bme.szoftlab4.SZLAMB.Epitmeny;
 
 import java.util.List;
 
+import hu.bme.szoftlab4.SZLAMB.ModelConnetor;
 import hu.bme.szoftlab4.SZLAMB.VarazsKo;
 import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.GyuruSzovetsege;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
@@ -14,7 +15,7 @@ import hu.bme.szoftlab4.SZLAMB.View.Paintable;
  * @author Erhard Pfisztner
  * 
  */
-public interface Epitmeny extends Cloneable {
+public interface Epitmeny extends Cloneable, ModelConnetor {
 
 	/**
 	 * A param�terben kapott {@link VarazsKo} -vel felruházza az adott
@@ -51,6 +52,9 @@ public interface Epitmeny extends Cloneable {
 	Object clone()  throws CloneNotSupportedException;
 
 	void setKod(boolean vanKod);
-
-	void setPaintable(Paintable paintable);
+	
+	public void setX(int x);
+	public void setY(int y);
+	public int getX();
+	public int getY();
 }

@@ -3,6 +3,8 @@ package hu.bme.szoftlab4.SZLAMB.Mezo;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Timer;
+
 import hu.bme.szoftlab4.SZLAMB.Main;
 import hu.bme.szoftlab4.SZLAMB.Palya;
 import hu.bme.szoftlab4.SZLAMB.Epitmeny.Epitmeny;
@@ -48,11 +50,18 @@ public abstract class AbstractMezo implements Mezo {
 	protected int y;
 
 	protected Paintable mezoPaintable;
+	
+	
+
+	public AbstractMezo() {
+		super();
+		this.karakterek = new ArrayList<GyuruSzovetsege>();
+	}
 
 	@Override
 	public void setPaintable(Paintable paintable) {
-		// TODO Auto-generated method stub
-
+		this.mezoPaintable = paintable;
+		//System.out.println("Mező bereg: x:"+this.getX()+"   y:"+this.getY());
 	}
 
 	public int getX() {
@@ -75,28 +84,16 @@ public abstract class AbstractMezo implements Mezo {
 		super();
 		this.x = x;
 		this.y = y;
-		// System.out.println("\t\t\t\t-->"+this.getClass().getName()+".constructor()");
-		// System.out.println("\t\t\t\t<--");
+		this.karakterek = new ArrayList<GyuruSzovetsege>();
 	}
 
 	@Override
 	public boolean isBeepitett() {
-		// System.out.println("\t-->"+this.getClass().getName()+".isBeepitett()");
-		// System.out.print("\t\t[?] Beepitett? [igen/nem] :");
-		// String input = Main.input();
-		// if (input.equalsIgnoreCase("igen")) {
-		// this.beepitett = true;
-		// } else {
-		// this.beepitett = false;
-		// }
-		// System.out.println("\t<--boolean: "+beepitett);
 		return this.beepitett;
 	}
 
 	@Override
 	public void setSzomszedok(int szomszedSugar) {
-		// System.out.println("\t-->"+this.getClass().getName()+".setSzomszedok("+szomszedSugar+")");
-		// System.out.println("\t<--void");
 		szomszedok = new ArrayList<Mezo>();
 		int tempX = 0;
 		int tempY = 0;
@@ -125,20 +122,20 @@ public abstract class AbstractMezo implements Mezo {
 	@Override
 	public void karakterRegiszter(GyuruSzovetsege gyuruSzovetsege,
 			boolean szomszedCall) {
-		// System.out.println("\t-->"+this.getClass().getName()+".karakterRegiszter("+gyuruSzovetsege.getClass().getName()+")");
-		if (this.epitmeny != null) {
-			this.epitmeny.reakcio(gyuruSzovetsege);
-		}
+		this.karakterek.add(gyuruSzovetsege);
 		if (!szomszedCall) {
 			for (Mezo mezo : this.szomszedok) {
 				mezo.karakterRegiszter(gyuruSzovetsege, true);
 			}
+		} else{
+			if (this.epitmeny != null) {
+				this.epitmeny.reakcio(gyuruSzovetsege);
+			}
 		}
-		// System.out.println("\t<--void");
 	}
 
 	protected void repaint() {
-
+		
 	}
 
 }

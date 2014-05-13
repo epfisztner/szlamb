@@ -6,6 +6,7 @@ import java.util.List;
 import hu.bme.szoftlab4.SZLAMB.VarazsKo;
 import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.GyuruSzovetsege;
 import hu.bme.szoftlab4.SZLAMB.View.Paintable;
+import hu.bme.szoftlab4.SZLAMB.View.ViewType;
 
 public class LovedekImpl implements Lovedek {
 	/**
@@ -17,15 +18,11 @@ public class LovedekImpl implements Lovedek {
 	protected Paintable lovedekPaintable;
 
 	public LovedekImpl(List<VarazsKo> varazsKovek) {
-		// System.out.println("\t\t\t-->"+this.getClass().getName()+".constructor("+varazsKovek.toString()+")");
 		this.varazsKovek = varazsKovek;
-		// System.out.println("\t\t\t<--");
 	}
 
 	@Override
 	public List<VarazsKo> getVarazsKovek() {
-		// System.out.println("\t\t\t-->"+this.getClass().getName()+".getVarazsKovek()");
-		// System.out.println("\t\t\t<--"+varazsKovek.getClass()+": "+varazsKovek.toString());
 		return this.varazsKovek;
 	}
 
@@ -37,6 +34,12 @@ public class LovedekImpl implements Lovedek {
 
 	protected void repaint() {
 
+	}
+
+	@Override
+	public ViewType getType() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

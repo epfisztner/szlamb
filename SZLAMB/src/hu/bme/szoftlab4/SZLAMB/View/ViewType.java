@@ -9,5 +9,5 @@ public enum ViewType {
 	AKADALY,
 	VEGZETHEGYE,
 	UT,
-	URESMEZO
+	URESMEZO, NONE
 }

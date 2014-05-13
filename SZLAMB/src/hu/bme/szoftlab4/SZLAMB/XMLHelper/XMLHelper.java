@@ -456,10 +456,10 @@ public class XMLHelper {
 						throws SAXException {
 					if (mapSize) {
 						int sizeNum = Integer.parseInt(new String(ch, start, length));
-						map = new Mezo[sizeNum][sizeNum];
+						setMap(new Mezo[sizeNum][sizeNum]);
 					}
 					if (mezoSor) {
-						if(actualY < 0 || actualY == map[0].length-1) {
+						if(actualY < 0 || actualY == getMap()[0].length-1) {
 							actualX++;
 							actualY= -1;
 						}
@@ -467,19 +467,19 @@ public class XMLHelper {
 					
 					if (mezoSor && UT) {
 						actualY++;
-						map[actualX][actualY] = new Ut(actualX,actualY);
+						getMap()[actualX][actualY] = new Ut(actualX,actualY);
 					}
 					if (mezoSor && URESMEZO) {
 						actualY++;
-						map[actualX][actualY] = new UresMezo(actualX,actualY);
+						getMap()[actualX][actualY] = new UresMezo(actualX,actualY);
 					}
 					if (mezoSor && VEGZETHEGYE) {
 						actualY++;
-						map[actualX][actualY] = new VegzetHegye(actualX,actualY);
+						getMap()[actualX][actualY] = new VegzetHegye(actualX,actualY);
 					}
 					if (mapUtvonalak && utvonal) {
 						if (utvonalUjTemp) {
-							utvonalak.add(new ArrayList<Mezo>());
+							getUtvonalak().add(new ArrayList<Mezo>());
 							utvonalUjTemp = false;
 						}
 					}
@@ -490,7 +490,7 @@ public class XMLHelper {
 						yCoord = Integer.parseInt(new String(ch, start, length));
 					}
 					if (mapUtvonalak && utvonal && xCoord >= 0 && yCoord >= 0) {
-						utvonalak.get(utvonalak.size()-1).add(map[xCoord][yCoord]);
+						getUtvonalak().get(getUtvonalak().size()-1).add(getMap()[xCoord][yCoord]);
 						xCoord = -1;
 						yCoord = -1;
 					}
@@ -501,7 +501,7 @@ public class XMLHelper {
 						yCoord = Integer.parseInt(new String(ch, start, length));
 					}
 					if (mapUtvonalak && utvonal && xCoord >= 0 && yCoord >= 0 && VEGZETHEGYE) {
-						utvonalak.get(utvonalak.size()-1).add(map[xCoord][yCoord]);
+						getUtvonalak().get(getUtvonalak().size()-1).add(getMap()[xCoord][yCoord]);
 						xCoord = -1;
 						yCoord = -1;
 						utvonalUjTemp = true;
@@ -511,8 +511,8 @@ public class XMLHelper {
 				
 			};
 			saxParser.parse(new File(mapFileName).getAbsolutePath(), topicHandler);
-			setOutPutFileContent("<loadMapFile>sikeres: "+mapFileName+"->"+map.length+"x"+map.length+"-s palya, "+utvonalak.size()+" db utvonal</loadMapFile>\n");
-			initGame();
+			setOutPutFileContent("<loadMapFile>sikeres: "+mapFileName+"->"+getMap().length+"x"+getMap().length+"-s palya, "+getUtvonalak().size()+" db utvonal</loadMapFile>\n");
+			//initGame();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -521,30 +521,30 @@ public class XMLHelper {
 	
 	public void writeMapToConsole() {
 		System.out.println("Palya kirajzolása:");
-		System.out.println("x: "+map.length+ "y: "+map[0].length);
-		for(int x= 0; x < map.length; x++) {
-			for(int y= 0; y < map[x].length; y++) {
-				if (map[x][y].toString().equalsIgnoreCase("UT")) {
-					System.out.print(map[x][y].toString()+"\t ");
+		System.out.println("x: "+getMap().length+ "y: "+getMap()[0].length);
+		for(int x= 0; x < getMap().length; x++) {
+			for(int y= 0; y < getMap()[x].length; y++) {
+				if (getMap()[x][y].toString().equalsIgnoreCase("UT")) {
+					System.out.print(getMap()[x][y].toString()+"\t ");
 				} else {
-					System.out.print(map[x][y].toString()+" ");
+					System.out.print(getMap()[x][y].toString()+" ");
 				}
 				
 			}
 			System.out.println();
 		}
 		System.out.println("utvonalak: ");
-		for(int x= 0; x < utvonalak.size(); x++) {
-			for(int y= 0; y < utvonalak.get(x).size(); y++) {
-				System.out.print(utvonalak.get(x).get(y).toString() +" ----> ");
+		for(int x= 0; x < getUtvonalak().size(); x++) {
+			for(int y= 0; y < getUtvonalak().get(x).size(); y++) {
+				System.out.print(getUtvonalak().get(x).get(y).toString() +" ----> ");
 			}
 			System.out.println();
 		}
 	}
 	
 	protected void initGame() {
-		jatekMotor = new JatekMotor();
-		jatekMotor.szaruman.palya.palyaEpites(map, utvonalak);
+		//jatekMotor = new JatekMotor();
+		//jatekMotor.szaruman.getPalya().palyaEpites(getMap(), utvonalak);
 	}
 
 	protected void setRandom(String randomValue) {
@@ -571,7 +571,7 @@ public class XMLHelper {
 	protected void addKarakter(String karakterNeve, int xCoord,
 			int yCoord, int karakterLife) {
 		
-		List<GyuruSzovetsege> karakterek = jatekMotor.szaruman.palya.getKarakterek();
+		List<GyuruSzovetsege> karakterek = jatekMotor.szaruman.getPalya().getKarakterek();
 		int karakterNum = 0;
 		if (karakterNeve.equalsIgnoreCase("ember")){
 			karakterNum = 0;
@@ -582,14 +582,14 @@ public class XMLHelper {
 		} else if (karakterNeve.equalsIgnoreCase("tunde")) {
 			karakterNum = 3;
 		}
-		GyuruSzovetsege karakter = jatekMotor.szaruman.palya.getPrototipusokGyuru().get(karakterNum);
-		karakter.setUtvonal(utvonalak.get(0));
+		GyuruSzovetsege karakter = jatekMotor.szaruman.getPalya().getPrototipusokGyuru().get(karakterNum);
+		karakter.setUtvonal(getUtvonalak().get(0));
 		karakter.setPositionX(xCoord);
 		karakter.setPositionY(yCoord);
 		
 		karakter.setEletero(karakterLife);
 		karakterek.add(karakter);
-		jatekMotor.szaruman.palya.setKarakterek(karakterek);
+		jatekMotor.szaruman.getPalya().setKarakterek(karakterek);
 		setOutPutFileContent("<addKarakter> Sikeres " + karakterNeve +" eletero ["+karakterLife+"] hozzaadasa az ["+xCoord+"]["+yCoord+"] utra</addKarakter>\n");
 	}
 
@@ -628,7 +628,7 @@ public class XMLHelper {
 	}
 
 	protected void karakterLep(String karakterNeve) {
-		List<GyuruSzovetsege> karakterek = jatekMotor.szaruman.palya.getKarakterek();
+		List<GyuruSzovetsege> karakterek = jatekMotor.szaruman.getPalya().getKarakterek();
 		int karakterNum = 0;
 		if (karakterNeve.equalsIgnoreCase("ember")){
 			karakterNum = 0;
@@ -640,8 +640,24 @@ public class XMLHelper {
 			karakterNum = 3;
 		}
 		XMLHelper.setOutPutFileContent("<karakterLep>"+karakterNeve);
-		jatekMotor.szaruman.palya.getKarakterek().get(0).lep();
+		jatekMotor.szaruman.getPalya().getKarakterek().get(0).lep();
 		XMLHelper.setOutPutFileContent("</karakterLep>");
+	}
+
+	public Mezo[][] getMap() {
+		return map;
+	}
+
+	public void setMap(Mezo[][] map) {
+		this.map = map;
+	}
+
+	public List<List<Mezo>> getUtvonalak() {
+		return utvonalak;
+	}
+
+	public void setUtvonalak(List<List<Mezo>> utvonalak) {
+		this.utvonalak = utvonalak;
 	}
 
 }

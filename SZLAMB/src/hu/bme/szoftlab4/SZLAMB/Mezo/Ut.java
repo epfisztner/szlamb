@@ -1,9 +1,13 @@
 package hu.bme.szoftlab4.SZLAMB.Mezo;
 
+import java.util.List;
+
 import hu.bme.szoftlab4.SZLAMB.VarazsKo;
 import hu.bme.szoftlab4.SZLAMB.Epitmeny.Akadaly;
 import hu.bme.szoftlab4.SZLAMB.Epitmeny.Epitmeny;
 import hu.bme.szoftlab4.SZLAMB.Epitmeny.Torony;
+import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.GyuruSzovetsege;
+import hu.bme.szoftlab4.SZLAMB.View.ViewType;
 
 /**
  * Ez az osztály a {@link Mezo} egyik implementációja.
@@ -45,5 +49,16 @@ public class Ut extends AbstractMezo {
 	public void setKod(boolean vanKod) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public ViewType getType() {
+		return ViewType.UT;
+	}
+
+	@Override
+	public List<GyuruSzovetsege> getKarakterek() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

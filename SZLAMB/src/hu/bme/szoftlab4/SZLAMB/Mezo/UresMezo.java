@@ -1,9 +1,12 @@
 package hu.bme.szoftlab4.SZLAMB.Mezo;
 
+import java.util.List;
+
 import hu.bme.szoftlab4.SZLAMB.VarazsKo;
 import hu.bme.szoftlab4.SZLAMB.Epitmeny.Epitmeny;
 import hu.bme.szoftlab4.SZLAMB.Epitmeny.Torony;
 import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.GyuruSzovetsege;
+import hu.bme.szoftlab4.SZLAMB.View.ViewType;
 
 /**
  * Ez az osztály a {@link Mezo} egyik implementációja.
@@ -16,22 +19,18 @@ public class UresMezo extends AbstractMezo {
 
 	public UresMezo(int x, int y) {
 		super(x, y);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void epitmenyRegiszter(Epitmeny epitmeny) {
-		//System.out.println("\t-->"+this.getClass().getName()+".epitmenyRegiszter("+epitmeny.getClass().getName()+")");
 		this.epitmeny = epitmeny;
 		this.epitmeny.setMezo(this);
-		//System.out.println("\t<--void");
+		System.out.println("építmény bereg: X:"+this.getX()+"   y:"+this.getY()+" - ra");
 	}
 
 	@Override
 	public void epitmenyFelruhazas(VarazsKo varazsKo) {
-		//System.out.println("\t-->"+this.getClass().getName()+".epitmenyFelruhazas("+varazsKo.name()+")");
 		this.epitmeny.felruhaz(varazsKo);
-		//System.out.println("\t<--void");
 	}
 	
 	@Override
@@ -43,6 +42,17 @@ public class UresMezo extends AbstractMezo {
 	public void setKod(boolean vanKod) {
 		this.epitmeny.setKod(vanKod);
 		
+	}
+
+	@Override
+	public ViewType getType() {
+		return ViewType.URESMEZO;
+	}
+
+	@Override
+	public List<GyuruSzovetsege> getKarakterek() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

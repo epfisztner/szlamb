@@ -1,23 +1,65 @@
 package hu.bme.szoftlab4.SZLAMB.View;
 
+import hu.bme.szoftlab4.SZLAMB.ModelConnetor;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
 
 public abstract class Paintable {
 	private ViewType viewType;
 	private int positionX;
 	private int positionY;
-	private Graphics graphics;
+	private Object modelObject;
 	private boolean viewAble;
 	private Image image;
 	private ActionListener actionListener;
 
-	public Paintable(ViewType viewType) {
+	public Paintable(ViewType viewType, Object modelObject) {
 		this.viewType = viewType;
+		this.setModelObject(modelObject);
+		((ModelConnetor)this.modelObject).setPaintable(this);
+		this.viewAble = true;
+		switch (this.viewType) {
+		case UT:
+			image = new ImageIcon(getClass().getClassLoader().getResource("\\Resources\\ut.png")).getImage();
+			break;
+		case TORONY:
+			image = new ImageIcon(getClass().getClassLoader().getResource("\\Resources\\torony.png")).getImage();
+			break;
+		case VEGZETHEGYE:
+			image = new ImageIcon(getClass().getClassLoader().getResource("\\Resources\\vegzet_hegye.png")).getImage();
+			break;
+		case AKADALY:
+			image = new ImageIcon(getClass().getClassLoader().getResource("\\Resources\\akadaly.png")).getImage();
+			break;
+		case EMBER:
+			image = new ImageIcon(getClass().getClassLoader().getResource("\\Resources\\ember.png")).getImage();
+			break;
+		case URESMEZO:
+			image = new ImageIcon(getClass().getClassLoader().getResource("\\Resources\\ures_mezo.png")).getImage();
+			break;
+		case HOBBIT:
+			image = new ImageIcon(getClass().getClassLoader().getResource("\\Resources\\hobbit.png")).getImage();
+			break;
+		case TORP:
+			image = new ImageIcon(getClass().getClassLoader().getResource("\\Resources\\torp.png")).getImage();
+			break;
+		case TUNDE:
+			image = new ImageIcon(getClass().getClassLoader().getResource("\\Resources\\tunde.png")).getImage();
+			break;
+		default:
+			break;
+		}
 	}
 	
-	public abstract void repaint(Object modelObject);
+	public abstract ViewType handleUserInterction();
+
+	public abstract void paint(Graphics graphics);
+	
+	public abstract void repaint(Object modelObject,Graphics graphics);
 
 	public ViewType getViewType() {
 		return viewType;
@@ -43,14 +85,6 @@ public abstract class Paintable {
 		this.positionY = positionY;
 	}
 
-	public Graphics getGraphics() {
-		return graphics;
-	}
-
-	public void setGraphics(Graphics graphics) {
-		this.graphics = graphics;
-	}
-
 	public boolean isViewAble() {
 		return viewAble;
 	}
@@ -73,5 +107,13 @@ public abstract class Paintable {
 
 	public void setActionListener(ActionListener actionListener) {
 		this.actionListener = actionListener;
+	}
+
+	public Object getModelObject() {
+		return modelObject;
+	}
+
+	public void setModelObject(Object modelObject) {
+		this.modelObject = modelObject;
 	}
 }

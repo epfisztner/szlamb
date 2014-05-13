@@ -6,6 +6,7 @@ import hu.bme.szoftlab4.SZLAMB.VarazsKo;
 import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.GyuruSzovetsege;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Ut;
+import hu.bme.szoftlab4.SZLAMB.View.ViewType;
 import hu.bme.szoftlab4.SZLAMB.XMLHelper.XMLHelper;
 
 /**
@@ -50,5 +51,12 @@ public class Akadaly extends AbstractEpitmeny {
 		//System.out.println("\t\t-->"+this.getClass().getName()+".setMezo("+epitmenyMezo.getClass().getName()+")");
 		//System.out.println("\t\t<--void");
 	}
+
+	@Override
+	public ViewType getType() {
+		return ViewType.AKADALY;
+	}
+	
+	
 
 }
