@@ -24,11 +24,11 @@ public class Szaruman {
 	/**
 	 * A játékos varázsereje.
 	 */
-	private int varazsEro;
+	public static int varazsEro;
 	
 	public Szaruman(Mezo[][] mezo, List<List<Mezo>> utvonalak) {
 		//System.out.println("\t-->"+this.getClass().getName()+".constructor()");
-		this.varazsEro = 100;
+		varazsEro = 100;
 		palya = new Palya(this,mezo, utvonalak);
 		//System.out.println("\t<--");
 	}
@@ -106,12 +106,12 @@ public class Szaruman {
 		return varazsEro;
 	}
 
-	public void incVarazsEro(int varazsEro) {
-		this.varazsEro += varazsEro;
+	public static void incVarazsEro(int varazsEro) {
+		Szaruman.varazsEro += varazsEro;
 	}
 	
 	public  void decVarazsEro(int varazsEro) {
-		this.varazsEro -= varazsEro;
+		Szaruman.varazsEro -= varazsEro;
 	}
 
 }

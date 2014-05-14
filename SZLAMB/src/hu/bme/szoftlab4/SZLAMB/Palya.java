@@ -114,7 +114,7 @@ public class Palya extends JFrame implements MouseListener {
 
 	private Szaruman szaruman;
 
-	private Timer timer;
+	private static Timer timer;
 
 	private int indulIndex;
 
@@ -214,8 +214,16 @@ public class Palya extends JFrame implements MouseListener {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+				szarumanVarazsEroProgress.setValue(Szaruman.varazsEro);
 				Random r = new Random(System.currentTimeMillis());
+				
+				if (JatekMotor.isJatekVege()) {
+					stop();
+					String message =  (JatekMotor.win)? "Gratulálunk nyertél :)" : " Sajnáljuk vesztettél! :(";
+					JOptionPane.showMessageDialog(getContentPane(), "A játéknak vége! "+message);
+					stop();
+					setVisible(false);
+				}
 				int y = r.nextInt(karakterek.size());
 				if (karakterek.size() > y) {
 					if (!karakterek.get(y).isMegy()) {
@@ -229,15 +237,13 @@ public class Palya extends JFrame implements MouseListener {
 					}
 				}
 				firstRun = false;
-				if (JatekMotor.isJatekVege()) {
-					// stop();
-				}
+				
 			}
 		});
 		timer.setRepeats(true);
 	}
 
-	private void stop() {
+	private static void stop() {
 		timer.stop();
 	}
 
@@ -264,11 +270,13 @@ public class Palya extends JFrame implements MouseListener {
 	public static void ellensegCsokkent(GyuruSzovetsege gyuruSzovetsege) {
 		karakterek.remove(gyuruSzovetsege);
 		gyuruSzovetsege.setMegy(false);
+		Szaruman.incVarazsEro(5);
 		ellenfelekSzamaProgress.setValue(karakterek.size());
 		ellenfelekSzamaProgress.setString(karakterek.size()+" db");
-		if (karakterek.isEmpty()) {
+		if (karakterek.size() < 1) {
+			
 			JatekMotor.jatekVegeNyert();
-		} else {
+			
 		}
 	}
 
@@ -297,7 +305,7 @@ public class Palya extends JFrame implements MouseListener {
 			}
 		}
 		Random r = new Random(System.currentTimeMillis());
-		for (int i = 0; i < 40; i++) {
+		for (int i = 0; i < 60; i++) {
 
 			GyuruSzovetsege karakter = null;
 			if (r.nextInt(4) == 3) {
@@ -334,20 +342,21 @@ public class Palya extends JFrame implements MouseListener {
 	}
 
 	private void kodRandom() {
-		Timer t = new Timer(5000, new ActionListener() {
+		Timer t = new Timer(2000, new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Random r = new Random(System.currentTimeMillis());
 				int num = r.nextInt(10);
-				if (num % 2 == 0) {
+				if (num % 10 == 0) {
 					vanKod = true;
 				} else {
 					vanKod = false;
 				}
 				for (int x = 0; x < mezok.length; x++) {
 					for (int y = 0; y < mezok[x].length; y++) {
-						mezok[x][y].setKod(vanKod);
+						if (r.nextInt(mezok.length) % 13 == 0)
+							mezok[x][y].setKod(vanKod);
 					}
 				}
 			}
@@ -379,55 +388,64 @@ public class Palya extends JFrame implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if (JatekMotor.gameInteractionState.equals(ViewType.AKADALY)) {
-			Akadaly akadaly = null;
-			akadaly = new Akadaly();
-			boolean success = view.mouseClicked(e, akadaly);
-			if (!success) {
-				JOptionPane.showMessageDialog(this,
-						"Ide nem építhetsz akadalyt");
-			} else {
-				for (int x = 0; x < getMezok().length; x++) {
-					for (int y = 0; y < getMezok()[x].length; y++) {
-						if (akadaly.getX() == getMezok()[x][y].getX()
-								&& akadaly.getY() == getMezok()[x][y].getY()) {
-							getMezok()[x][y].epitmenyRegiszter(akadaly);
-							System.out.println("Akadaly: x = " + (x + 1)
-									+ "  y = " + (y + 1));
+		if (Szaruman.varazsEro > 0) {
+			if (JatekMotor.gameInteractionState.equals(ViewType.AKADALY)  && Szaruman.varazsEro > 7) {
+				Akadaly akadaly = null;
+				akadaly = new Akadaly();
+				boolean success = view.mouseClicked(e, akadaly);
+				if (!success) {
+					JOptionPane.showMessageDialog(this,
+							"Ide nem építhetsz akadalyt");
+				} else {
+					szaruman.decVarazsEro(8);
+					for (int x = 0; x < getMezok().length; x++) {
+						for (int y = 0; y < getMezok()[x].length; y++) {
+							if (akadaly.getX() == getMezok()[x][y].getX()
+									&& akadaly.getY() == getMezok()[x][y].getY()) {
+								getMezok()[x][y].epitmenyRegiszter(akadaly);
+								System.out.println("Akadaly: x = " + (x + 1)
+										+ "  y = " + (y + 1));
+							}
 						}
 					}
 				}
-			}
-		} else if (JatekMotor.gameInteractionState.equals(ViewType.TORONY)) {
-			Torony torony = null;
-			torony = new Torony(1);
-			boolean success = view.mouseClicked(e, torony);
-			if (!success) {
-				JOptionPane
-						.showMessageDialog(this, "Ide nem építhetsz tornyot");
-			} else {
-				for (int x = 0; x < getMezok().length; x++) {
-					for (int y = 0; y < getMezok()[x].length; y++) {
-						if (torony.getX() == getMezok()[x][y].getX()
-								&& torony.getY() == getMezok()[x][y].getY()) {
-							getMezok()[x][y].epitmenyRegiszter(torony);
-							System.out.println("Torony: x = " + (x + 1)
-									+ "  y = " + (y + 1));
+			} else if (JatekMotor.gameInteractionState.equals(ViewType.TORONY)  && Szaruman.varazsEro > 9) {
+				Torony torony = null;
+				torony = new Torony(1);
+				boolean success = view.mouseClicked(e, torony);
+				if (!success) {
+					JOptionPane
+							.showMessageDialog(this, "Ide nem építhetsz tornyot");
+				} else {
+					szaruman.decVarazsEro(10);
+					for (int x = 0; x < getMezok().length; x++) {
+						for (int y = 0; y < getMezok()[x].length; y++) {
+							if (torony.getX() == getMezok()[x][y].getX()
+									&& torony.getY() == getMezok()[x][y].getY()) {
+								getMezok()[x][y].epitmenyRegiszter(torony);
+								System.out.println("Torony: x = " + (x + 1)
+										+ "  y = " + (y + 1));
+							}
 						}
 					}
 				}
+			} else if (JatekMotor.gameInteractionState.equals(ViewType.NONE) && Szaruman.varazsEro > 24) {
+				Epitmeny epitmeny = view.getEpitmeny(e);
+				if (epitmeny != null) {
+					szaruman.decVarazsEro(25);
+					VarazsKo[] varazsKovek = (VarazsKo[]) epitmeny.getValidKovek();
+					VarazsKo varazsKo = (VarazsKo) JOptionPane.showInputDialog(this,
+							"Milyen varázskövet akarsz rárakni?", "Varázskő választás",
+							JOptionPane.QUESTION_MESSAGE, null, varazsKovek,
+							varazsKovek[0]);
+					epitmeny.felruhaz(varazsKo);
+				}
 			}
-		} else if (JatekMotor.gameInteractionState.equals(ViewType.NONE)) {
-			Epitmeny epitmeny = view.getEpitmeny(e);
-			if (epitmeny != null) {
-				VarazsKo[] varazsKovek = (VarazsKo[]) epitmeny.getValidKovek();
-				VarazsKo varazsKo = (VarazsKo) JOptionPane.showInputDialog(this,
-						"Milyen varázskövet akarsz rárakni?", "Varázskő választás",
-						JOptionPane.QUESTION_MESSAGE, null, varazsKovek,
-						varazsKovek[0]);
-				epitmeny.felruhaz(varazsKo);
-			}
+		} else {
+			JOptionPane.showMessageDialog(this, "Nincs elég varázs erőd!");
 		}
+		repaint();
+		view.repaint();
 	}
 
 	@Override
@@ -452,5 +470,11 @@ public class Palya extends JFrame implements MouseListener {
 
 	public static void setMezok(Mezo[][] mezok) {
 		Palya.mezok = mezok;
+	}
+
+	public static void addEllenseg(GyuruSzovetsege karakter) {
+		karakterek.add(karakter);
+		View.addNewPaintable(new GyuruSzovetsegePaintable(karakter.getType(),
+				karakter));
 	}
 }

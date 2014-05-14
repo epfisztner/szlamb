@@ -66,4 +66,6 @@ public interface GyuruSzovetsege extends Cloneable, ModelConnetor {
 	public void setMegy(boolean megy);
 
 	public void setDefaultSebesseg();
+	
+	public List<Mezo> getUtvonal();
 }

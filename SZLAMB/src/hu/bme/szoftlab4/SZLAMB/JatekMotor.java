@@ -36,6 +36,7 @@ public class JatekMotor extends JFrame{
 	protected JPanel palyaPanel;
 	private JButton startGameButton;
 	private JButton exitButton;
+	public static boolean win =false;
 	
 	public JatekMotor(Mezo[][]mezo, List<List<Mezo>>utvonalak) {
 		//System.out.println("-->"+this.getClass().getName()+".constructor()");
@@ -105,7 +106,9 @@ public class JatekMotor extends JFrame{
 	 * Játék vége a játékos vereségével.
 	 */
 	public static void jatekVegeVeszit(){
+		win = false;
 		setJatekVege(true);
+		
 		System.out.println("Vesztes");
 	}
 	/**
@@ -114,7 +117,8 @@ public class JatekMotor extends JFrame{
 	public static void jatekVegeNyert(){
 		//System.out.println("\t\t\t\t\t\t-->"+className+".jatekVegeNyert()");
 		//System.out.println("\t\t\t\t\t\t<--void");
-		XMLHelper.setOutPutFileContent(" jatekos nyert");
+		win = true;
+		setJatekVege(true);
 	}
 	/**
 	 * Játék indítása először
@@ -131,5 +135,13 @@ public class JatekMotor extends JFrame{
 
 	public static void setJatekVege(boolean jatekVege) {
 		JatekMotor.jatekVege = jatekVege;
+	}
+
+	public Boolean getWin() {
+		return win;
+	}
+
+	public void setWin(Boolean win) {
+		this.win = win;
 	}
 }

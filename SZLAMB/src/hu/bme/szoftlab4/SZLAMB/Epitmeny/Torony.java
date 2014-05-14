@@ -103,7 +103,6 @@ public class Torony extends AbstractEpitmeny {
 				}
 			}
 		});
-		
 	}
 
 	@Override
