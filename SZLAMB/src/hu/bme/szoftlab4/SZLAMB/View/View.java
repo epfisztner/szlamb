@@ -5,9 +5,7 @@ import hu.bme.szoftlab4.SZLAMB.Epitmeny.Akadaly;
 import hu.bme.szoftlab4.SZLAMB.Epitmeny.Epitmeny;
 import hu.bme.szoftlab4.SZLAMB.Epitmeny.Torony;
 
-import java.awt.Frame;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -17,12 +15,9 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import com.sun.corba.se.impl.interceptors.PINoOpHandlerImpl;
 
 public class View extends JPanel implements ActionListener{
 

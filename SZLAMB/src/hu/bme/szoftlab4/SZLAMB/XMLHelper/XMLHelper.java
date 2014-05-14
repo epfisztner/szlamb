@@ -1,44 +1,27 @@
 package hu.bme.szoftlab4.SZLAMB.XMLHelper;
 
-import hu.bme.szoftlab4.SZLAMB.JatekMotor;
-import hu.bme.szoftlab4.SZLAMB.Main;
-import hu.bme.szoftlab4.SZLAMB.Palya;
-import hu.bme.szoftlab4.SZLAMB.VarazsKo;
 import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.GyuruSzovetsege;
+import hu.bme.szoftlab4.SZLAMB.JatekMotor;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
 import hu.bme.szoftlab4.SZLAMB.Mezo.UresMezo;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Ut;
 import hu.bme.szoftlab4.SZLAMB.Mezo.VegzetHegye;
-
+import hu.bme.szoftlab4.SZLAMB.Palya;
+import hu.bme.szoftlab4.SZLAMB.VarazsKo;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.MappedByteBuffer;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Vector;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -247,7 +230,7 @@ public class XMLHelper {
 						if (!mapFileName.contains(".xml")) {
 							mapFileName.concat(".xml");
 						}
-						loadMap(mapFileName);
+						//loadMap(mapFileName);
 					}
 					if (randomCommand) {
 						randomValue = new String(ch, start, length);
@@ -342,7 +325,7 @@ public class XMLHelper {
 		setOutPutFileContent("</parancs>");
 	}
 
-	public void loadMap(String mapFileName) {
+	public void loadMap() {
 		try {
 			/*
 			 * http://www.mkyong.com/java/how-to-read-xml-file-in-java-sax-parser
@@ -506,12 +489,12 @@ public class XMLHelper {
 						yCoord = -1;
 						utvonalUjTemp = true;
 					}
-				}
-
-				
+				}	
 			};
-			saxParser.parse(new File(mapFileName).getAbsolutePath(), topicHandler);
-			setOutPutFileContent("<loadMapFile>sikeres: "+mapFileName+"->"+getMap().length+"x"+getMap().length+"-s palya, "+getUtvonalak().size()+" db utvonal</loadMapFile>\n");
+                        URL uri = this.getClass().getClassLoader().getResource("\\Resources\\map.xml");
+                        //InputStream stream = XMLHelper.class.getResourceAsStream("\\Resources\\map.xml");
+			saxParser.parse(new File(uri.toURI()), topicHandler);
+			//setOutPutFileContent("<loadMapFile>sikeres: "+mapFileName+"->"+getMap().length+"x"+getMap().length+"-s palya, "+getUtvonalak().size()+" db utvonal</loadMapFile>\n");
 			//initGame();
 		} catch (Exception e) {
 			e.printStackTrace();

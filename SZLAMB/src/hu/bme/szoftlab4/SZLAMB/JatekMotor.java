@@ -1,9 +1,7 @@
 package hu.bme.szoftlab4.SZLAMB;
 
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
-import hu.bme.szoftlab4.SZLAMB.View.View;
 import hu.bme.szoftlab4.SZLAMB.View.ViewType;
-import hu.bme.szoftlab4.SZLAMB.XMLHelper.XMLHelper;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -15,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  * Ez az osztály lesz a játék indításáért illetve befejezéséért felelős, itt
@@ -37,17 +36,27 @@ public class JatekMotor extends JFrame{
 	private JButton startGameButton;
 	private JButton exitButton;
 	public static boolean win =false;
+        public static boolean menu = true;
 	
-	public JatekMotor(Mezo[][]mezo, List<List<Mezo>>utvonalak) {
-		//System.out.println("-->"+this.getClass().getName()+".constructor()");
-		//className = this.getClass().getName();
-		
+	public JatekMotor(Mezo[][]mezo, List<List<Mezo>>utvonalak) {		
 		szaruman = new Szaruman(mezo, utvonalak);
 		this.setSize(400, 400);
 		initMenuUI();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);
-		//System.out.println("<--");
+                Timer timer;
+                timer = new Timer(100,new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (menu){
+                            jatekVege = false;
+                            setVisible(true);
+                        } else {
+                            setVisible(false);
+                        }
+                    }
+                });
+                timer.start();
 	}
 	
 	private void initMenuUI(){
@@ -58,12 +67,8 @@ public class JatekMotor extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//getContentPane().removeAll();
-				
 				szaruman.start();
-				//setExtendedState(JFrame.MAXIMIZED_BOTH); 
-				//setResizable(false);
-				setVisible(false);
+				menu = false;
 			}
 		});
 		exitButton = new JButton("Kilépés");

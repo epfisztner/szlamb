@@ -9,45 +9,29 @@ import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.Hobbit;
 import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.Torp;
 import hu.bme.szoftlab4.SZLAMB.GyuruSzovetsege.Tunde;
 import hu.bme.szoftlab4.SZLAMB.Mezo.Mezo;
-import hu.bme.szoftlab4.SZLAMB.Mezo.UresMezo;
-import hu.bme.szoftlab4.SZLAMB.Mezo.Ut;
-import hu.bme.szoftlab4.SZLAMB.Mezo.VegzetHegye;
-import hu.bme.szoftlab4.SZLAMB.View.EpitmenyPaintable;
 import hu.bme.szoftlab4.SZLAMB.View.GyuruSzovetsegePaintable;
 import hu.bme.szoftlab4.SZLAMB.View.MezoPaintable;
 import hu.bme.szoftlab4.SZLAMB.View.View;
 import hu.bme.szoftlab4.SZLAMB.View.ViewType;
-import hu.bme.szoftlab4.SZLAMB.XMLHelper.XMLHelper;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.Timer;
-import javax.swing.border.Border;
-
-import sun.net.www.content.text.plain;
 
 /**
  * A játék teret reprezentáló osztály, ő felel a {@link GyuruSzovetsege},
@@ -131,7 +115,7 @@ public class Palya extends JFrame implements MouseListener {
 		this.utvonalak = utvonalak;
 		palyaEpites(mezok, utvonalak);
 		createPrototypes();
-		start();
+		//start();
 	}
 
 	private void initUI() {
@@ -177,14 +161,16 @@ public class Palya extends JFrame implements MouseListener {
 				JatekMotor.gameInteractionState = ViewType.AKADALY;
 			}
 		});
-		this.szunetButton = new JButton("Szünet");
+		this.szunetButton = new JButton("Indítás");
 		this.szunetButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (timer.isRunning()) {
 					timer.stop();
+                                        szunetButton.setText("Indítás");
 				} else {
+                                        szunetButton.setText("Szünet");
 					timer.start();
 				}
 			}
@@ -201,12 +187,25 @@ public class Palya extends JFrame implements MouseListener {
 	public void setSzarumanProgress(int varazsEro) {
 		this.szarumanVarazsEroProgress.setValue(varazsEro);
 	}
+        
+        private void restart(){
+                indulIndex = 0;
+		karakterek = new ArrayList<GyuruSzovetsege>();
+		className = this.getClass().getName();
+		ellensegeSzama = karakterek.size();
+		initUI();
+		setMezok(mezok);
+		this.utvonalak = utvonalak;
+		palyaEpites(mezok, utvonalak);
+		createPrototypes();
+        }
 
 	/**
 	 * Játék indítása, {@link GyuruSzovetsege} karakterek elindítása az
 	 * útvonalon
 	 */
 	public void start() {
+                restart();
 		setVisible(true);
 		setAlwaysOnTop(true);
 		kodRandom();
@@ -222,7 +221,8 @@ public class Palya extends JFrame implements MouseListener {
 					String message =  (JatekMotor.win)? "Gratulálunk nyertél :)" : " Sajnáljuk vesztettél! :(";
 					JOptionPane.showMessageDialog(getContentPane(), "A játéknak vége! "+message);
 					stop();
-					setVisible(false);
+                                        JatekMotor.menu = true;
+                                        setVisible(false);
 				}
 				int y = r.nextInt(karakterek.size());
 				if (karakterek.size() > y) {

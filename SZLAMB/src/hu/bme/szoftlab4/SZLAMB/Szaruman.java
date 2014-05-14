@@ -88,10 +88,9 @@ public class Szaruman {
 	 * Játék indítása
 	 */
 	public void start() {
-		//System.out.println("\t-->"+this.getClass().getName()+".start()");
-		//getPalya().start();
+                varazsEro = 100;
+		
 		palya.start();
-		//System.out.println("\t<--void");
 	}
 
 	public static Palya getPalya() {
@@ -113,5 +112,9 @@ public class Szaruman {
 	public  void decVarazsEro(int varazsEro) {
 		Szaruman.varazsEro -= varazsEro;
 	}
+
+    void setMenuVisible() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }

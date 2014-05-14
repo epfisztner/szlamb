@@ -41,7 +41,8 @@ public class Main extends JFrame{
 		Main main = new Main();
 		//main.start();
 		XMLHelper xmlH = new XMLHelper();
-		xmlH.loadMap("c:\\map.xml");
+                
+		xmlH.loadMap();
 		
 		/*
 		while(true){
