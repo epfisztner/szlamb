@@ -1,4 +1,4 @@
 szlamb
 ======
 
-BME VIK Szoftlab4 Project
+BME VIK Szoftlab4 Project.
